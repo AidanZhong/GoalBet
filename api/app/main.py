@@ -12,14 +12,8 @@ from fastapi import FastAPI
 from pydantic_settings import BaseSettings
 from api.app.api.routers_health import router as health_router
 from api.app.api.routers_users import router as users_router
+from api.app.core.settings import settings
 
-
-class Settings(BaseSettings):
-    app_name: str = 'GoalBet API'
-    env: str = 'local'
-
-
-settings = Settings()
 app = FastAPI(title=settings.app_name)
 app.include_router(health_router)
 app.include_router(users_router)
