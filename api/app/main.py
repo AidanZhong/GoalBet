@@ -10,6 +10,7 @@ Created on 2025/9/27 10:23
 """
 from fastapi import FastAPI
 from pydantic_settings import BaseSettings
+from api.app.api.routers_health import router as health_router
 
 
 class Settings(BaseSettings):
@@ -19,8 +20,4 @@ class Settings(BaseSettings):
 
 settings = Settings()
 app = FastAPI(title=settings.app_name)
-
-
-@app.get("/health")
-def health():
-    return {"status": "ok", "env": settings.env}
+app.include_router(health_router)
