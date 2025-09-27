@@ -11,6 +11,7 @@ Created on 2025/9/27 10:23
 from fastapi import FastAPI
 from pydantic_settings import BaseSettings
 from api.app.api.routers_health import router as health_router
+from api.app.api.routers_users import router as users_router
 
 
 class Settings(BaseSettings):
@@ -21,3 +22,4 @@ class Settings(BaseSettings):
 settings = Settings()
 app = FastAPI(title=settings.app_name)
 app.include_router(health_router)
+app.include_router(users_router)
