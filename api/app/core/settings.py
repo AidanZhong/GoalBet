@@ -14,6 +14,10 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     app_name: str = 'GoalBet API'
     env: str = 'local'
+    encrypt_algorithm: str = 'HS256'
+    secret_key: str = 'dev-secret-key'
+    access_token_expire_minutes: int = 60
+    initial_balance: int = 1000
 
 
 settings = Settings()

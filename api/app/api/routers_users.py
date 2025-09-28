@@ -21,6 +21,8 @@ def create_user(user: UserCreate):
     global _id
     if user.email in _db:
         raise HTTPException(status_code=400, detail="user already exists")
+
+    #update the database
     _id = _id + 1
     _db[user.email] = {"id": _id, "email": user.email}
     return _db[user.email]
