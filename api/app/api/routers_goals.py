@@ -15,6 +15,12 @@ from fastapi import APIRouter, Depends, HTTPException
 
 from api.app.api.routers_auth import get_current_user
 from api.app.api.routers_stream import broadcast
+# 在创建/更新目标后，广播事件时，确保传入的 payload 仅包含可 JSON 序列化的基本类型（如将 datetime 转换为 isoformat 字符串）。
+# 例如：
+# broadcast("goal_created", {"id": goal.id, "title": goal.title, "deadline": goal.deadline.isoformat()})
+# 或对于更新：
+# broadcast("goal_updated", {"id": goal.id, "updated_at": updated_at.isoformat()})
+from api.app.models.enums import GoalStatus, MarketType
 from api.app.models.goal import GoalPublic, GoalCreate, GoalUpdatePublic, GoalUpdateCreate
 
 router = APIRouter(prefix='/goals', tags=['goals'])
@@ -28,7 +34,16 @@ _update_id = 0
 
 @router.post("", response_model=GoalPublic)
 def create_goal(payload: GoalCreate, user: dict = Depends(get_current_user)):
-    if payload.deadline < datetime.now(timezone.utc):
+    # 统一将 deadline 归一化为 UTC aware datetime
+    deadline = payload.deadline
+    if deadline.tzinfo is None:
+        # 视为 UTC
+        deadline = deadline.replace(tzinfo=timezone.utc)
+    else:
+        # 转换为 UTC
+        deadline = deadline.astimezone(timezone.utc)
+
+    if deadline <= datetime.now(timezone.utc):
         raise HTTPException(status_code=400, detail="Goal deadline must be in the future")
 
     global _goal_id
@@ -38,9 +53,9 @@ def create_goal(payload: GoalCreate, user: dict = Depends(get_current_user)):
         "owner_email": user["email"],
         "title": payload.title,
         "description": payload.description,
-        "deadline": payload.deadline,
-        "status": "ACTIVE",
-        "markets": ["SUCCESS", "FAIL"],
+        "deadline": deadline,
+        "status": GoalStatus.ACTIVE,
+        "markets": [MarketType.SUCCESS, MarketType.FAIL],
         "updates": []
     }
     _goals[_goal_id] = goal

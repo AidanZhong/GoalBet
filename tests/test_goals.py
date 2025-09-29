@@ -11,6 +11,7 @@ Created on 2025/9/29 9:27
 from datetime import datetime, timedelta, timezone
 from fastapi.testclient import TestClient
 from api.app.main import app
+from api.app.models.enums import MarketType
 
 
 def test_create_and_list_goal():
@@ -30,7 +31,7 @@ def test_create_and_list_goal():
     assert r.status_code == 200
     goal = r.json()
     assert goal["title"] == "Run a marathon"
-    assert "SUCCESS" in goal["markets"]
+    assert MarketType.SUCCESS in goal["markets"]
 
     # list goals
     r = client.get("/goals")
@@ -61,7 +62,7 @@ def test_update_goal():
     assert r.status_code == 200
     goal = r.json()
     assert goal["title"] == "Run a marathon"
-    assert "SUCCESS" in goal["markets"]
+    assert MarketType.SUCCESS in goal["markets"]
 
     # post update
     update_payload = {"content": "Finished book 1"}
