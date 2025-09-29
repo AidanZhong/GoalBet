@@ -14,6 +14,7 @@ from typing import Dict
 from fastapi import APIRouter, Depends, HTTPException
 
 from api.app.api.routers_auth import get_current_user
+from api.app.api.routers_stream import broadcast
 from api.app.models.goal import GoalPublic, GoalCreate, GoalUpdatePublic, GoalUpdateCreate
 
 router = APIRouter(prefix='/goals', tags=['goals'])
@@ -27,6 +28,9 @@ _update_id = 0
 
 @router.post("", response_model=GoalPublic)
 def create_goal(payload: GoalCreate, user: dict = Depends(get_current_user)):
+    if payload.deadline < datetime.now(timezone.utc):
+        raise HTTPException(status_code=400, detail="Goal deadline must be in the future")
+
     global _goal_id
     _goal_id += 1
     goal = {
@@ -41,6 +45,8 @@ def create_goal(payload: GoalCreate, user: dict = Depends(get_current_user)):
     }
     _goals[_goal_id] = goal
     _updates[_goal_id] = []
+
+    broadcast("goal.created", goal)
     return goal
 
 
@@ -76,4 +82,6 @@ def post_update(goal_id: int, payload: GoalUpdateCreate, user: dict = Depends(ge
     }
     _updates[goal_id].append(update)
     goal["updates"].append(update)
+
+    broadcast("goal.update", update)
     return update
