@@ -13,6 +13,8 @@ from typing import Optional, List
 
 from pydantic import BaseModel, Field, EmailStr
 
+from api.app.models.enums import GoalStatus, MarketType
+
 
 class GoalCreate(BaseModel):
     title: str = Field(..., max_length=100)  # ... means that the field is required
@@ -38,6 +40,6 @@ class GoalPublic(BaseModel):
     title: str
     description: Optional[str]
     deadline: datetime
-    status: str
-    markets: List[str] = []
+    status: GoalStatus
+    markets: List[MarketType] = []
     updates: List[GoalUpdatePublic] = []
