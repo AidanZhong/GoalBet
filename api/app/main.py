@@ -16,6 +16,7 @@ from api.app.api.routers_auth import router as auth_router
 from api.app.api.routers_wallet import router as wallet_router
 from api.app.api.routers_goals import router as goals_router
 from api.app.api.routers_stream import router as stream_router
+from api.app.api.routers_bets import router as bets_router
 from api.app.core.settings import settings
 
 app = FastAPI(title=settings.app_name)
@@ -25,3 +26,4 @@ app.include_router(auth_router)
 app.include_router(wallet_router)
 app.include_router(goals_router)
 app.include_router(stream_router)
+app.include_router(bets_router)
