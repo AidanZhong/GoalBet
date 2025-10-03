@@ -9,6 +9,7 @@ Created on 2025/10/2 21:54
 - Python 
 """
 from enum import Enum
+from typing import Optional
 
 from pydantic import BaseModel, Field, EmailStr
 
@@ -17,9 +18,17 @@ class BetSide(str, Enum):
     SUCCESS = "success"
     FAIL = "fail"
 
+
+class BetStatus(str, Enum):
+    PENDING = "pending"
+    WON = "won"
+    LOST = "lost"
+
+
 class BetCreate(BaseModel):
     side: BetSide
-    amount: int = Field(..., gt=0) # greater than zero
+    amount: int = Field(..., gt=0)  # greater than zero
+
 
 class BetPublic(BaseModel):
     id: int
@@ -28,3 +37,5 @@ class BetPublic(BaseModel):
     side: BetSide
     amount: int
     odds_snapshot: float
+    status: BetStatus
+    payout: Optional[int] = None

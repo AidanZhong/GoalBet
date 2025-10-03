@@ -15,37 +15,33 @@ from fastapi.security import OAuth2PasswordBearer
 
 from api.app.core.security import hash_password, verify_password, create_access_token, decode_token
 from api.app.core.settings import settings
-from api.app.models import user
 from api.app.models.user import UserPublic, UserCreate, Token, UserLogin
+from api.app.core import data_store
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
-_db = {}
-_id = 0
-
 
 @router.post("/register", response_model=UserPublic)
 def register(payload: UserCreate):
-    global _id
-    if payload.email in _db:
+    if payload.email in data_store._db:
         raise HTTPException(status_code=400, detail="Email already registered")
 
     # update the database
-    _id = _id + 1
-    _db[payload.email] = {
-        "id": _id,
+    data_store._user_id = data_store._user_id + 1
+    data_store._db[payload.email] = {
+        "id": data_store._user_id,
         "email": payload.email,
         "hashed_password": hash_password(payload.password),
         "balance": settings.initial_balance
     }
 
-    return {"id": _id, "email": payload.email}
+    return {"id": data_store._user_id, "email": payload.email}
 
 
 @router.post("/login", response_model=Token)
 def login(payload: UserLogin):
-    user = _db.get(payload.email)
+    user = data_store._db.get(payload.email)
     if not user or not verify_password(payload.password, user["hashed_password"]):
         raise HTTPException(status_code=400, detail="Incorrect password")
 
@@ -58,7 +54,7 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
     if not payload or "sub" not in payload:
         raise HTTPException(status_code=400, detail="Invalid token")
     email = payload["sub"]
-    user = _db.get(email)
+    user = data_store._db.get(email)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return user

@@ -15,11 +15,10 @@ from typing import Any
 
 from fastapi import APIRouter
 from sse_starlette import EventSourceResponse
+from api.app.core.data_store import _subscribers as subscribers
 
 router = APIRouter(prefix="/stream", tags=["stream"])
 
-# simple pub-sub in memory
-subscribers = []
 
 
 async def event_generator():
