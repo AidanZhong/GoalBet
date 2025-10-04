@@ -30,3 +30,8 @@ _pools = {}
 
 # subscribers
 _subscribers = []
+
+# bounty missions
+_bounty_missions = {}
+_bounty_mission_id = 0
+_bounty_mission_submissions = {}

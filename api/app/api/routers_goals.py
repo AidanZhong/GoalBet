@@ -107,3 +107,17 @@ def resolve_goal(goal_id: int, outcome: str = Body(..., embed=True), user: dict 
     }
     broadcast("market settled", data)
     return data
+
+
+@router.get("/trending", response_model=list[GoalPublic])
+def trending_goals():
+    # ranked by price pool
+    goals = sorted(data_store._goals.values(),
+                   key=lambda g: sum(data_store._pools.get(g["id"], {}).values()),
+                   reverse=True)
+    return goals
+
+
+@router.get("/mine", response_model=list[GoalPublic])
+def list_my_goals(user: dict = Depends(get_current_user)):
+    return [g for g in data_store._goals.values() if g["owner_email"] == user["email"]]
