@@ -19,6 +19,10 @@ from api.app.api.routers_bets import router as bets_router
 from api.app.api.routers_bounties import router as bounties_router
 from api.app.core.settings import settings
 
+from api.app.core.db import Base, engine
+
+Base.metadata.create_all(bind=engine)
+
 app = FastAPI(title=settings.app_name)
 app.include_router(health_router)
 app.include_router(users_router)

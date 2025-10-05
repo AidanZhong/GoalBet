@@ -4,3 +4,4 @@ __pycache__/
 .env*
 .idea/
 .pytest_cache/
+goalbet.db

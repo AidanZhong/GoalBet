@@ -18,6 +18,7 @@ class Settings(BaseSettings):
     secret_key: str = 'dev-secret-key'
     access_token_expire_minutes: int = 60
     initial_balance: int = 1000
+    database_url: str = 'sqlite:///./goalbet.db'
 
 
 settings = Settings()
