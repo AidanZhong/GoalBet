@@ -12,54 +12,64 @@ from typing import Dict
 
 from fastapi import APIRouter, HTTPException, Depends
 from fastapi.security import OAuth2PasswordBearer
+from jose import JWTError
+from pydantic import EmailStr
+from sqlalchemy.orm import Session
 
 from api.app.core.security import hash_password, verify_password, create_access_token, decode_token
 from api.app.core.settings import settings
+from api.app.models.db_models import User
 from api.app.models.user import UserPublic, UserCreate, Token, UserLogin
-from api.app.core import data_store
+
+from api.app.core.db import get_db
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 
 @router.post("/register", response_model=UserPublic)
-def register(payload: UserCreate):
-    if payload.email in data_store._db:
+def register(payload: UserCreate, db: Session = Depends(get_db)):
+    existing = db.query(User).filter(User.email == payload.email).first()
+    if existing:
         raise HTTPException(status_code=400, detail="Email already registered")
 
     # update the database
-    data_store._user_id = data_store._user_id + 1
-    data_store._db[payload.email] = {
-        "id": data_store._user_id,
-        "email": payload.email,
-        "hashed_password": hash_password(payload.password),
-        "balance": settings.initial_balance
-    }
+    user = User(
+        email=str(payload.email),
+        hashed_password=hash_password(payload.password),
+        balance=settings.DEFAULT_BALANCE
+    )
+    db.add(user)
+    db.commit()
+    db.refresh(user)
 
-    return {"id": data_store._user_id, "email": payload.email}
+    return UserPublic(id=user.id, email=payload.email)
 
 
 @router.post("/login", response_model=Token)
-def login(payload: UserLogin):
-    user = data_store._db.get(payload.email)
-    if not user or not verify_password(payload.password, user["hashed_password"]):
-        raise HTTPException(status_code=400, detail="Incorrect password")
+def login(payload: UserLogin, db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.email == payload.email).first()
+    if not user or not verify_password(payload.password, user.hashed_password):
+        raise HTTPException(status_code=400, detail="Invalid credentials")
 
     token = create_access_token({"sub": payload.email})
-    return {"access_token": token, "token_type": "bearer"}
+    return Token(access_token=token)
 
 
-def get_current_user(token: str = Depends(oauth2_scheme)):
-    payload = decode_token(token)
-    if not payload or "sub" not in payload:
+def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+    try:
+        payload = decode_token(token)
+        if not payload or "sub" not in payload:
+            raise HTTPException(status_code=400, detail="Invalid token")
+        email = payload["sub"]
+        user = db.query(User).filter(User.email == email).first()
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+        return user
+    except JWTError:
         raise HTTPException(status_code=400, detail="Invalid token")
-    email = payload["sub"]
-    user = data_store._db.get(email)
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-    return user
 
 
 @router.get("/me", response_model=UserPublic)
-def me(user: dict = Depends(get_current_user)):
-    return {"id": user["id"], "email": user["email"]}
+def me(user: User = Depends(get_current_user)):
+    return UserPublic(id=user.id, email=EmailStr(user.email))

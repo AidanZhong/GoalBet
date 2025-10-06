@@ -11,61 +11,67 @@ Created on 2025/10/2 21:57
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy import func
+from sqlalchemy.orm import Session
 
 from api.app.api.routers_auth import get_current_user
 from api.app.api.routers_stream import broadcast
+from api.app.core.db import get_db
 from api.app.models.bet import BetPublic, BetCreate, BetSide, BetStatus
-from api.app.core import data_store
+from api.app.models.db_models import Goal, User, Bet
 from api.app.models.enums import GoalStatus
 
 router = APIRouter(prefix="/markets", tags=["bets"])
 
 
 @router.post("/{goal_id}/bets", response_model=BetPublic)
-def place_bet(goal_id: int, payload: BetCreate, user: dict = Depends(get_current_user)):
-    goal = data_store._goals.get(goal_id)
+def place_bet(goal_id: int, payload: BetCreate, user: dict = Depends(get_current_user),
+              db: Session = Depends(get_db)):
+    goal = db.query(Goal).filter(Goal.id == goal_id).first()
     if not goal:
         raise HTTPException(status_code=404, detail="Goal not found")
 
-    if goal["status"] != GoalStatus.ACTIVE:
+    if goal.status != GoalStatus.ACTIVE:
         raise HTTPException(status_code=400, detail="Market is closed")
 
-    if user['balance'] < payload.amount:
+    user_db = db.query(User).filter(User.email == user["email"]).first()
+    if user_db.balance < payload.amount:
         raise HTTPException(status_code=400, detail="Insufficient balance")
 
-    # init the pool
-    if goal_id not in data_store._pools:
-        data_store._pools[goal_id] = {BetSide.SUCCESS: 0, BetSide.FAIL: 0}
-        data_store._bets[goal_id] = []
-
     # update the pool
-    data_store._pools[goal_id][payload.side.value] += payload.amount
+    total_pool = db.query(func.coalesce(func.sum(Bet.amount), 0)).filter(Bet.goal_id == goal_id).scalar()
+    side_pool = db.query(func.coalesce(func.sum(Bet.amount), 0)).filter(Bet.goal_id == goal_id,
+                                                                        Bet.side == payload.side).scalar()
+    total_pool += payload.amount
+    side_pool += payload.amount
 
     # deduct from wallet
-    user['balance'] -= payload.amount
+    user_db.balance -= payload.amount
 
     # calc odds, using parimutuel method
-    total_pool = sum(data_store._pools[goal_id].values())
-    side_pool = data_store._pools[goal_id][payload.side.value]
     odds = round(total_pool / side_pool, 2) if side_pool > 0 else 1
 
-    data_store._bet_id += 1
-    bet = {
-        "id": data_store._bet_id,
+    bet = Bet(
+        goal_id=goal_id,
+        user_id=user_db.id,
+        side=payload.side,
+        amount=payload.amount,
+        odds_snapshot=odds,
+        status=BetStatus.PENDING
+    )
+    db.add(bet)
+    db.commit()
+    db.refresh(bet)
+    broadcast("bet.placed", {
         "goal_id": goal_id,
-        "user_email": user["email"],
+        "user_email": user_db.email,
         "side": payload.side.value,
         "amount": payload.amount,
-        "odds_snapshot": odds,
-        "status": BetStatus.PENDING,
-        "payout": None
-    }
-
-    data_store._bets[goal_id].append(bet)
-    broadcast("bet.placed", bet)
+        "odds_snapshot": odds
+    })
     return bet
 
 
 @router.get("/{goal_id}/bets", response_model=List[BetPublic])
-def list_bets(goal_id: int):
-    return data_store._bets.get(goal_id, [])
+def list_bets(goal_id: int, db: Session = Depends(get_db)):
+    return db.query(Bet).filter(Bet.goal_id == goal_id).all()

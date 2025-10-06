@@ -9,15 +9,20 @@ Created on 2025/9/27 20:02
 - Python 
 """
 from fastapi import APIRouter, HTTPException, Depends
+from sqlalchemy.orm import Session
+from typing_extensions import deprecated
 
 from api.app.api.routers_auth import get_current_user
+from api.app.core.db import get_db
 from api.app.models.bet import BetPublic
+from api.app.models.db_models import User, Bet
 from api.app.models.user import UserPublic, UserCreate
 from api.app.core import data_store
 
 router = APIRouter(prefix="/users", tags=["users"])
 
 
+@deprecated
 @router.post("/user_create", response_model=UserPublic)
 def create_user(user: UserCreate):
     if user.email in data_store._db:
@@ -30,11 +35,5 @@ def create_user(user: UserCreate):
 
 
 @router.get("/bets", response_model=list[BetPublic])
-def list_my_bets(user: dict = Depends(get_current_user)):
-    user_email = user["email"]
-    my_bets = []
-    for goal_bets in data_store._bets.values():
-        for bet in goal_bets:
-            if bet["user_email"] == user_email:
-                my_bets.append(bet)
-    return my_bets
+def list_my_bets(user: dict = Depends(get_current_user), db: Session = Depends(get_db)):
+    return db.query(Bet).filter(Bet.user_id == user["id"]).all()

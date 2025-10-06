@@ -20,7 +20,6 @@ from api.app.core.data_store import _subscribers as subscribers
 router = APIRouter(prefix="/stream", tags=["stream"])
 
 
-
 async def event_generator():
     q = asyncio.Queue()
     subscribers.append(q)
