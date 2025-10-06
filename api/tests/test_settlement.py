@@ -9,15 +9,10 @@ Created on 2025/10/3 9:43
 - Python 
 """
 from datetime import datetime, timedelta
-
-from starlette.testclient import TestClient
-
-from api.app.main import app
 from api.app.models.bet import BetSide, BetStatus
 
 
-def test_settlement_flow():
-    client = TestClient(app)
+def test_settlement_flow(client):
     # User A
     client.post("/auth/register", json={"email": "a@test.com", "password": "pw"})
     token_a = client.post("/auth/login", json={"email": "a@test.com", "password": "pw"}).json()["access_token"]

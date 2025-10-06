@@ -8,12 +8,9 @@ Created on 2025/9/28 21:55
 @description: 
 - Python 
 """
-from fastapi.testclient import TestClient
-from api.app.main import app
 
 
-def test_register_and_login():
-    client = TestClient(app)
+def test_register_and_login(client):
     # register
     r = client.post("/auth/register", json={"email": "a@b.com", "password": "pw123"})
     assert r.status_code == 200

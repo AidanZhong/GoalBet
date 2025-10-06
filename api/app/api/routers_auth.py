@@ -29,6 +29,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 @router.post("/register", response_model=UserPublic)
 def register(payload: UserCreate, db: Session = Depends(get_db)):
+    print("Using DB inside /auth/register:", db.bind.url)
     existing = db.query(User).filter(User.email == payload.email).first()
     if existing:
         raise HTTPException(status_code=400, detail="Email already registered")
@@ -37,7 +38,7 @@ def register(payload: UserCreate, db: Session = Depends(get_db)):
     user = User(
         email=str(payload.email),
         hashed_password=hash_password(payload.password),
-        balance=settings.DEFAULT_BALANCE
+        balance=settings.initial_balance
     )
     db.add(user)
     db.commit()
@@ -72,4 +73,4 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
 
 @router.get("/me", response_model=UserPublic)
 def me(user: User = Depends(get_current_user)):
-    return UserPublic(id=user.id, email=EmailStr(user.email))
+    return UserPublic(id=user.id, email=user.email)

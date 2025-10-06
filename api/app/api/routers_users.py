@@ -22,7 +22,7 @@ from api.app.core import data_store
 router = APIRouter(prefix="/users", tags=["users"])
 
 
-@deprecated
+@deprecated("This endpoint is deprecated. Please use /auth/register instead.")
 @router.post("/user_create", response_model=UserPublic)
 def create_user(user: UserCreate):
     if user.email in data_store._db:

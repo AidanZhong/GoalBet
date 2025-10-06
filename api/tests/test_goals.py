@@ -9,13 +9,10 @@ Created on 2025/9/29 9:27
 - Python 
 """
 from datetime import datetime, timedelta, timezone
-from fastapi.testclient import TestClient
-from api.app.main import app
 from api.app.models.enums import MarketType
 
 
-def test_create_and_list_goal():
-    client = TestClient(app)
+def test_create_and_list_goal(client):
     # register + login
     r = client.post("/auth/register", json={"email": "g@x.com", "password": "pw123"})
     token = client.post("/auth/login", json={"email": "g@x.com", "password": "pw123"}).json()["access_token"]
@@ -45,8 +42,7 @@ def test_create_and_list_goal():
     assert r.json()["id"] == gid
 
 
-def test_update_goal():
-    client = TestClient(app)
+def test_update_goal(client):
     # register + login
     r = client.post("/auth/register", json={"email": "g@x.com", "password": "pw123"})
     token = client.post("/auth/login", json={"email": "g@x.com", "password": "pw123"}).json()["access_token"]
@@ -78,7 +74,6 @@ def test_update_goal():
     assert r.json()["updates"][0]["content"] == "Finished book 1"
 
 
-def test_update_without_token():
-    client = TestClient(app)
+def test_update_without_token(client):
     r = client.post("/goals/999/updates", json={"content": "Finished book 1"})
     assert r.status_code == 401

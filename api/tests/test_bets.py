@@ -9,15 +9,10 @@ Created on 2025/10/2 22:20
 - Python 
 """
 from datetime import datetime, timedelta
-
-from fastapi.testclient import TestClient
-
-from api.app.main import app
 from api.app.models.bet import BetSide
 
 
-def test_place_bet_and_wallet_deduction():
-    client = TestClient(app)
+def test_place_bet_and_wallet_deduction(client):
     # user setup
     client.post("/auth/register", json={"email": "bet@x.com", "password": "pw"})
     token = client.post("/auth/login", json={"email": "bet@x.com", "password": "pw"}).json()["access_token"]
@@ -44,8 +39,7 @@ def test_place_bet_and_wallet_deduction():
     assert after == before - 100
 
 
-def test_cannot_bet_without_balance():
-    client = TestClient(app)
+def test_cannot_bet_without_balance(client):
     client.post("/auth/register", json={"email": "poor@x.com", "password": "pw"})
     token = client.post("/auth/login", json={"email": "poor@x.com", "password": "pw"}).json()["access_token"]
     headers = {"Authorization": f"Bearer {token}"}
