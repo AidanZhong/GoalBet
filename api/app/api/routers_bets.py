@@ -25,7 +25,7 @@ router = APIRouter(prefix="/markets", tags=["bets"])
 
 
 @router.post("/{goal_id}/bets", response_model=BetPublic)
-def place_bet(goal_id: int, payload: BetCreate, user: dict = Depends(get_current_user),
+def place_bet(goal_id: int, payload: BetCreate, user: User = Depends(get_current_user),
               db: Session = Depends(get_db)):
     goal = db.query(Goal).filter(Goal.id == goal_id).first()
     if not goal:
@@ -34,8 +34,7 @@ def place_bet(goal_id: int, payload: BetCreate, user: dict = Depends(get_current
     if goal.status != GoalStatus.ACTIVE:
         raise HTTPException(status_code=400, detail="Market is closed")
 
-    user_db = db.query(User).filter(User.email == user["email"]).first()
-    if user_db.balance < payload.amount:
+    if user.balance < payload.amount:
         raise HTTPException(status_code=400, detail="Insufficient balance")
 
     # update the pool
@@ -46,14 +45,14 @@ def place_bet(goal_id: int, payload: BetCreate, user: dict = Depends(get_current
     side_pool += payload.amount
 
     # deduct from wallet
-    user_db.balance -= payload.amount
+    user.balance -= payload.amount
 
     # calc odds, using parimutuel method
     odds = round(total_pool / side_pool, 2) if side_pool > 0 else 1
 
     bet = Bet(
         goal_id=goal_id,
-        user_id=user_db.id,
+        user_id=user.id,
         side=payload.side,
         amount=payload.amount,
         odds_snapshot=odds,
@@ -64,14 +63,16 @@ def place_bet(goal_id: int, payload: BetCreate, user: dict = Depends(get_current
     db.refresh(bet)
     broadcast("bet.placed", {
         "goal_id": goal_id,
-        "user_email": user_db.email,
+        "user_email": user.email,
         "side": payload.side.value,
         "amount": payload.amount,
         "odds_snapshot": odds
     })
-    return bet
+    betPublic = BetPublic.model_validate(bet)
+    return betPublic
 
 
 @router.get("/{goal_id}/bets", response_model=List[BetPublic])
 def list_bets(goal_id: int, db: Session = Depends(get_db)):
-    return db.query(Bet).filter(Bet.goal_id == goal_id).all()
+    return [BetPublic.model_validate(b) for b in
+            db.query(Bet).filter(Bet.goal_id == goal_id).all()]

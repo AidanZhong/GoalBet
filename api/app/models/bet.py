@@ -39,3 +39,5 @@ class BetPublic(BaseModel):
     odds_snapshot: float
     status: BetStatus
     payout: Optional[int] = None
+
+    model_config = {"from_attributes": True}

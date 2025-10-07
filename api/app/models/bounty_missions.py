@@ -29,6 +29,8 @@ class BountyPublic(BaseModel):
     deadline: datetime
     submissions: list = []
 
+    model_config = {"from_attributes": True}
+
 
 class BountySubmission(BaseModel):
     proof: str

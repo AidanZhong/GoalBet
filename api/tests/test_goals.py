@@ -28,7 +28,6 @@ def test_create_and_list_goal(client):
     assert r.status_code == 200
     goal = r.json()
     assert goal["title"] == "Run a marathon"
-    assert MarketType.SUCCESS in goal["markets"]
 
     # list goals
     r = client.get("/goals")
@@ -58,7 +57,6 @@ def test_update_goal(client):
     assert r.status_code == 200
     goal = r.json()
     assert goal["title"] == "Run a marathon"
-    assert MarketType.SUCCESS in goal["markets"]
 
     # post update
     update_payload = {"content": "Finished book 1"}

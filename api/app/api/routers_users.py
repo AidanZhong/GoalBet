@@ -35,5 +35,6 @@ def create_user(user: UserCreate):
 
 
 @router.get("/bets", response_model=list[BetPublic])
-def list_my_bets(user: dict = Depends(get_current_user), db: Session = Depends(get_db)):
-    return db.query(Bet).filter(Bet.user_id == user["id"]).all()
+def list_my_bets(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    return [BetPublic.model_validate(b) for b in
+            db.query(Bet).filter(Bet.user_id == user.id).all()]

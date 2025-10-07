@@ -33,6 +33,8 @@ class GoalUpdatePublic(BaseModel):
     author_email: EmailStr
     created_at: datetime
 
+    model_config = {"from_attributes": True}
+
 
 class GoalPublic(BaseModel):
     id: int
@@ -43,3 +45,5 @@ class GoalPublic(BaseModel):
     status: GoalStatus
     markets: List[MarketType] = []
     updates: List[GoalUpdatePublic] = []
+
+    model_config = {"from_attributes": True}

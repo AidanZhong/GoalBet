@@ -43,6 +43,10 @@ class Goal(Base):
     updates = relationship("GoalUpdate", back_populates="goal")
     bets = relationship("Bet", back_populates="goal")
 
+    @property
+    def owner_email(self):
+        return self.owner.email if self.owner else None
+
 
 class GoalUpdate(Base):
     __tablename__ = "goal_updates"
@@ -53,6 +57,10 @@ class GoalUpdate(Base):
     author_id = Column(Integer, ForeignKey("users.id"))
     goal = relationship("Goal", back_populates="updates")
     author = relationship("User", back_populates="goal_updates")
+
+    @property
+    def author_email(self):
+        return self.author.email if self.author else None
 
 
 class Bet(Base):
@@ -68,6 +76,10 @@ class Bet(Base):
     goal = relationship("Goal", back_populates="bets")
     user = relationship("User", back_populates="bets")
 
+    @property
+    def user_email(self):
+        return self.user.email if self.user else None
+
 
 class Bounty(Base):
     __tablename__ = "bounties"
@@ -79,6 +91,10 @@ class Bounty(Base):
     owner_id = Column(Integer, ForeignKey("users.id"))
     submissions = relationship("Submission", back_populates="bounty")
     owner = relationship("User", back_populates="bounties")
+
+    @property
+    def owner_email(self):
+        return self.owner.email if self.owner else None
 
 
 class Submission(Base):

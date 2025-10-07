@@ -55,4 +55,5 @@ def resolve_market(goal_id: int, outcome: str, db: Session = Depends(get_db)):
 
     # update goal
     goal.status = outcome
+    db.commit()
     return results
