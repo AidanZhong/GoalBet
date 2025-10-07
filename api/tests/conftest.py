@@ -41,5 +41,6 @@ def client():
 
 @pytest.fixture(scope="function", autouse=True)
 def clean_db():
+    print("🧹 Resetting DB before test...")
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
