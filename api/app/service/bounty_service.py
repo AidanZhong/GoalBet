@@ -13,12 +13,12 @@ from datetime import datetime, timezone
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from api.app.api.routers_stream import broadcast
+from api.app.core.events import broadcast
 from api.app.models.bounty_missions import BountyCreate, BountySubmission
 from api.app.models.db_models import User, Bounty, Submission
 
 
-def bounty_creation(payload: BountyCreate, user: User, db: Session):
+async def bounty_creation(payload: BountyCreate, user: User, db: Session):
     if payload.reward > user.balance:
         raise HTTPException(status_code=400, detail="Not enough balance")
     else:
@@ -35,7 +35,7 @@ def bounty_creation(payload: BountyCreate, user: User, db: Session):
     db.add(bounty)
     db.commit()
     db.refresh(bounty)
-    broadcast("bounty.created", {
+    await broadcast("bounty.created", {
         "owner_email": user.email,
         "title": payload.title,
         "description": payload.description,
@@ -49,7 +49,7 @@ def get_bounty(db: Session, bid: int):
     return db.query(Bounty).filter(Bounty.id == bid).first()
 
 
-def bounty_submission(payload: BountySubmission, user: User, bid: int, db: Session, created_time):
+async def bounty_submission(payload: BountySubmission, user: User, bid: int, db: Session, created_time):
     bounty = get_bounty(db, bid)
     if not bounty:
         raise HTTPException(status_code=404, detail="Bounty not found")
@@ -71,7 +71,7 @@ def bounty_submission(payload: BountySubmission, user: User, bid: int, db: Sessi
     db.add(submission)
     db.commit()
     db.refresh(submission)
-    broadcast("bounty.submission", {
+    await broadcast("bounty.submission", {
         "bounty_id": bid,
         "user_email": user.email
     })

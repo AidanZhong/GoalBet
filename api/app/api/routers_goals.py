@@ -15,7 +15,7 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from api.app.api.routers_auth import get_current_user
-from api.app.api.routers_stream import broadcast
+from api.app.core.events import broadcast
 from api.app.models.db_models import Goal, GoalUpdate, Bet, User
 from api.app.models.enums import GoalStatus, MarketType
 from api.app.models.goal import GoalPublic, GoalCreate, GoalUpdatePublic, GoalUpdateCreate
@@ -62,14 +62,8 @@ def resolve_goal(goal_id: int, outcome: str = Body(..., embed=True),
         # maybe changed some day
         raise HTTPException(status_code=403, detail="Only owner can resolve goal")
 
-    results = resolve_market(goal_id, outcome, db)
-    data = {
-        "goal_id": goal_id,
-        "outcome": outcome,
-        "results": results
-    }
-    broadcast("market settled", data)
-    return data
+    result = resolve_market(goal_id, outcome, db)
+    return result
 
 
 @router.get("/trending", response_model=list[GoalPublic])

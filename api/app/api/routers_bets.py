@@ -15,7 +15,6 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from api.app.api.routers_auth import get_current_user
-from api.app.api.routers_stream import broadcast
 from api.app.core.db import get_db
 from api.app.models.bet import BetPublic, BetCreate, BetSide, BetStatus
 from api.app.models.db_models import Goal, User, Bet

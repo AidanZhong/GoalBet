@@ -13,11 +13,12 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from api.app.core.db import get_db
+from api.app.core.events import broadcast
 from api.app.models.bet import BetStatus
 from api.app.models.db_models import Goal, Bet
 
 
-def resolve_market(goal_id: int, outcome: str, db: Session = Depends(get_db)):
+async def resolve_market(goal_id: int, outcome: str, db: Session = Depends(get_db)):
     goal = db.query(Goal).filter(Goal.id == goal_id).first()
     if not goal:
         raise HTTPException(status_code=404, detail="Goal not found")
@@ -56,4 +57,12 @@ def resolve_market(goal_id: int, outcome: str, db: Session = Depends(get_db)):
     # update goal
     goal.status = outcome
     db.commit()
-    return results
+
+    data = {
+        "goal_id": goal_id,
+        "outcome": outcome,
+        "results": results
+    }
+
+    await broadcast("market settled", data)
+    return data

@@ -10,7 +10,7 @@ Created on 2025/10/14 20:29
 """
 from fastapi import HTTPException
 
-from api.app.api.routers_stream import broadcast
+from api.app.core.events import broadcast
 from api.app.models.bet import BetCreate, BetStatus
 from api.app.models.db_models import User, Goal, Bet
 from sqlalchemy.orm import Session
@@ -19,7 +19,7 @@ from api.app.models.enums import GoalStatus
 from sqlalchemy import func
 
 
-def place_bet(db: Session, goal_id: int, payload: BetCreate, user: User):
+async def place_bet(db: Session, goal_id: int, payload: BetCreate, user: User):
     goal = db.query(Goal).filter(Goal.id == goal_id).first()
     if not goal:
         raise HTTPException(status_code=404, detail="Goal not found")
@@ -54,7 +54,7 @@ def place_bet(db: Session, goal_id: int, payload: BetCreate, user: User):
     db.add(bet)
     db.commit()
     db.refresh(bet)
-    broadcast("bet.placed", {
+    await broadcast("bet.placed", {
         "goal_id": goal_id,
         "user_email": user.email,
         "side": payload.side.value,

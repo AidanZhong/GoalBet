@@ -14,13 +14,13 @@ from fastapi import HTTPException
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
-from api.app.api.routers_stream import broadcast
+from api.app.core.events import broadcast
 from api.app.models.db_models import User, Goal, GoalUpdate, Bet
 from api.app.models.enums import GoalStatus
 from api.app.models.goal import GoalCreate, GoalUpdateCreate
 
 
-def create_goal(payload: GoalCreate, user: User, db: Session):
+async def create_goal(payload: GoalCreate, user: User, db: Session):
     # 统一将 deadline 归一化为 UTC aware datetime
     deadline = payload.deadline
     if deadline.tzinfo is None:
@@ -45,7 +45,7 @@ def create_goal(payload: GoalCreate, user: User, db: Session):
     db.commit()
     db.refresh(goal)
 
-    broadcast("goal.created", {"id": goal.id, "title": goal.title})
+    await broadcast("goal.created", {"id": goal.id, "title": goal.title})
     return goal
 
 
@@ -57,7 +57,7 @@ def get_goal(goal_id: int, db: Session):
     return db.query(Goal).filter(Goal.id == goal_id).first()
 
 
-def update_goal(goal_id: int, payload: GoalUpdateCreate, user: User, db: Session):
+async def update_goal(goal_id: int, payload: GoalUpdateCreate, user: User, db: Session):
     goal = get_goal(goal_id, db)
     if not goal:
         raise HTTPException(status_code=404, detail="Goal not found")
@@ -74,7 +74,7 @@ def update_goal(goal_id: int, payload: GoalUpdateCreate, user: User, db: Session
     db.commit()
     db.refresh(update)
 
-    broadcast("goal.update", {
+    await broadcast("goal.update", {
         "goal updated": goal_id,
         "update id": update.id,
     })
