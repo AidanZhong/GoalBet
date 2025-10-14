@@ -5,8 +5,6 @@ Created on 2025/10/4 22:50
 @author: Aidan
 @project: GoalBet
 @filename: bounty_missions
-@description: 
-- Python 
 """
 from datetime import datetime
 from typing import Optional
@@ -34,5 +32,3 @@ class BountyPublic(BaseModel):
 
 class BountySubmission(BaseModel):
     proof: str
-
-

@@ -5,13 +5,11 @@ Created on 2025/10/2 21:54
 @author: Aidan
 @project: GoalBet
 @filename: bet
-@description: 
-- Python 
 """
 from enum import Enum
 from typing import Optional
 
-from pydantic import BaseModel, Field, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 
 
 class BetSide(str, Enum):

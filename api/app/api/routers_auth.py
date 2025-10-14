@@ -5,24 +5,15 @@ Created on 2025/9/28 21:37
 @author: Aidan
 @project: GoalBet
 @filename: routers_auth
-@description: 
-- Python 
 """
-from typing import Dict
 
-from fastapi import APIRouter, HTTPException, Depends
-from fastapi.security import OAuth2PasswordBearer
-from jose import JWTError
-from pydantic import EmailStr
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from api.app.core.security import hash_password, verify_password, create_access_token, decode_token
-from api.app.core.settings import settings
-from api.app.models.db_models import User
-from api.app.models.user import UserPublic, UserCreate, Token, UserLogin
-
 from api.app.core.db import get_db
-from api.app.service.user_service import create_user, login_user, get_current_user
+from api.app.models.db_models import User
+from api.app.models.user import Token, UserCreate, UserLogin, UserPublic
+from api.app.service.user_service import create_user, get_current_user, login_user
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 

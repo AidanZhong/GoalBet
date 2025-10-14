@@ -5,10 +5,9 @@ Created on 2025/9/27 23:40
 @author: Aidan
 @project: GoalBet
 @filename: narrator
-@description: 
-- Python 
 """
 from pathlib import Path
+
 import openai
 
 # Define the script for narration
@@ -44,7 +43,8 @@ Even Vietnam soldiers, addicted in war, quit naturally when they returned home�
 
 Here's the lesson:
 If your environment is a cage… desire will enslave you.
-But if your environment is rich with meaning, connection, and growth… your ancient beast can be tamed -- and its power becomes fuel.
+But if your environment is rich with meaning, connection,
+and growth… your ancient beast can be tamed -- and its power becomes fuel.
 
 Don't just fight addiction to screens, to habits, to comfort.
 Build your own Rat Park.
@@ -58,9 +58,7 @@ Because freedom isn't the absence of desire. It's the mastery of it.
 output_file = Path("/mnt/data/motivation_voiceover.mp3")
 
 with openai.audio.speech.with_streaming_response.create(
-        model="gpt-4o-mini-tts",
-        voice="alloy",  # Alloy is deep & cinematic
-        input=script_text
+    model="gpt-4o-mini-tts", voice="alloy", input=script_text  # Alloy is deep & cinematic
 ) as response:
     response.stream_to_file(output_file)
 

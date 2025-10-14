@@ -5,11 +5,9 @@ Created on 2025/10/14 21:58
 @author: Aidan
 @project: GoalBet
 @filename: events
-@description: 
-- Python 
 """
 import asyncio
-from datetime import datetime, date
+from datetime import date, datetime
 from typing import Any
 
 from starlette.responses import StreamingResponse

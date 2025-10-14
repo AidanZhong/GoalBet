@@ -5,20 +5,18 @@ Created on 2025/10/3 9:25
 @author: Aidan
 @project: GoalBet
 @filename: settlement
-@description: 
-- Python 
 """
-from fastapi import HTTPException, Depends
+from fastapi import Depends, HTTPException
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from api.app.core.db import get_db
 from api.app.core.events import broadcast
 from api.app.models.bet import BetStatus
-from api.app.models.db_models import Goal, Bet
+from api.app.models.db_models import Bet, Goal
 
 
-async def resolve_market(goal_id: int, outcome: str, db: Session = Depends(get_db)):
+def resolve_market(goal_id: int, outcome: str, background_tasks, db: Session = Depends(get_db)):
     goal = db.query(Goal).filter(Goal.id == goal_id).first()
     if not goal:
         raise HTTPException(status_code=404, detail="Goal not found")
@@ -27,9 +25,14 @@ async def resolve_market(goal_id: int, outcome: str, db: Session = Depends(get_d
         # no bets so no settlement
         return []
 
-    total_pool = db.query(func.coalesce(func.sum(Bet.amount), 0)).filter(Bet.goal_id == goal_id).scalar()
-    winning_pool = db.query(func.coalesce(func.sum(Bet.amount), 0)).filter(Bet.goal_id == goal_id,
-                                                                           Bet.side == outcome).scalar()
+    total_pool = (
+        db.query(func.coalesce(func.sum(Bet.amount), 0)).filter(Bet.goal_id == goal_id).scalar()
+    )
+    winning_pool = (
+        db.query(func.coalesce(func.sum(Bet.amount), 0))
+        .filter(Bet.goal_id == goal_id, Bet.side == outcome)
+        .scalar()
+    )
 
     results = []
     for bet in bets:
@@ -58,11 +61,7 @@ async def resolve_market(goal_id: int, outcome: str, db: Session = Depends(get_d
     goal.status = outcome
     db.commit()
 
-    data = {
-        "goal_id": goal_id,
-        "outcome": outcome,
-        "results": results
-    }
+    data = {"goal_id": goal_id, "outcome": outcome, "results": results}
 
-    await broadcast("market settled", data)
+    background_tasks.add_task(broadcast, "market settled", data)
     return data

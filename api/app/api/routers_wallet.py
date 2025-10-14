@@ -5,8 +5,6 @@ Created on 2025/9/28 21:53
 @author: Aidan
 @project: GoalBet
 @filename: routers_wallet
-@description: 
-- Python 
 """
 from fastapi import APIRouter, Depends
 

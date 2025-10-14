@@ -5,24 +5,23 @@ Created on 2025/9/29 9:27
 @author: Aidan
 @project: GoalBet
 @filename: test_goals
-@description: 
-- Python 
 """
 from datetime import datetime, timedelta, timezone
-from api.app.models.enums import MarketType
 
 
 def test_create_and_list_goal(client):
     # register + login
     r = client.post("/auth/register", json={"email": "g@x.com", "password": "pw123"})
-    token = client.post("/auth/login", json={"email": "g@x.com", "password": "pw123"}).json()["access_token"]
+    token = client.post("/auth/login", json={"email": "g@x.com", "password": "pw123"}).json()[
+        "access_token"
+    ]
     headers = {"Authorization": f"Bearer {token}"}
 
     # create goal
     payload = {
         "title": "Run a marathon",
         "description": "Complete 42km race",
-        "deadline": (datetime.now(timezone.utc) + timedelta(days=7)).isoformat()
+        "deadline": (datetime.now(timezone.utc) + timedelta(days=7)).isoformat(),
     }
     r = client.post("/goals", json=payload, headers=headers)
     assert r.status_code == 200
@@ -44,14 +43,16 @@ def test_create_and_list_goal(client):
 def test_update_goal(client):
     # register + login
     r = client.post("/auth/register", json={"email": "g@x.com", "password": "pw123"})
-    token = client.post("/auth/login", json={"email": "g@x.com", "password": "pw123"}).json()["access_token"]
+    token = client.post("/auth/login", json={"email": "g@x.com", "password": "pw123"}).json()[
+        "access_token"
+    ]
     headers = {"Authorization": f"Bearer {token}"}
 
     # create goal
     payload = {
         "title": "Run a marathon",
         "description": "Complete 42km race",
-        "deadline": (datetime.now(timezone.utc) + timedelta(days=7)).isoformat()
+        "deadline": (datetime.now(timezone.utc) + timedelta(days=7)).isoformat(),
     }
     r = client.post("/goals", json=payload, headers=headers)
     assert r.status_code == 200

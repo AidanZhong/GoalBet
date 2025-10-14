@@ -5,8 +5,6 @@ Created on 2025/9/29 22:01
 @author: Aidan
 @project: GoalBet
 @filename: enums
-@description: 
-- Python 
 """
 from enum import Enum
 

@@ -5,19 +5,17 @@ Created on 2025/9/27 20:02
 @author: Aidan
 @project: GoalBet
 @filename: routers_users
-@description: 
-- Python 
 """
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing_extensions import deprecated
 
 from api.app.api.routers_auth import get_current_user
+from api.app.core import data_store
 from api.app.core.db import get_db
 from api.app.models.bet import BetPublic
-from api.app.models.db_models import User, Bet
-from api.app.models.user import UserPublic, UserCreate
-from api.app.core import data_store
+from api.app.models.db_models import User
+from api.app.models.user import UserCreate, UserPublic
 from api.app.service import bet_service
 
 router = APIRouter(prefix="/users", tags=["users"])

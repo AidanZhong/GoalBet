@@ -5,13 +5,11 @@ Created on 2025/9/29 9:08
 @author: Aidan
 @project: GoalBet
 @filename: goal
-@description: 
-- Python 
 """
 from datetime import datetime
-from typing import Optional, List
+from typing import List, Optional
 
-from pydantic import BaseModel, Field, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 
 from api.app.models.enums import GoalStatus, MarketType
 

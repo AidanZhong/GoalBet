@@ -5,12 +5,10 @@ Created on 2025/10/5 10:05
 @author: Aidan
 @project: GoalBet
 @filename: db_models
-@description: 
-- Python 
 """
 from datetime import datetime, timezone
 
-from sqlalchemy import Column, Integer, String, ForeignKey, Text, DateTime, Enum, Float
+from sqlalchemy import Column, DateTime, Enum, Float, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
 
 from api.app.core.db import Base

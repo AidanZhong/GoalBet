@@ -5,10 +5,9 @@ Created on 2025/9/27 20:12
 @author: Aidan
 @project: GoalBet
 @filename: test_users
-@description: 
-- Python 
 """
 from fastapi.testclient import TestClient
+
 from api.app.main import app
 
 

@@ -5,13 +5,11 @@ Created on 2025/9/28 21:26
 @author: Aidan
 @project: GoalBet
 @filename: security
-@description: 
-- Python 
 """
-from datetime import timedelta, datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Optional
 
-from jose import jwt, JWTError
+from jose import JWTError, jwt
 from passlib.context import CryptContext
 
 from api.app.core.settings import settings

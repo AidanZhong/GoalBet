@@ -5,10 +5,9 @@ Created on 2025/9/27 10:30
 @author: Aidan
 @project: GoalBet
 @filename: test_health
-@description: 
-- Python 
 """
 from fastapi.testclient import TestClient
+
 from api.app.main import app
 
 

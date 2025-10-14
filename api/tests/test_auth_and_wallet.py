@@ -5,8 +5,6 @@ Created on 2025/9/28 21:55
 @author: Aidan
 @project: GoalBet
 @filename: test_auth_and_wallet
-@description: 
-- Python 
 """
 
 

@@ -5,8 +5,6 @@ Created on 2025/9/27 20:17
 @author: Aidan
 @project: GoalBet
 @filename: settings
-@description: 
-- Python 
 """
 from pydantic_settings import BaseSettings
 

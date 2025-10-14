@@ -5,19 +5,18 @@ Created on 2025/10/5 10:58
 @author: Aidan
 @project: GoalBet
 @filename: test_db_connection
-@description: 
-- Python 
 """
 from uuid import uuid4
 
 from api.app.core.db import Session_local
 from api.app.models.db_models import User
 
+
 def test_can_create_user():
     db = Session_local()  # Use the session provided by the shared test database
-    
+
     # Use a unique email for each test run to avoid conflict
-    unique_email = f"test_user_{str(uuid4())}@db.com"  
+    unique_email = f"test_user_{str(uuid4())}@db.com"
 
     # Check if the user already exists (for safety)
     existing_user = db.query(User).filter_by(email=unique_email).first()

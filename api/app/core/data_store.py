@@ -6,7 +6,6 @@ Created on 2025/10/3 9:48
 @project: GoalBet
 @filename: data_store
 @description: This is a temporary storage for the data
-- Python 
 """
 
 # Users
