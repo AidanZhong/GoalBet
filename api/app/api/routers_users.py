@@ -18,6 +18,7 @@ from api.app.models.bet import BetPublic
 from api.app.models.db_models import User, Bet
 from api.app.models.user import UserPublic, UserCreate
 from api.app.core import data_store
+from api.app.service import bet_service
 
 router = APIRouter(prefix="/users", tags=["users"])
 
@@ -36,5 +37,4 @@ def create_user(user: UserCreate):
 
 @router.get("/bets", response_model=list[BetPublic])
 def list_my_bets(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    return [BetPublic.model_validate(b) for b in
-            db.query(Bet).filter(Bet.user_id == user.id).all()]
+    return [BetPublic.model_validate(b) for b in bet_service.get_bets(db, user.id)]

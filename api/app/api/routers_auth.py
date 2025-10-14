@@ -22,53 +22,20 @@ from api.app.models.db_models import User
 from api.app.models.user import UserPublic, UserCreate, Token, UserLogin
 
 from api.app.core.db import get_db
+from api.app.service.user_service import create_user, login_user, get_current_user
 
 router = APIRouter(prefix="/auth", tags=["auth"])
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 
 @router.post("/register", response_model=UserPublic)
 def register(payload: UserCreate, db: Session = Depends(get_db)):
-    print("Using DB inside /auth/register:", db.bind.url)
-    existing = db.query(User).filter(User.email == payload.email).first()
-    if existing:
-        raise HTTPException(status_code=400, detail="Email already registered")
-
-    # update the database
-    user = User(
-        email=str(payload.email),
-        hashed_password=hash_password(payload.password),
-        balance=settings.initial_balance
-    )
-    db.add(user)
-    db.commit()
-    db.refresh(user)
-
+    user = create_user(db, str(payload.email), payload.password)
     return UserPublic(id=user.id, email=payload.email)
 
 
 @router.post("/login", response_model=Token)
 def login(payload: UserLogin, db: Session = Depends(get_db)):
-    user = db.query(User).filter(User.email == payload.email).first()
-    if not user or not verify_password(payload.password, user.hashed_password):
-        raise HTTPException(status_code=400, detail="Invalid credentials")
-
-    token = create_access_token({"sub": payload.email})
-    return Token(access_token=token)
-
-
-def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
-    try:
-        payload = decode_token(token)
-        if not payload or "sub" not in payload:
-            raise HTTPException(status_code=400, detail="Invalid token")
-        email = payload["sub"]
-        user = db.query(User).filter(User.email == email).first()
-        if not user:
-            raise HTTPException(status_code=404, detail="User not found")
-        return user
-    except JWTError:
-        raise HTTPException(status_code=400, detail="Invalid token")
+    return login_user(db, str(payload.email), payload.password)
 
 
 @router.get("/me", response_model=UserPublic)

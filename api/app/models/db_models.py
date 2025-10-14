@@ -24,11 +24,11 @@ class User(Base):
     email = Column(String, unique=True, index=True, nullable=False)
     hashed_password = Column(String, nullable=False)
     balance = Column(Integer, default=1000)
-    goals = relationship("Goal", back_populates="owner")
-    bets = relationship("Bet", back_populates="user")
-    goal_updates = relationship("GoalUpdate", back_populates="author")
-    bounties = relationship("Bounty", back_populates="owner")
-    submissions = relationship("Submission", back_populates="user")
+    goals = relationship("Goal", back_populates="owner", cascade="all, delete-orphan")
+    bets = relationship("Bet", back_populates="user", cascade="all, delete-orphan")
+    goal_updates = relationship("GoalUpdate", back_populates="author", cascade="all, delete-orphan")
+    bounties = relationship("Bounty", back_populates="owner", cascade="all, delete-orphan")
+    submissions = relationship("Submission", back_populates="user", cascade="all, delete-orphan")
 
 
 class Goal(Base):
@@ -40,8 +40,8 @@ class Goal(Base):
     status = Column(Enum(GoalStatus), default=GoalStatus.ACTIVE)
     owner_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     owner = relationship("User", back_populates="goals")
-    updates = relationship("GoalUpdate", back_populates="goal")
-    bets = relationship("Bet", back_populates="goal")
+    updates = relationship("GoalUpdate", back_populates="goal", cascade="all, delete-orphan")
+    bets = relationship("Bet", back_populates="goal", cascade="all, delete-orphan")
 
     @property
     def owner_email(self):
@@ -89,7 +89,7 @@ class Bounty(Base):
     reward = Column(Integer)
     deadline = Column(DateTime)
     owner_id = Column(Integer, ForeignKey("users.id"))
-    submissions = relationship("Submission", back_populates="bounty")
+    submissions = relationship("Submission", back_populates="bounty", cascade="all, delete-orphan")
     owner = relationship("User", back_populates="bounties")
 
     @property
