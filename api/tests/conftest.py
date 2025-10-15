@@ -7,7 +7,7 @@ from sqlalchemy.pool import StaticPool
 from api.app.core.db import Base, get_db
 from api.app.main import app
 
-# 1️⃣  Shared in-memory DB for all connections
+# Shared in-memory DB for all connections
 SQLALCHEMY_DATABASE_URL = "sqlite://"
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
@@ -17,12 +17,12 @@ engine = create_engine(
 
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# 2️⃣  Create all tables once
+# Create all tables once
 Base.metadata.drop_all(bind=engine)
 Base.metadata.create_all(bind=engine)
 
 
-# 3️⃣  Override get_db dependency
+# Override get_db dependency
 def override_get_db():
     db = TestingSessionLocal()
     try:
@@ -34,7 +34,7 @@ def override_get_db():
 app.dependency_overrides[get_db] = override_get_db
 
 
-# 4️⃣  Provide test client
+# Provide test client
 @pytest.fixture(scope="function")
 def client():
     return TestClient(app)
