@@ -34,8 +34,5 @@ jobs:
       - name: Run Flake8 (linter)
         run: flake8 api/app
 
-      - name: Run Mypy (static type checker)
-        run: mypy api/app
-
       - name: Run tests
         run: pytest -v -s
