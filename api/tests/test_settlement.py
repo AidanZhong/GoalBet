@@ -14,16 +14,12 @@ from api.app.models.bet import BetSide, BetStatus
 def test_settlement_flow(client):
     # User A
     client.post("/auth/register", json={"email": "a@test.com", "password": "pw"})
-    token_a = client.post("/auth/login", json={"email": "a@test.com", "password": "pw"}).json()[
-        "access_token"
-    ]
+    token_a = client.post("/auth/login", json={"email": "a@test.com", "password": "pw"}).json()["access_token"]
     headers_a = {"Authorization": f"Bearer {token_a}"}
 
     # User B
     client.post("/auth/register", json={"email": "b@test.com", "password": "pw"})
-    token_b = client.post("/auth/login", json={"email": "b@test.com", "password": "pw"}).json()[
-        "access_token"
-    ]
+    token_b = client.post("/auth/login", json={"email": "b@test.com", "password": "pw"}).json()["access_token"]
     headers_b = {"Authorization": f"Bearer {token_b}"}
 
     # Create goal (owner = A)
@@ -35,12 +31,8 @@ def test_settlement_flow(client):
     gid = goal["id"]
 
     # Bets: A=SUCCESS(100), B=FAIL(100)
-    client.post(
-        f"/markets/{gid}/bets", json={"side": BetSide.SUCCESS, "amount": 100}, headers=headers_a
-    )
-    client.post(
-        f"/markets/{gid}/bets", json={"side": BetSide.FAIL, "amount": 100}, headers=headers_b
-    )
+    client.post(f"/markets/{gid}/bets", json={"side": BetSide.SUCCESS, "amount": 100}, headers=headers_a)
+    client.post(f"/markets/{gid}/bets", json={"side": BetSide.FAIL, "amount": 100}, headers=headers_b)
 
     # Resolve SUCCESS
     r = client.post(f"/goals/{gid}/resolve", json={"outcome": BetSide.SUCCESS}, headers=headers_a)

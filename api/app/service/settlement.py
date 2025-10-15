@@ -25,13 +25,9 @@ def resolve_market(goal_id: int, outcome: str, background_tasks, db: Session = D
         # no bets so no settlement
         return []
 
-    total_pool = (
-        db.query(func.coalesce(func.sum(Bet.amount), 0)).filter(Bet.goal_id == goal_id).scalar()
-    )
+    total_pool = db.query(func.coalesce(func.sum(Bet.amount), 0)).filter(Bet.goal_id == goal_id).scalar()
     winning_pool = (
-        db.query(func.coalesce(func.sum(Bet.amount), 0))
-        .filter(Bet.goal_id == goal_id, Bet.side == outcome)
-        .scalar()
+        db.query(func.coalesce(func.sum(Bet.amount), 0)).filter(Bet.goal_id == goal_id, Bet.side == outcome).scalar()
     )
 
     results = []

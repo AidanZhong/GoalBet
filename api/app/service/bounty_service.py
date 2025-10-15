@@ -71,12 +71,8 @@ def bounty_submission(
     if bounty_deadline_aware < created_time:
         raise HTTPException(status_code=400, detail="Bounty has expired")
 
-    submission = Submission(
-        proof=payload.proof, bounty_id=bid, user_id=user.id, created_at=created_time
-    )
+    submission = Submission(proof=payload.proof, bounty_id=bid, user_id=user.id, created_at=created_time)
     db.add(submission)
     db.commit()
     db.refresh(submission)
-    background_tasks.add_task(
-        broadcast, "bounty.submission", {"bounty_id": bid, "user_email": user.email}
-    )
+    background_tasks.add_task(broadcast, "bounty.submission", {"bounty_id": bid, "user_email": user.email})

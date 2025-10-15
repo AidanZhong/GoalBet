@@ -29,9 +29,7 @@ def place_bet(db: Session, goal_id: int, payload: BetCreate, user: User, backgro
         raise HTTPException(status_code=400, detail="Insufficient balance")
 
     # update the pool
-    total_pool = (
-        db.query(func.coalesce(func.sum(Bet.amount), 0)).filter(Bet.goal_id == goal_id).scalar()
-    )
+    total_pool = db.query(func.coalesce(func.sum(Bet.amount), 0)).filter(Bet.goal_id == goal_id).scalar()
     side_pool = (
         db.query(func.coalesce(func.sum(Bet.amount), 0))
         .filter(Bet.goal_id == goal_id, Bet.side == payload.side)

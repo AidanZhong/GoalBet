@@ -20,9 +20,7 @@ from api.app.models.user import Token
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 
-def create_user(
-    db: Session, email: str, password: str, initial_balance: int = settings.initial_balance
-) -> User:
+def create_user(db: Session, email: str, password: str, initial_balance: int = settings.initial_balance) -> User:
     exists = db.query(User).filter(User.email == email).first()
     if exists:
         raise ValueError("User already exists")

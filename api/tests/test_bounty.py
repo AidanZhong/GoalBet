@@ -14,9 +14,7 @@ from api.app.models.bet import BetSide
 def test_me_bets_and_bounty_flow(client):
     # user
     client.post("/auth/register", json={"email": "me@test.com", "password": "pw"})
-    token = client.post("/auth/login", json={"email": "me@test.com", "password": "pw"}).json()[
-        "access_token"
-    ]
+    token = client.post("/auth/login", json={"email": "me@test.com", "password": "pw"}).json()["access_token"]
     headers = {"Authorization": f"Bearer {token}"}
 
     # create goal + bet
@@ -26,9 +24,7 @@ def test_me_bets_and_bounty_flow(client):
         headers=headers,
     ).json()
     gid = goal["id"]
-    client.post(
-        f"/markets/{gid}/bets", json={"side": BetSide.SUCCESS, "amount": 100}, headers=headers
-    )
+    client.post(f"/markets/{gid}/bets", json={"side": BetSide.SUCCESS, "amount": 100}, headers=headers)
 
     # /me/bets should return that bet
     r = client.get("/users/bets", headers=headers)
@@ -44,7 +40,5 @@ def test_me_bets_and_bounty_flow(client):
     assert bounty["title"] == "Run 5km"
 
     # submit proof
-    sub = client.post(
-        f"/bounties/{bounty['id']}/submit", json={"proof": "https://proof.img"}, headers=headers
-    )
+    sub = client.post(f"/bounties/{bounty['id']}/submit", json={"proof": "https://proof.img"}, headers=headers)
     assert sub.status_code == 200

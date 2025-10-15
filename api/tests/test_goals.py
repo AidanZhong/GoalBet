@@ -12,9 +12,7 @@ from datetime import datetime, timedelta, timezone
 def test_create_and_list_goal(client):
     # register + login
     r = client.post("/auth/register", json={"email": "g@x.com", "password": "pw123"})
-    token = client.post("/auth/login", json={"email": "g@x.com", "password": "pw123"}).json()[
-        "access_token"
-    ]
+    token = client.post("/auth/login", json={"email": "g@x.com", "password": "pw123"}).json()["access_token"]
     headers = {"Authorization": f"Bearer {token}"}
 
     # create goal
@@ -43,9 +41,7 @@ def test_create_and_list_goal(client):
 def test_update_goal(client):
     # register + login
     r = client.post("/auth/register", json={"email": "g@x.com", "password": "pw123"})
-    token = client.post("/auth/login", json={"email": "g@x.com", "password": "pw123"}).json()[
-        "access_token"
-    ]
+    token = client.post("/auth/login", json={"email": "g@x.com", "password": "pw123"}).json()["access_token"]
     headers = {"Authorization": f"Bearer {token}"}
 
     # create goal
