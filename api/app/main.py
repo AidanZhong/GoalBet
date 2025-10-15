@@ -19,9 +19,20 @@ from api.app.api.routers_wallet import router as wallet_router
 from api.app.core.db import Base, engine
 from api.app.core.settings import settings
 
-Base.metadata.create_all(bind=engine)
-
 app = FastAPI(title=settings.app_name)
+
+
+@app.on_event("startup")
+async def on_startup() -> None:
+    # 仅在 SQLite（通常是测试场景）下创建表；生产/开发请用 Alembic 迁移
+    try:
+        url = str(engine.url)
+    except Exception:
+        url = ""
+    if url.startswith("sqlite"):
+        Base.metadata.create_all(bind=engine)
+
+
 app.include_router(health_router)
 app.include_router(users_router)
 app.include_router(auth_router)
