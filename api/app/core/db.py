@@ -11,7 +11,7 @@ from sqlalchemy.orm import declarative_base, sessionmaker
 
 from api.app.core.settings import settings
 
-engine = create_engine(settings.database_url, connect_args={"check_same_thread": False})
+engine = create_engine(settings.database_url)
 print("🔗 Connected to:", engine.url)
 Session_local = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()

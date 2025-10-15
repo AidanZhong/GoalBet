@@ -3,7 +3,7 @@ name = "goalbet"
 version = "0.1.0"
 description = "GoalBet — a gamified goal-tracking and social betting platform"
 requires-python = ">=3.9"
-authors = [{ name = "Aidan", email = "you@example.com" }]
+authors = [{ name = "Aidan", email = "xiaofang1058@gmail.com" }]
 dependencies = [
     "fastapi",
     "uvicorn",
@@ -15,7 +15,7 @@ dependencies = [
 ]
 
 [tool.black]
-line-length = 100
+line-length = 120
 target-version = ['py39']
 skip-string-normalization = true
 include = '\.pyi?$'
@@ -31,7 +31,7 @@ exclude = '''
 
 [tool.isort]
 profile = "black"
-line_length = 100
+line_length = 120
 multi_line_output = 3
 include_trailing_comma = true
 force_grid_wrap = 0
@@ -39,13 +39,9 @@ combine_as_imports = true
 skip = ["venv", "__pycache__"]
 
 [tool.flake8]
-max-line-length = 100
+max-line-length = 120
 extend-ignore = ["E203", "W503"]
 exclude = [".git", "__pycache__", "venv"]
-# Optional strictness tuning:
-# per-file-ignores = [
-#   "api/app/__init__.py:F401",
-# ]
 
 [tool.mypy]
 python_version = "3.9"
