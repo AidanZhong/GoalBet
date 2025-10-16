@@ -13,6 +13,7 @@ from sqlalchemy.orm import Session
 
 from api.app.api.routers_auth import get_current_user
 from api.app.core.db import get_db
+from api.app.core.security import verify_frontend_key
 from api.app.models.bounty_missions import BountyCreate, BountyPublic, BountySubmission
 from api.app.models.db_models import Bounty, User
 from api.app.service import bounty_service
@@ -20,7 +21,7 @@ from api.app.service import bounty_service
 router = APIRouter(prefix="/bounties", tags=["bounties"])
 
 
-@router.post("", response_model=BountyPublic)
+@router.post("", response_model=BountyPublic, dependencies=[Depends(verify_frontend_key)])
 def create_bounty(
     payload: BountyCreate,
     background_tasks: BackgroundTasks,
@@ -31,7 +32,7 @@ def create_bounty(
     return BountyPublic.model_validate(bounty)
 
 
-@router.post("/{bid}/submit")
+@router.post("/{bid}/submit", dependencies=[Depends(verify_frontend_key)])
 def submit_bounty(
     bid: int,
     body: BountySubmission,

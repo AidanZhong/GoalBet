@@ -13,6 +13,7 @@ from typing_extensions import deprecated
 from api.app.api.routers_auth import get_current_user
 from api.app.core import data_store
 from api.app.core.db import get_db
+from api.app.core.security import verify_frontend_key
 from api.app.models.bet import BetPublic
 from api.app.models.db_models import User
 from api.app.models.user import UserCreate, UserPublic
@@ -22,7 +23,7 @@ router = APIRouter(prefix="/users", tags=["users"])
 
 
 @deprecated("This endpoint is deprecated. Please use /auth/register instead.")
-@router.post("/user_create", response_model=UserPublic)
+@router.post("/user_create", response_model=UserPublic, dependencies=[Depends(verify_frontend_key)])
 def create_user(user: UserCreate):
     if user.email in data_store._db:
         raise HTTPException(status_code=400, detail="user already exists")
@@ -33,6 +34,6 @@ def create_user(user: UserCreate):
     return data_store._db[user.email]
 
 
-@router.get("/bets", response_model=list[BetPublic])
+@router.get("/bets", response_model=list[BetPublic], dependencies=[Depends(verify_frontend_key)])
 def list_my_bets(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     return [BetPublic.model_validate(b) for b in bet_service.get_bets(db, user.id)]

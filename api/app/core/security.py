@@ -9,6 +9,7 @@ Created on 2025/9/28 21:26
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 
+from fastapi import Header, HTTPException
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 
@@ -43,3 +44,12 @@ def decode_token(token: str) -> Optional[dict]:
         return jwt.decode(token, settings.secret_key, algorithms=[settings.encrypt_algorithm])
     except JWTError:
         return None
+
+
+def verify_frontend_key(x_api_key: str = Header(None)):
+    # skip the check in test environment
+    if settings.env in ("test", "development", "local", "debug"):
+        return
+
+    if x_api_key != settings.frontend_api_key:
+        raise HTTPException(status_code=403, detail="Forbidden")

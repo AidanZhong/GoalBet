@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 
 from api.app.api.routers_auth import get_current_user
 from api.app.core.db import get_db
+from api.app.core.security import verify_frontend_key
 from api.app.models.db_models import User
 from api.app.models.goal import GoalCreate, GoalPublic, GoalUpdateCreate, GoalUpdatePublic
 from api.app.service import goal_service
@@ -19,7 +20,7 @@ from api.app.service.settlement import resolve_market
 router = APIRouter(prefix="/goals", tags=["goals"])
 
 
-@router.post("", response_model=GoalPublic)
+@router.post("", response_model=GoalPublic, dependencies=[Depends(verify_frontend_key)])
 def create_goal(
     payload: GoalCreate,
     background_tasks: BackgroundTasks,
@@ -30,12 +31,12 @@ def create_goal(
     return GoalPublic.model_validate(goal)
 
 
-@router.get("", response_model=list[GoalPublic])
+@router.get("", response_model=list[GoalPublic], dependencies=[Depends(verify_frontend_key)])
 def list_goals(db: Session = Depends(get_db)):
     return [GoalPublic.model_validate(g) for g in goal_service.get_all_goals(db)]
 
 
-@router.get("/{goal_id}", response_model=GoalPublic)
+@router.get("/{goal_id}", response_model=GoalPublic, dependencies=[Depends(verify_frontend_key)])
 def get_goal(goal_id: int, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
     goal = goal_service.get_goal(goal_id, db)
     if not goal:
@@ -43,7 +44,7 @@ def get_goal(goal_id: int, db: Session = Depends(get_db), user: User = Depends(g
     return GoalPublic.model_validate(goal)
 
 
-@router.post("/{goal_id}/updates", response_model=GoalUpdatePublic)
+@router.post("/{goal_id}/updates", response_model=GoalUpdatePublic, dependencies=[Depends(verify_frontend_key)])
 def post_update(
     goal_id: int,
     payload: GoalUpdateCreate,
@@ -55,7 +56,7 @@ def post_update(
     return GoalUpdatePublic.model_validate(update)
 
 
-@router.post("/{goal_id}/resolve")
+@router.post("/{goal_id}/resolve", dependencies=[Depends(verify_frontend_key)])
 def resolve_goal(
     goal_id: int,
     background_tasks: BackgroundTasks,
@@ -74,12 +75,12 @@ def resolve_goal(
     return result
 
 
-@router.get("/trending", response_model=list[GoalPublic])
+@router.get("/trending", response_model=list[GoalPublic], dependencies=[Depends(verify_frontend_key)])
 def trending_goals(db: Session = Depends(get_db)):
     goals = goal_service.get_goal_trends(db)
     return [GoalPublic.model_validate(g) for g in goals]
 
 
-@router.get("/mine", response_model=list[GoalPublic])
+@router.get("/mine", response_model=list[GoalPublic], dependencies=[Depends(verify_frontend_key)])
 def list_my_goals(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     return [GoalPublic.model_validate(g) for g in goal_service.list_user_goals(user, db)]
