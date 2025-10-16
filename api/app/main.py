@@ -6,10 +6,13 @@ Created on 2025/9/27 10:23
 @project: GoalBet
 @filename: main.py
 """
+import time
+
 from fastapi import FastAPI
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
+from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.middleware.cors import CORSMiddleware
 
 from api.app.api.routers_auth import router as auth_router
@@ -21,6 +24,7 @@ from api.app.api.routers_stream import router as stream_router
 from api.app.api.routers_users import router as users_router
 from api.app.api.routers_wallet import router as wallet_router
 from api.app.core.db import Base, engine
+from api.app.core.logger import setup_logger
 from api.app.core.settings import settings
 
 limiter = Limiter(key_func=get_remote_address)
@@ -28,6 +32,21 @@ app = FastAPI(title=settings.app_name)
 
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+logger = setup_logger(log2file=settings.log2file)
+logger.info("Starting GoalBet API...")
+
+
+class RequestLoggingMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        start = time.time()
+        response = await call_next(request)
+        process_time = (time.time() - start) * 1000
+        logger.info(f"{request.method} {request.url.path}" f"-> {response.status_code} in {process_time:.2f}ms")
+        return response
+
+
+app.add_middleware(RequestLoggingMiddleware)
 
 
 @app.on_event("startup")
