@@ -36,5 +36,5 @@ def place_bet(
 
 
 @router.get("/{goal_id}/bets", response_model=List[BetPublic])
-def list_bets(goal_id: int, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+def list_bets(goal_id: int, db: Session = Depends(get_db)):
     return [BetPublic.model_validate(b) for b in bet_service.get_bets(db, goal_id)]

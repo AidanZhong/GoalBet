@@ -31,7 +31,7 @@ def create_goal(
 
 
 @router.get("", response_model=list[GoalPublic])
-def list_goals(db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+def list_goals(db: Session = Depends(get_db)):
     return [GoalPublic.model_validate(g) for g in goal_service.get_all_goals(db)]
 
 

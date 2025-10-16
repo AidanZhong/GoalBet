@@ -33,7 +33,7 @@ def test_create_and_list_goal(client):
 
     # fetch single goal
     gid = goal["id"]
-    r = client.get(f"/goals/{gid}")
+    r = client.get(f"/goals/{gid}", headers=headers)
     assert r.status_code == 200
     assert r.json()["id"] == gid
 
@@ -64,7 +64,7 @@ def test_update_goal(client):
     assert update["goal_id"] == goal["id"]
 
     # fetch goal with updates
-    r = client.get(f"/goals/{goal['id']}")
+    r = client.get(f"/goals/{goal['id']}", headers=headers)
     assert r.status_code == 200
     assert r.json()["updates"][0]["content"] == "Finished book 1"
 
