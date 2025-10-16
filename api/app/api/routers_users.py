@@ -6,34 +6,24 @@ Created on 2025/9/27 20:02
 @project: GoalBet
 @filename: routers_users
 """
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, Request
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 from sqlalchemy.orm import Session
-from typing_extensions import deprecated
 
 from api.app.api.routers_auth import get_current_user
-from api.app.core import data_store
 from api.app.core.db import get_db
 from api.app.core.security import verify_frontend_key
 from api.app.models.bet import BetPublic
 from api.app.models.db_models import User
-from api.app.models.user import UserCreate, UserPublic
 from api.app.service import bet_service
 
 router = APIRouter(prefix="/users", tags=["users"])
 
-
-@deprecated("This endpoint is deprecated. Please use /auth/register instead.")
-@router.post("/user_create", response_model=UserPublic, dependencies=[Depends(verify_frontend_key)])
-def create_user(user: UserCreate):
-    if user.email in data_store._db:
-        raise HTTPException(status_code=400, detail="user already exists")
-
-    # update the database
-    data_store._user_id = data_store._user_id + 1
-    data_store._db[user.email] = {"id": data_store._user_id, "email": user.email}
-    return data_store._db[user.email]
+limiter = Limiter(key_func=get_remote_address)
 
 
 @router.get("/bets", response_model=list[BetPublic], dependencies=[Depends(verify_frontend_key)])
-def list_my_bets(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+@limiter.limit("100/minute")
+def list_my_bets(request: Request, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     return [BetPublic.model_validate(b) for b in bet_service.get_bets(db, user.id)]

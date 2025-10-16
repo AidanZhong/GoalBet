@@ -18,6 +18,7 @@ class Settings(BaseSettings):
     initial_balance: int = 1000
     database_url: str = 'postgresql://goalbet:goalbet@db:5432/goalbet'
     frontend_api_key: str = ''
+    frontend_domain: str = ''
 
     model_config = SettingsConfigDict(env_file='.env', env_file_encoding='utf-8')
 

@@ -6,7 +6,9 @@ Created on 2025/9/29 9:18
 @project: GoalBet
 @filename: routers_goals
 """
-from fastapi import APIRouter, BackgroundTasks, Body, Depends, HTTPException
+from fastapi import APIRouter, BackgroundTasks, Body, Depends, HTTPException, Request
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 from sqlalchemy.orm import Session
 
 from api.app.api.routers_auth import get_current_user
@@ -19,9 +21,13 @@ from api.app.service.settlement import resolve_market
 
 router = APIRouter(prefix="/goals", tags=["goals"])
 
+limiter = Limiter(key_func=get_remote_address)
+
 
 @router.post("", response_model=GoalPublic, dependencies=[Depends(verify_frontend_key)])
+@limiter.limit("10/minute")
 def create_goal(
+    request: Request,
     payload: GoalCreate,
     background_tasks: BackgroundTasks,
     user: User = Depends(get_current_user),
@@ -32,12 +38,14 @@ def create_goal(
 
 
 @router.get("", response_model=list[GoalPublic], dependencies=[Depends(verify_frontend_key)])
-def list_goals(db: Session = Depends(get_db)):
+@limiter.limit("100/minute")
+def list_goals(request: Request, db: Session = Depends(get_db)):
     return [GoalPublic.model_validate(g) for g in goal_service.get_all_goals(db)]
 
 
 @router.get("/{goal_id}", response_model=GoalPublic, dependencies=[Depends(verify_frontend_key)])
-def get_goal(goal_id: int, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+@limiter.limit("100/minute")
+def get_goal(request: Request, goal_id: int, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
     goal = goal_service.get_goal(goal_id, db)
     if not goal:
         raise HTTPException(status_code=404, detail="Goal not found")
@@ -45,7 +53,9 @@ def get_goal(goal_id: int, db: Session = Depends(get_db), user: User = Depends(g
 
 
 @router.post("/{goal_id}/updates", response_model=GoalUpdatePublic, dependencies=[Depends(verify_frontend_key)])
+@limiter.limit("100/minute")
 def post_update(
+    request: Request,
     goal_id: int,
     payload: GoalUpdateCreate,
     background_tasks: BackgroundTasks,
@@ -57,7 +67,9 @@ def post_update(
 
 
 @router.post("/{goal_id}/resolve", dependencies=[Depends(verify_frontend_key)])
+@limiter.limit("60/minute")
 def resolve_goal(
+    request: Request,
     goal_id: int,
     background_tasks: BackgroundTasks,
     outcome: str = Body(..., embed=True),
@@ -76,11 +88,13 @@ def resolve_goal(
 
 
 @router.get("/trending", response_model=list[GoalPublic], dependencies=[Depends(verify_frontend_key)])
-def trending_goals(db: Session = Depends(get_db)):
+@limiter.limit("100/minute")
+def trending_goals(request: Request, db: Session = Depends(get_db)):
     goals = goal_service.get_goal_trends(db)
     return [GoalPublic.model_validate(g) for g in goals]
 
 
 @router.get("/mine", response_model=list[GoalPublic], dependencies=[Depends(verify_frontend_key)])
-def list_my_goals(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+@limiter.limit("100/minute")
+def list_my_goals(request: Request, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     return [GoalPublic.model_validate(g) for g in goal_service.list_user_goals(user, db)]
