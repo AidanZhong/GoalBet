@@ -37,9 +37,12 @@ jobs:
       - name: Run tests
         run: pytest -v -s
   build-docker-image:
+
     needs: build-and-test
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Where am I?
         run: pwd ls -lrt
       - name: Build Docker image
@@ -50,6 +53,8 @@ jobs:
     needs: build-docker-image
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: SSH deploy
         uses: appleboy/ssh-action@v1.2.1
         with:
