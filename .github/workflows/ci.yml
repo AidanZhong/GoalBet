@@ -36,3 +36,26 @@ jobs:
 
       - name: Run tests
         run: pytest -v -s
+  build-docker-image:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Docker image
+        run: docker build -t goalbet-api:latest .
+
+  deploy-ec2:
+    if: github.ref == 'refs/heads/main'
+    needs: build-docker-image
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH deploy
+        uses: appleboy/ssh-action@v1.2.1
+        with:
+          host: ${{secrets.EC2_HOST}}
+          username: ${{secrets.EC2_USERNAME}}
+          key: ${{secrets.EC2_KEY}}
+          script: |
+            cd /home/ubuntu/GoalBet
+            git pull origin main
+            docker-compose down
+            docker-compose up -d --build
