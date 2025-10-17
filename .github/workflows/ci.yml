@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Where am I?
-        run: pwd ls -la
+        run: pwd ls -lrt
       - name: Build Docker image
         run: docker build -t goalbet-api:latest .
 
