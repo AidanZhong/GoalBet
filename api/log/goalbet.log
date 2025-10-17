@@ -1,0 +1,20 @@
+[2025-10-17 09:11:37] [INFO] [goalbet]: Logger setup completed
+[2025-10-17 09:11:37] [INFO] [goalbet]: Starting GoalBet API...
+[2025-10-17 09:33:30] [INFO] [goalbet]: Logger setup completed
+[2025-10-17 09:33:30] [INFO] [goalbet]: Starting GoalBet API...
+[2025-10-17 09:35:28] [INFO] [goalbet]: [trace=1806eed8] POST /health-> 405 in 0.00ms
+[2025-10-17 09:38:12] [INFO] [goalbet]: [trace=251a3a64] POST /health-> 405 in 1.00ms
+[2025-10-17 09:39:43] [INFO] [goalbet]: [trace=7368c793] GET /health-> 200 in 4.00ms
+[2025-10-17 09:42:08] [INFO] [goalbet]: Logger setup completed
+[2025-10-17 09:42:08] [INFO] [goalbet]: Starting GoalBet API...
+[2025-10-17 09:42:22] [INFO] [goalbet]: [trace=d96f79fa] GET /health-> 200 in 2930.78ms
+[2025-10-17 09:47:43] [INFO] [goalbet]: Logger setup completed
+[2025-10-17 09:47:43] [INFO] [goalbet]: Starting GoalBet API...
+[2025-10-17 09:48:07] [ERROR] [goalbet]: (psycopg2.OperationalError) 
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-10-17 09:48:07] [INFO] [goalbet]: [trace=552fa064] GET /health-> 200 in 2737.32ms
+[2025-10-17 09:51:49] [INFO] [goalbet]: Logger setup completed
+[2025-10-17 09:51:52] [INFO] [goalbet]: Starting GoalBet API...
+[2025-10-17 09:00:30] [INFO] [goalbet]: Logger setup completed
+[2025-10-17 09:00:30] [INFO] [goalbet]: Starting GoalBet API...
+[2025-10-17 09:02:54] [INFO] [goalbet]: [trace=200ead31] GET /health-> 200 in 64.21ms
