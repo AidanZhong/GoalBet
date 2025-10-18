@@ -1,16 +1,25 @@
-import {Link} from 'react-router-dom'
+import Navbar from "../component/Navbar.tsx";
+import Background from "../component/Background.tsx";
+import {useLocation} from "react-router-dom";
 
 export default function MainLayout({children}: { children: React.ReactNode }) {
+    const location = useLocation();
+
+    const backgrounds: Record<string, string> = {
+        "/": "/images/goalbet_logo_black_bg.png",
+        "/about": "/images/goalbet_logo_black_bg.png",
+        "/goals": "/images/goalbet_logo_black_bg.png",
+        "/wallet": "/images/goalbet_logo_black_bg.png",
+        "/login": "/images/goalbet_logo_black_bg.png",
+    };
+
+    const currentBg = backgrounds[location.pathname] || "/images/goalbet_logo_black_bg.png";
+
     return (
-        <div className="min-h-screen bg-gray-900 text-white">
-            <nav className="p-4 bg-gray-800 flex gap-4">
-                <Link to="/" className="hover:text-yellow-400">Home</Link>
-                <Link to="/about" className="hover:text-yellow-400">About</Link>
-                <Link to="/goals" className="hover:text-yellow-400">Goals</Link>
-                <Link to="/wallet" className="hover:text-yellow-400">Wallet</Link>
-                <Link to="/login" className="hover:text-yellow-400">Login</Link>
-            </nav>
-            <main className="p-6"> {children} </main>
+        <div className="min-h-screen text-white relative overflow-hidden">
+            <Background image={currentBg}/>
+            <Navbar/>
+            <main className="pt-20"> {children} </main>
         </div>
     )
 }
