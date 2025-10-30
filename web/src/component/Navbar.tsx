@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import {Link, useLocation} from "react-router-dom";
 import {motion, useScroll} from "framer-motion";
 import {useEffect, useState} from "react";
@@ -6,12 +7,19 @@ export default function Navbar() {
     const {scrollY} = useScroll();
     const [isScrolled, setIsScrolled] = useState(false);
     const location = useLocation();
+    const accessToken = Cookies.get("access_token");
+    const isLoggedIn = !!accessToken && accessToken !== "undefined" && accessToken !== "null";
 
     useEffect(() => {
         return scrollY.onChange((latest) => setIsScrolled(latest > 20));
     }, [scrollY]);
 
-    const links = [
+    const links = isLoggedIn ? [
+        {to: "/", text: "Home"},
+        {to: "/about", text: "About"},
+        {to: "/goals", text: "Goals"},
+        {to: "/wallet", text: "Wallet"},
+    ] : [
         {to: "/", text: "Home"},
         {to: "/about", text: "About"},
         {to: "/goals", text: "Goals"},
