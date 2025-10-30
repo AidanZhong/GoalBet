@@ -20,11 +20,3 @@ export default function Home() {
         </motion.div>
     )
 }
-import {register} from "../api/authService";
-
-async function handleRegister() {
-    await register({email: "test@goalbet.com", password: "1234"});
-    console.log("✅ Logged in successfully!");
-}
-
-handleRegister();

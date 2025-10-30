@@ -39,3 +39,8 @@
 [2025-10-30 17:52:21] [INFO] [goalbet]: Logger setup completed
 [2025-10-30 17:52:21] [INFO] [goalbet]: Starting GoalBet API...
 [2025-10-30 17:52:45] [INFO] [goalbet]: [trace=29352012] POST /auth/register-> 200 in 159.22ms
+[2025-10-30 18:21:58] [INFO] [goalbet]: [trace=1a324847] GET /docs-> 200 in 3.60ms
+[2025-10-30 18:21:59] [INFO] [goalbet]: [trace=922e95d8] GET /openapi.json-> 200 in 93.91ms
+[2025-10-30 18:25:58] [INFO] [goalbet]: [trace=53613c50] GET /auth/me-> 400 in 5.37ms
+[2025-10-30 18:48:17] [INFO] [goalbet]: [trace=6f8163a9] GET /auth/me-> 400 in 4.75ms
+[2025-10-30 18:48:17] [INFO] [goalbet]: [trace=94601725] GET /auth/me-> 400 in 3.02ms
