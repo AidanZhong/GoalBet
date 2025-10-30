@@ -18,3 +18,24 @@
 [2025-10-17 09:00:30] [INFO] [goalbet]: Logger setup completed
 [2025-10-17 09:00:30] [INFO] [goalbet]: Starting GoalBet API...
 [2025-10-17 09:02:54] [INFO] [goalbet]: [trace=200ead31] GET /health-> 200 in 64.21ms
+[2025-10-28 09:53:29] [INFO] [goalbet]: Logger setup completed
+[2025-10-28 09:53:29] [INFO] [goalbet]: Starting GoalBet API...
+[2025-10-28 09:55:18] [INFO] [goalbet]: Logger setup completed
+[2025-10-28 09:55:18] [INFO] [goalbet]: Starting GoalBet API...
+[2025-10-28 14:05:47] [INFO] [goalbet]: Logger setup completed
+[2025-10-28 14:05:47] [INFO] [goalbet]: Starting GoalBet API...
+[2025-10-28 14:05:58] [INFO] [goalbet]: [trace=f0924826] POST /auth/login-> 403 in 2.00ms
+[2025-10-28 14:08:12] [INFO] [goalbet]: [trace=f79991c0] POST /auth/login-> 403 in 1.00ms
+[2025-10-28 14:08:35] [INFO] [goalbet]: [trace=5b75ec5b] POST /auth/login-> 403 in 2.00ms
+[2025-10-28 14:10:28] [ERROR] [goalbet]: (psycopg2.OperationalError) 
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-10-28 14:10:28] [INFO] [goalbet]: [trace=ec090bb5] GET /health-> 200 in 2744.76ms
+[2025-10-28 14:13:49] [INFO] [goalbet]: [trace=61c29c9f] POST /auth/register-> 403 in 2.00ms
+[2025-10-28 14:13:58] [INFO] [goalbet]: [trace=780e0c5b] POST /auth/register-> 403 in 2.00ms
+[2025-10-28 14:18:18] [INFO] [goalbet]: [trace=53d23c7a] GET /docs-> 200 in 0.00ms
+[2025-10-30 17:33:45] [INFO] [goalbet]: Logger setup completed
+[2025-10-30 17:33:45] [INFO] [goalbet]: Starting GoalBet API...
+[2025-10-30 17:37:47] [INFO] [goalbet]: [trace=e98e938e] POST /auth/register-> 403 in 3.01ms
+[2025-10-30 17:52:21] [INFO] [goalbet]: Logger setup completed
+[2025-10-30 17:52:21] [INFO] [goalbet]: Starting GoalBet API...
+[2025-10-30 17:52:45] [INFO] [goalbet]: [trace=29352012] POST /auth/register-> 200 in 159.22ms
