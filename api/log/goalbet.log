@@ -44,3 +44,5 @@
 [2025-10-30 18:25:58] [INFO] [goalbet]: [trace=53613c50] GET /auth/me-> 400 in 5.37ms
 [2025-10-30 18:48:17] [INFO] [goalbet]: [trace=6f8163a9] GET /auth/me-> 400 in 4.75ms
 [2025-10-30 18:48:17] [INFO] [goalbet]: [trace=94601725] GET /auth/me-> 400 in 3.02ms
+[2025-10-31 11:44:39] [INFO] [goalbet]: Logger setup completed
+[2025-10-31 11:44:40] [INFO] [goalbet]: Starting GoalBet API...
