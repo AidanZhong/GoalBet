@@ -14,7 +14,7 @@ export default function Background({
             animate={{opacity: 1}}
             exit={{opacity: 0}}
             transition={{duration: 0.5}}
-            className="fixed inset-0 z-0"
+            className="fixed inset-0 -z-10 pointer-events-none"
             style={{
                 backgroundImage: image ? `url(${image})` : undefined,
                 backgroundSize: "cover",

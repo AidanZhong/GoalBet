@@ -18,7 +18,9 @@ export default function MainLayout({children}: { children: React.ReactNode }) {
     return (
         <div className="min-h-screen text-white relative overflow-hidden">
             <Background image={currentBg}/>
-            <Navbar/>
+            <header className={"relative z-10"}>
+                <Navbar/>
+            </header>
             <main className="pt-20"> {children} </main>
         </div>
     )
