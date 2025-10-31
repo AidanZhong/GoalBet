@@ -20,6 +20,10 @@ export default function Login() {
         if (current !== mode) {
             params.set("mode", mode);
             setParams(params, {replace: true});
+            setError(null);
+            setLoading(false);
+            setEmail("");
+            setPassword("");
         }
     }, [mode]);
 
@@ -47,7 +51,7 @@ export default function Login() {
             // if success, redirect to home
             nav("/home");
         } catch (e: any) {
-            setError(e.response?.data?.message || e?.message || "Login failed");
+            setError(mode === "login" ? "Invalid email or password" : e.message || "Failed to register");
         } finally {
             setLoading(false);
         }
