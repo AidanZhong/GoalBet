@@ -11,7 +11,7 @@ from typing import List, Optional
 
 from pydantic import BaseModel, EmailStr, Field
 
-from api.app.models.enums import GoalStatus, MarketType
+from api.app.models.enums import GoalStatus
 
 
 class GoalCreate(BaseModel):
@@ -41,7 +41,7 @@ class GoalPublic(BaseModel):
     description: Optional[str]
     deadline: datetime
     status: GoalStatus
-    markets: List[MarketType] = []
+    markets: List[int] = []
     updates: List[GoalUpdatePublic] = []
 
     model_config = {"from_attributes": True}

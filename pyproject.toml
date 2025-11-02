@@ -26,6 +26,7 @@ exclude = '''
   | \.venv
   | build
   | dist
+  | web
 )/
 '''
 
@@ -36,12 +37,12 @@ multi_line_output = 3
 include_trailing_comma = true
 force_grid_wrap = 0
 combine_as_imports = true
-skip = ["venv", "__pycache__"]
+skip = ["venv", "__pycache__", "web"]
 
 [tool.flake8]
 max-line-length = 120
 extend-ignore = ["E203", "W503"]
-exclude = [".git", "__pycache__", "venv"]
+exclude = [".git", "__pycache__", "venv", "web"]
 
 [tool.mypy]
 python_version = "3.9"
@@ -53,7 +54,7 @@ disallow_untyped_defs = true
 disallow_incomplete_defs = true
 show_error_codes = true
 pretty = true
-exclude = '(venv|tests|migrations|__pycache__)'
+exclude = '(venv|tests|migrations|__pycache__|web)'
 
 [tool.pytest.ini_options]
 minversion = "8.0"
