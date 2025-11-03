@@ -20,5 +20,9 @@ export type GoalDTO = {
 export const goalsService = {
     list() {
         return axiosClient.get<GoalDTO[]>("/goals");
+    },
+
+    create(payload: {title:string, description:string, deadline:string}) {
+        return axiosClient.post<GoalDTO>("/goals", payload);
     }
 };

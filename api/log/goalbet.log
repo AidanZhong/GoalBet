@@ -60,3 +60,17 @@
 [2025-11-02 15:17:35] [INFO] [goalbet]: Starting GoalBet API...
 [2025-11-02 15:18:31] [INFO] [goalbet]: Logger setup completed
 [2025-11-02 15:18:31] [INFO] [goalbet]: Starting GoalBet API...
+[2025-11-02 21:28:04] [INFO] [goalbet]: Logger setup completed
+[2025-11-02 21:28:04] [INFO] [goalbet]: Starting GoalBet API...
+[2025-11-02 21:28:16] [INFO] [goalbet]: [trace=63c0701b] GET /goals-> 200 in 160.33ms
+[2025-11-02 21:28:16] [INFO] [goalbet]: [trace=f9c4ff3d] GET /goals-> 200 in 5.89ms
+[2025-11-02 21:28:34] [INFO] [goalbet]: [trace=b4b708df] GET /goals-> 200 in 5.29ms
+[2025-11-02 21:28:34] [INFO] [goalbet]: [trace=e21b26d4] GET /goals-> 200 in 5.89ms
+[2025-11-02 21:28:36] [INFO] [goalbet]: [trace=b886db03] GET /goals-> 200 in 5.14ms
+[2025-11-02 21:28:36] [INFO] [goalbet]: [trace=9ff44888] GET /goals-> 200 in 5.52ms
+[2025-11-02 21:28:39] [INFO] [goalbet]: [trace=0a9b4b86] GET /goals-> 200 in 4.41ms
+[2025-11-02 21:28:39] [INFO] [goalbet]: [trace=d8ebf31b] GET /goals-> 200 in 5.66ms
+[2025-11-03 23:04:37] [INFO] [goalbet]: Logger setup completed
+[2025-11-03 23:04:37] [INFO] [goalbet]: Starting GoalBet API...
+[2025-11-03 23:48:18] [INFO] [goalbet]: [trace=23794428] GET /goals-> 200 in 102.78ms
+[2025-11-03 23:48:18] [INFO] [goalbet]: [trace=0f551def] GET /goals-> 200 in 5.37ms
