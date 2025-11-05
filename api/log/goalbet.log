@@ -74,3 +74,47 @@
 [2025-11-03 23:04:37] [INFO] [goalbet]: Starting GoalBet API...
 [2025-11-03 23:48:18] [INFO] [goalbet]: [trace=23794428] GET /goals-> 200 in 102.78ms
 [2025-11-03 23:48:18] [INFO] [goalbet]: [trace=0f551def] GET /goals-> 200 in 5.37ms
+[2025-11-05 00:32:04] [INFO] [goalbet]: Logger setup completed
+[2025-11-05 00:32:04] [INFO] [goalbet]: Starting GoalBet API...
+[2025-11-05 00:33:52] [INFO] [goalbet]: [trace=28f19ef4] GET /auth/me-> 400 in 4.99ms
+[2025-11-05 00:33:52] [INFO] [goalbet]: [trace=41ebd9dd] GET /auth/me-> 400 in 2.09ms
+[2025-11-05 00:34:03] [INFO] [goalbet]: [trace=28d7c33c] GET /goals-> 200 in 85.76ms
+[2025-11-05 00:34:03] [INFO] [goalbet]: [trace=b22e6864] GET /goals-> 200 in 3.90ms
+[2025-11-05 11:09:11] [INFO] [goalbet]: Logger setup completed
+[2025-11-05 11:09:11] [INFO] [goalbet]: Starting GoalBet API...
+[2025-11-05 11:17:14] [INFO] [goalbet]: Logger setup completed
+[2025-11-05 11:17:14] [INFO] [goalbet]: Starting GoalBet API...
+[2025-11-05 11:22:23] [INFO] [goalbet]: [trace=d5132223] GET /auth/me-> 400 in 8.09ms
+[2025-11-05 11:22:23] [INFO] [goalbet]: [trace=18d31005] GET /auth/me-> 400 in 2.10ms
+[2025-11-05 11:25:25] [INFO] [goalbet]: [trace=38ebf6a7] GET /auth/me-> 400 in 4.31ms
+[2025-11-05 11:25:25] [INFO] [goalbet]: [trace=3ec094ed] GET /auth/me-> 400 in 3.95ms
+[2025-11-05 11:37:06] [INFO] [goalbet]: Logger setup completed
+[2025-11-05 11:37:06] [INFO] [goalbet]: Starting GoalBet API...
+[2025-11-05 11:37:15] [INFO] [goalbet]: [trace=4d65a954] GET /auth/me-> 400 in 3.09ms
+[2025-11-05 11:37:15] [ERROR] [goalbet]: [trace=no-trace] GET /auth/me crashed: '_StreamingResponse' object has no attribute 'body'
+Traceback (most recent call last):
+  File "/app/api/app/main.py", line 69, in log_exceptions
+    f"{response.status_code} ({response.body.decode('utf-8', 'ignore')})"
+AttributeError: '_StreamingResponse' object has no attribute 'body'
+
+[2025-11-05 11:37:15] [INFO] [goalbet]: [trace=f86b8603] GET /auth/me-> 400 in 3.95ms
+[2025-11-05 11:37:15] [ERROR] [goalbet]: [trace=no-trace] GET /auth/me crashed: '_StreamingResponse' object has no attribute 'body'
+Traceback (most recent call last):
+  File "/app/api/app/main.py", line 69, in log_exceptions
+    f"{response.status_code} ({response.body.decode('utf-8', 'ignore')})"
+AttributeError: '_StreamingResponse' object has no attribute 'body'
+
+[2025-11-05 11:41:26] [INFO] [goalbet]: Logger setup completed
+[2025-11-05 11:41:26] [INFO] [goalbet]: Starting GoalBet API...
+[2025-11-05 11:41:45] [INFO] [goalbet]: [trace=80fb0ba8] GET /auth/me-> 400 in 6.08ms
+[2025-11-05 11:41:45] [WARNING] [goalbet]: [trace=no-trace] GET /auth/me -> 400 (response=_StreamingResponse, body=unavailable)
+[2025-11-05 11:41:45] [INFO] [goalbet]: [trace=acd31e9f] GET /auth/me-> 400 in 2.68ms
+[2025-11-05 11:41:45] [WARNING] [goalbet]: [trace=no-trace] GET /auth/me -> 400 (response=_StreamingResponse, body=unavailable)
+[2025-11-05 11:45:33] [INFO] [goalbet]: Logger setup completed
+[2025-11-05 11:45:33] [INFO] [goalbet]: Starting GoalBet API...
+[2025-11-05 11:46:26] [ERROR] [goalbet]: Invalid token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0MTIzQHRlc3QuY29tIiwiZXhwIjoxNzYxOTQ5NDExfQ.OkyK4w1jZ8CoBsYMFUbTelMCRdTlUxjVmgeiktJ9_IY
+[2025-11-05 11:46:26] [INFO] [goalbet]: [trace=670aaf73] GET /auth/me-> 400 in 5.88ms
+[2025-11-05 11:46:26] [WARNING] [goalbet]: [trace=no-trace] GET /auth/me -> 400 (response=_StreamingResponse, body=unavailable)
+[2025-11-05 11:46:26] [ERROR] [goalbet]: Invalid token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0MTIzQHRlc3QuY29tIiwiZXhwIjoxNzYxOTQ5NDExfQ.OkyK4w1jZ8CoBsYMFUbTelMCRdTlUxjVmgeiktJ9_IY
+[2025-11-05 11:46:26] [INFO] [goalbet]: [trace=9f2eea5a] GET /auth/me-> 400 in 4.75ms
+[2025-11-05 11:46:26] [WARNING] [goalbet]: [trace=no-trace] GET /auth/me -> 400 (response=_StreamingResponse, body=unavailable)

@@ -7,9 +7,11 @@ Created on 2025/9/27 10:23
 @filename: main.py
 """
 import time
+import traceback
 import uuid
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
@@ -53,6 +55,24 @@ class RequestLoggingMiddleware(BaseHTTPMiddleware):
 
 
 app.add_middleware(RequestLoggingMiddleware)
+
+
+@app.middleware("http")
+async def log_exceptions(request: Request, call_next):
+    trace_id = getattr(request.state, "trace_id", "no-trace")
+    try:
+        response = await call_next(request)
+        # Only log details for 4xx or 5xx
+        if response.status_code >= 400:
+            resp_type = type(response).__name__
+            logger.warning(
+                f"[trace={trace_id}] {request.method} {request.url.path} -> "
+                f"{response.status_code} (response={resp_type}, body=unavailable)"
+            )
+        return response
+    except Exception as e:
+        logger.error(f"[trace={trace_id}] {request.method} {request.url.path} crashed: {e}\n" + traceback.format_exc())
+        return JSONResponse(status_code=500, content={"detail": "Internal Server Error"})
 
 
 @app.on_event("startup")
