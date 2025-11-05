@@ -6,8 +6,11 @@ import {toCard} from "./Goals.tsx";
 import {type BetDTO, betsService} from "../api/betsService.ts";
 import CollapsibleList from "../component/CollapsibleList.tsx";
 import BetCard from "../component/BetCard.tsx";
+import {useNavigate} from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function Home() {
+    const nav = useNavigate();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -20,9 +23,14 @@ export default function Home() {
         let mounted = true;
         (async () => {
             try {
+                // Check if user is logged in
+                const user = await getCurrentUser();
+                if (user?.email) {
+                    setMe(user);
+                }
+
                 setLoading(true);
                 setError(null);
-                setMe(await getCurrentUser());
 
                 const [mineGoalsRes, mineBetsRes, allGoalsRes] = await Promise.all([
                     goalsService.listMine(),
@@ -42,6 +50,12 @@ export default function Home() {
                 setGoalMap(goalMap);
             } catch (_e) {
                 if (!mounted) return;
+                const hasToken = !!Cookies.get("access_token");
+                if (!hasToken) {
+                    nav("/goals");
+                } else {
+                    setError("Failed to load user data");
+                }
                 setError("Failed to load goals");
             } finally {
                 if (mounted) setLoading(false);

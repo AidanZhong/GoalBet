@@ -118,3 +118,59 @@ AttributeError: '_StreamingResponse' object has no attribute 'body'
 [2025-11-05 11:46:26] [ERROR] [goalbet]: Invalid token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0MTIzQHRlc3QuY29tIiwiZXhwIjoxNzYxOTQ5NDExfQ.OkyK4w1jZ8CoBsYMFUbTelMCRdTlUxjVmgeiktJ9_IY
 [2025-11-05 11:46:26] [INFO] [goalbet]: [trace=9f2eea5a] GET /auth/me-> 400 in 4.75ms
 [2025-11-05 11:46:26] [WARNING] [goalbet]: [trace=no-trace] GET /auth/me -> 400 (response=_StreamingResponse, body=unavailable)
+[2025-11-05 12:05:27] [ERROR] [goalbet]: Invalid token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0MTIzQHRlc3QuY29tIiwiZXhwIjoxNzYxOTQ5NDExfQ.OkyK4w1jZ8CoBsYMFUbTelMCRdTlUxjVmgeiktJ9_IY
+[2025-11-05 12:05:27] [INFO] [goalbet]: [trace=bdda1254] GET /auth/me-> 400 in 5.25ms
+[2025-11-05 12:05:27] [WARNING] [goalbet]: [trace=no-trace] GET /auth/me -> 400 (response=_StreamingResponse, body=unavailable)
+[2025-11-05 12:12:47] [ERROR] [goalbet]: Invalid token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0MTIzQHRlc3QuY29tIiwiZXhwIjoxNzYxOTQ5NDExfQ.OkyK4w1jZ8CoBsYMFUbTelMCRdTlUxjVmgeiktJ9_IY
+[2025-11-05 12:12:47] [INFO] [goalbet]: [trace=d1ff26ba] GET /auth/me-> 400 in 4.24ms
+[2025-11-05 12:12:47] [WARNING] [goalbet]: [trace=no-trace] GET /auth/me -> 400 (response=_StreamingResponse, body=unavailable)
+[2025-11-05 12:12:47] [INFO] [goalbet]: [trace=7336c73d] GET /users/bets-> 401 in 4.05ms
+[2025-11-05 12:12:47] [WARNING] [goalbet]: [trace=no-trace] GET /users/bets -> 401 (response=_StreamingResponse, body=unavailable)
+[2025-11-05 12:12:47] [INFO] [goalbet]: [trace=c5ed7686] GET /goals/mine-> 401 in 10.73ms
+[2025-11-05 12:12:47] [WARNING] [goalbet]: [trace=no-trace] GET /goals/mine -> 401 (response=_StreamingResponse, body=unavailable)
+[2025-11-05 12:12:47] [INFO] [goalbet]: [trace=f5e78210] GET /goals-> 200 in 198.20ms
+[2025-11-05 12:12:47] [INFO] [goalbet]: [trace=b92b8560] GET /goals-> 200 in 4.39ms
+[2025-11-05 12:12:47] [INFO] [goalbet]: [trace=3f865cc9] GET /goals-> 200 in 3.60ms
+[2025-11-05 12:12:49] [INFO] [goalbet]: [trace=60ae5853] GET /goals-> 200 in 5.70ms
+[2025-11-05 12:12:49] [INFO] [goalbet]: [trace=80c47623] GET /goals-> 200 in 6.69ms
+[2025-11-05 12:12:54] [INFO] [goalbet]: [trace=fc503aa5] GET /auth/me-> 401 in 1.70ms
+[2025-11-05 12:12:54] [WARNING] [goalbet]: [trace=no-trace] GET /auth/me -> 401 (response=_StreamingResponse, body=unavailable)
+[2025-11-05 12:12:54] [INFO] [goalbet]: [trace=867e7b9d] GET /auth/me-> 401 in 1.47ms
+[2025-11-05 12:12:54] [WARNING] [goalbet]: [trace=no-trace] GET /auth/me -> 401 (response=_StreamingResponse, body=unavailable)
+[2025-11-05 12:12:54] [INFO] [goalbet]: [trace=5ded8fe3] GET /goals/mine-> 401 in 12.76ms
+[2025-11-05 12:12:54] [INFO] [goalbet]: [trace=8c8b6654] GET /users/bets-> 401 in 6.46ms
+[2025-11-05 12:12:54] [WARNING] [goalbet]: [trace=no-trace] GET /goals/mine -> 401 (response=_StreamingResponse, body=unavailable)
+[2025-11-05 12:12:54] [WARNING] [goalbet]: [trace=no-trace] GET /users/bets -> 401 (response=_StreamingResponse, body=unavailable)
+[2025-11-05 12:12:54] [INFO] [goalbet]: [trace=33a043df] GET /users/bets-> 401 in 65.15ms
+[2025-11-05 12:12:54] [WARNING] [goalbet]: [trace=no-trace] GET /users/bets -> 401 (response=_StreamingResponse, body=unavailable)
+[2025-11-05 12:12:54] [INFO] [goalbet]: [trace=d4a4ea8a] GET /goals/mine-> 401 in 67.21ms
+[2025-11-05 12:12:54] [INFO] [goalbet]: [trace=ace4ac9e] GET /goals-> 200 in 87.39ms
+[2025-11-05 12:12:54] [WARNING] [goalbet]: [trace=no-trace] GET /goals/mine -> 401 (response=_StreamingResponse, body=unavailable)
+[2025-11-05 12:12:54] [INFO] [goalbet]: [trace=3b048c4d] GET /goals-> 200 in 6.70ms
+[2025-11-05 12:12:54] [INFO] [goalbet]: [trace=c6b04e75] GET /goals-> 200 in 5.56ms
+[2025-11-05 12:12:54] [INFO] [goalbet]: [trace=3324e062] GET /goals-> 200 in 6.76ms
+[2025-11-05 12:13:27] [INFO] [goalbet]: [trace=42b8860c] GET /goals-> 200 in 7.85ms
+[2025-11-05 12:13:27] [INFO] [goalbet]: [trace=3e940f38] GET /goals-> 200 in 6.04ms
+[2025-11-05 12:13:34] [INFO] [goalbet]: [trace=a8428bce] POST /auth/login-> 200 in 39.12ms
+[2025-11-05 12:13:39] [INFO] [goalbet]: [trace=8a43eef3] GET /auth/me-> 200 in 7.69ms
+[2025-11-05 12:13:39] [INFO] [goalbet]: [trace=71be1a3d] GET /auth/me-> 200 in 8.45ms
+[2025-11-05 12:13:39] [INFO] [goalbet]: [trace=56b8980a] GET /goals/mine-> 422 in 15.20ms
+[2025-11-05 12:13:39] [WARNING] [goalbet]: [trace=no-trace] GET /goals/mine -> 422 (response=_StreamingResponse, body=unavailable)
+[2025-11-05 12:13:39] [INFO] [goalbet]: [trace=19da04aa] GET /goals-> 200 in 35.30ms
+[2025-11-05 12:13:39] [INFO] [goalbet]: [trace=2fcfbd96] GET /goals/mine-> 422 in 15.10ms
+[2025-11-05 12:13:39] [INFO] [goalbet]: [trace=d88f0467] GET /users/bets-> 200 in 43.16ms
+[2025-11-05 12:13:39] [WARNING] [goalbet]: [trace=no-trace] GET /goals/mine -> 422 (response=_StreamingResponse, body=unavailable)
+[2025-11-05 12:13:39] [INFO] [goalbet]: [trace=f0e80001] GET /goals-> 200 in 12.09ms
+[2025-11-05 12:13:39] [INFO] [goalbet]: [trace=0412a225] GET /users/bets-> 200 in 14.44ms
+[2025-11-05 12:13:45] [INFO] [goalbet]: [trace=7498054d] GET /goals-> 200 in 4.92ms
+[2025-11-05 12:13:45] [INFO] [goalbet]: [trace=2690927e] GET /goals-> 200 in 5.36ms
+[2025-11-05 12:13:47] [INFO] [goalbet]: [trace=1462de38] GET /auth/me-> 200 in 6.03ms
+[2025-11-05 12:13:47] [INFO] [goalbet]: [trace=3884be19] GET /auth/me-> 200 in 6.94ms
+[2025-11-05 12:13:47] [INFO] [goalbet]: [trace=d743650c] GET /goals/mine-> 422 in 12.29ms
+[2025-11-05 12:13:47] [WARNING] [goalbet]: [trace=no-trace] GET /goals/mine -> 422 (response=_StreamingResponse, body=unavailable)
+[2025-11-05 12:13:47] [INFO] [goalbet]: [trace=7e1540b9] GET /goals-> 200 in 17.89ms
+[2025-11-05 12:13:47] [INFO] [goalbet]: [trace=33ce43f8] GET /users/bets-> 200 in 20.10ms
+[2025-11-05 12:13:47] [INFO] [goalbet]: [trace=c1463660] GET /goals/mine-> 422 in 12.81ms
+[2025-11-05 12:13:47] [WARNING] [goalbet]: [trace=no-trace] GET /goals/mine -> 422 (response=_StreamingResponse, body=unavailable)
+[2025-11-05 12:13:47] [INFO] [goalbet]: [trace=41c0f2ed] GET /goals-> 200 in 12.72ms
+[2025-11-05 12:13:47] [INFO] [goalbet]: [trace=a22493e6] GET /users/bets-> 200 in 16.20ms

@@ -93,7 +93,7 @@ export default function Goals() {
             {!isLoggedIn && (
                 <div className="mb-6 rounded-xl border border-yellow-500/40 bg-yellow-500/10 text-yellow-100 px-4 py-3">
                     Hi there, you haven't logged in yet. {" "}
-                    <a href={"/auth?mode=login"} className="underline">Login</a> {" "} to place a bet or start your own
+                    <a href={"/login?mode=login"} className="underline">Login</a> {" "} to place a bet or start your own
                     goals.
                 </div>
             )}
