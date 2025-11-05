@@ -16,7 +16,7 @@ function toPools(market: MarketsDTO | any) {
     return {support, against, total};
 }
 
-const toCard = (g: GoalDTO): GoalCardData => {
+export const toCard = (g: GoalDTO): GoalCardData => {
     return {
         id: String(g.id),
         title: g.title,

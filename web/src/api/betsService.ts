@@ -15,4 +15,8 @@ export const betsService = {
     listForGoal(goalId: number | string) {
         return axiosClient.get<BetDTO[]>(`/markets/${goalId}/bets`);
     },
+
+    listMyBets() {
+        return axiosClient.get<BetDTO[]>("/users/bets");
+    },
 }

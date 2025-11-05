@@ -24,5 +24,9 @@ export const goalsService = {
 
     create(payload: {title:string, description:string, deadline:string}) {
         return axiosClient.post<GoalDTO>("/goals", payload);
-    }
+    },
+
+    listMine() {
+        return axiosClient.get<GoalDTO[]>("/goals/mine");
+    },
 };
