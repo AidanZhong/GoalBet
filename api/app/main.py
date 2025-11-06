@@ -65,7 +65,35 @@ async def log_exceptions(request: Request, call_next):
         # Only log details for 4xx or 5xx
         if response.status_code >= 400:
             resp_type = type(response).__name__
-            logger.error(f"[trace={trace_id}] {request.method} {request.url.path} {resp_type}: {response.content}")
+            # 尝试以安全方式获取响应体，避免访问不存在的属性或消耗流
+            body_preview = "<non-readable body>"
+            try:
+                # starlette Response 在渲染后常带有私有属性 .body（bytes）
+                raw = getattr(response, "body", None)
+                if isinstance(raw, (bytes, bytearray)):
+                    body_preview = raw.decode("utf-8", errors="replace")
+                else:
+                    # 某些 JSONResponse 拥有 .media 可序列化
+                    media = getattr(response, "media", None)
+                    if media is not None:
+                        body_preview = str(media)
+                    else:
+                        # 最后再尝试 .render()（不要对 StreamingResponse 调用）
+                        from starlette.responses import Response as StarletteResponse, StreamingResponse
+
+                        if isinstance(response, StarletteResponse) and not isinstance(response, StreamingResponse):
+                            rendered = response.render(response.body if hasattr(response, "body") else None)
+                            if isinstance(rendered, (bytes, bytearray)):
+                                body_preview = rendered.decode("utf-8", errors="replace")
+                            else:
+                                body_preview = str(rendered)
+            except Exception:
+                # 安全兜底：不让日志失败影响响应
+                pass
+            logger.error(
+                f"[trace={trace_id}] {request.method} {request.url.path} {resp_type} {response.status_code}: "
+                f"{body_preview}"
+            )
         return response
     except Exception as e:
         logger.error(f"[trace={trace_id}] {request.method} {request.url.path} crashed: {e}\n" + traceback.format_exc())
