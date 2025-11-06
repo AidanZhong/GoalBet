@@ -11,6 +11,11 @@ export type BetDTO = {
     payout: number | null;
 }
 
+export type PlaceBetDTO = {
+    side: "success" | "fail";
+    amount: number;
+}
+
 export const betsService = {
     listForGoal(goalId: number | string) {
         return axiosClient.get<BetDTO[]>(`/markets/${goalId}/bets`);
@@ -19,4 +24,8 @@ export const betsService = {
     listMyBets() {
         return axiosClient.get<BetDTO[]>("/users/bets");
     },
+
+    placeBet(goalId:string | number, payload: PlaceBetDTO) {
+        return axiosClient.post<BetDTO>(`/markets/${goalId}/bets`, payload);
+    }
 }

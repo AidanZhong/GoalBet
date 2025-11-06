@@ -29,4 +29,8 @@ export const goalsService = {
     listMine() {
         return axiosClient.get<GoalDTO[]>("/goals/mine");
     },
+
+    getById(id: string | number) {
+        return axiosClient.get<GoalDTO>(`/goals/get_goal/${id}`);
+    }
 };

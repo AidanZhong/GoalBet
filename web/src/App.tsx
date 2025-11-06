@@ -7,6 +7,7 @@ import Goals from "./pages/Goals";
 import Wallet from "./pages/Wallet";
 import Login from "./pages/Login";
 import GoalCreate from "./pages/GoalCreate.tsx";
+import GoalDetail from "./pages/GoalDetail.tsx";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                     <Route path="/wallet" element={<Wallet/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/goals/create" element={<GoalCreate/>}/>
+                    <Route path="/goals/:id" element={<GoalDetail/>}/>
                 </Routes>
             </MainLayout>
         </Router>
