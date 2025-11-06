@@ -55,7 +55,7 @@ def list_goals(request: Request, db: Session = Depends(get_db)):
     return result
 
 
-@router.get("/{goal_id}", response_model=GoalPublic, dependencies=[Depends(verify_frontend_key)])
+@router.get("/get_goal/{goal_id}", response_model=GoalPublic, dependencies=[Depends(verify_frontend_key)])
 @limiter.limit("100/minute")
 def get_goal(request: Request, goal_id: int, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
     goal = goal_service.get_goal(goal_id, db)

@@ -65,10 +65,7 @@ async def log_exceptions(request: Request, call_next):
         # Only log details for 4xx or 5xx
         if response.status_code >= 400:
             resp_type = type(response).__name__
-            logger.warning(
-                f"[trace={trace_id}] {request.method} {request.url.path} -> "
-                f"{response.status_code} (response={resp_type}, body=unavailable)"
-            )
+            logger.error(f"[trace={trace_id}] {request.method} {request.url.path} {resp_type}: {response.content}")
         return response
     except Exception as e:
         logger.error(f"[trace={trace_id}] {request.method} {request.url.path} crashed: {e}\n" + traceback.format_exc())

@@ -174,3 +174,165 @@ AttributeError: '_StreamingResponse' object has no attribute 'body'
 [2025-11-05 12:13:47] [WARNING] [goalbet]: [trace=no-trace] GET /goals/mine -> 422 (response=_StreamingResponse, body=unavailable)
 [2025-11-05 12:13:47] [INFO] [goalbet]: [trace=41c0f2ed] GET /goals-> 200 in 12.72ms
 [2025-11-05 12:13:47] [INFO] [goalbet]: [trace=a22493e6] GET /users/bets-> 200 in 16.20ms
+[2025-11-05 13:07:59] [INFO] [goalbet]: Logger setup completed
+[2025-11-05 13:08:00] [INFO] [goalbet]: Starting GoalBet API...
+[2025-11-05 13:08:05] [INFO] [goalbet]: [trace=b79dc250] GET /auth/me-> 200 in 106.56ms
+[2025-11-05 13:08:05] [INFO] [goalbet]: [trace=d5ced99a] GET /auth/me-> 200 in 6.14ms
+[2025-11-05 13:08:06] [INFO] [goalbet]: [trace=03981a1a] GET /users/bets-> 200 in 22.55ms
+[2025-11-05 13:08:06] [INFO] [goalbet]: [trace=d2342542] GET /goals-> 200 in 30.21ms
+[2025-11-05 13:08:06] [INFO] [goalbet]: [trace=23dae449] GET /goals/mine-> 200 in 44.20ms
+[2025-11-05 13:08:06] [INFO] [goalbet]: [trace=35e1816d] GET /users/bets-> 200 in 23.16ms
+[2025-11-05 13:08:06] [INFO] [goalbet]: [trace=51de0a22] GET /goals-> 200 in 19.10ms
+[2025-11-05 13:08:06] [INFO] [goalbet]: [trace=cf9e82d7] GET /goals/mine-> 200 in 17.64ms
+[2025-11-05 13:08:16] [INFO] [goalbet]: [trace=7886e84e] GET /auth/me-> 200 in 8.24ms
+[2025-11-05 13:08:16] [INFO] [goalbet]: [trace=10d460ad] GET /auth/me-> 200 in 7.15ms
+[2025-11-05 13:08:16] [INFO] [goalbet]: [trace=3201ca03] GET /goals/mine-> 200 in 18.12ms
+[2025-11-05 13:08:16] [INFO] [goalbet]: [trace=53b7f4dc] GET /goals-> 200 in 16.25ms
+[2025-11-05 13:08:16] [INFO] [goalbet]: [trace=5396ee03] GET /users/bets-> 200 in 25.46ms
+[2025-11-05 13:08:16] [INFO] [goalbet]: [trace=4bc16523] GET /goals-> 200 in 21.05ms
+[2025-11-05 13:08:16] [INFO] [goalbet]: [trace=b98ec957] GET /users/bets-> 200 in 20.90ms
+[2025-11-05 13:08:16] [INFO] [goalbet]: [trace=e7e696a3] GET /goals/mine-> 200 in 28.16ms
+[2025-11-05 13:08:26] [INFO] [goalbet]: [trace=4ddc59d7] GET /goals-> 200 in 4.68ms
+[2025-11-05 13:08:26] [INFO] [goalbet]: [trace=b3cf9e0d] GET /goals-> 200 in 4.72ms
+[2025-11-05 13:08:27] [INFO] [goalbet]: [trace=236c4ea5] GET /auth/me-> 200 in 8.06ms
+[2025-11-05 13:08:27] [INFO] [goalbet]: [trace=92841d98] GET /auth/me-> 200 in 7.29ms
+[2025-11-05 13:08:27] [INFO] [goalbet]: [trace=0cc55bd2] GET /goals-> 200 in 12.44ms
+[2025-11-05 13:08:27] [INFO] [goalbet]: [trace=576d5699] GET /goals/mine-> 200 in 18.70ms
+[2025-11-05 13:08:27] [INFO] [goalbet]: [trace=ad606c06] GET /users/bets-> 200 in 25.36ms
+[2025-11-05 13:08:27] [INFO] [goalbet]: [trace=c94546c3] GET /goals-> 200 in 15.04ms
+[2025-11-05 13:08:27] [INFO] [goalbet]: [trace=33ddb65b] GET /goals/mine-> 200 in 14.94ms
+[2025-11-05 13:08:27] [INFO] [goalbet]: [trace=c6de7f95] GET /users/bets-> 200 in 11.38ms
+[2025-11-05 13:08:36] [INFO] [goalbet]: [trace=d66a6cba] GET /goals-> 200 in 6.90ms
+[2025-11-05 13:08:36] [INFO] [goalbet]: [trace=de3f0c74] GET /goals-> 200 in 5.02ms
+[2025-11-05 13:08:37] [INFO] [goalbet]: [trace=8723fdab] GET /auth/me-> 200 in 9.20ms
+[2025-11-05 13:08:37] [INFO] [goalbet]: [trace=754f41a9] GET /auth/me-> 200 in 7.08ms
+[2025-11-05 13:08:37] [INFO] [goalbet]: [trace=19a19100] GET /goals/mine-> 200 in 17.93ms
+[2025-11-05 13:08:37] [INFO] [goalbet]: [trace=e7d0e4bc] GET /goals-> 200 in 16.72ms
+[2025-11-05 13:08:37] [INFO] [goalbet]: [trace=56ab9a5c] GET /users/bets-> 200 in 21.74ms
+[2025-11-05 13:08:37] [INFO] [goalbet]: [trace=e46913b6] GET /goals-> 200 in 12.69ms
+[2025-11-05 13:08:37] [INFO] [goalbet]: [trace=11216e26] GET /users/bets-> 200 in 12.58ms
+[2025-11-05 13:08:37] [INFO] [goalbet]: [trace=edfeba56] GET /goals/mine-> 200 in 19.16ms
+[2025-11-05 13:12:25] [INFO] [goalbet]: [trace=f29a3c7d] POST /goals-> 200 in 33.92ms
+[2025-11-05 13:12:25] [INFO] [goalbet]: [trace=f6256ead] GET /goals-> 200 in 12.13ms
+[2025-11-05 13:12:25] [INFO] [goalbet]: [trace=6200d5ac] GET /goals-> 200 in 9.16ms
+[2025-11-05 13:12:32] [INFO] [goalbet]: [trace=d2f62e3b] GET /auth/me-> 200 in 6.82ms
+[2025-11-05 13:12:32] [INFO] [goalbet]: [trace=25001712] GET /auth/me-> 200 in 7.21ms
+[2025-11-05 13:12:32] [INFO] [goalbet]: [trace=cbee0988] GET /users/bets-> 200 in 17.70ms
+[2025-11-05 13:12:32] [INFO] [goalbet]: [trace=2adebbaa] GET /goals/mine-> 200 in 19.79ms
+[2025-11-05 13:12:32] [INFO] [goalbet]: [trace=ae5e408c] GET /goals-> 200 in 25.67ms
+[2025-11-05 13:12:32] [INFO] [goalbet]: [trace=d6e57e8d] GET /goals/mine-> 200 in 14.88ms
+[2025-11-05 13:12:32] [INFO] [goalbet]: [trace=2767791f] GET /users/bets-> 200 in 15.48ms
+[2025-11-05 13:12:32] [INFO] [goalbet]: [trace=66e07a8d] GET /goals-> 200 in 14.88ms
+[2025-11-05 13:12:41] [INFO] [goalbet]: [trace=8a209227] GET /auth/me-> 200 in 8.78ms
+[2025-11-05 13:12:41] [INFO] [goalbet]: [trace=3ebc30e6] GET /auth/me-> 200 in 9.88ms
+[2025-11-05 13:12:41] [INFO] [goalbet]: [trace=28f0eba3] GET /users/bets-> 200 in 16.49ms
+[2025-11-05 13:12:41] [INFO] [goalbet]: [trace=aa7665bb] GET /goals/mine-> 200 in 20.51ms
+[2025-11-05 13:12:41] [INFO] [goalbet]: [trace=cc6fcfa1] GET /goals-> 200 in 20.60ms
+[2025-11-05 13:12:41] [INFO] [goalbet]: [trace=d92a4a4e] GET /goals/mine-> 200 in 15.14ms
+[2025-11-05 13:12:41] [INFO] [goalbet]: [trace=9096eae9] GET /users/bets-> 200 in 19.52ms
+[2025-11-05 13:12:41] [INFO] [goalbet]: [trace=c97868a8] GET /goals-> 200 in 20.94ms
+[2025-11-05 13:12:59] [INFO] [goalbet]: [trace=cf8f93bf] GET /goals-> 200 in 11.88ms
+[2025-11-05 13:12:59] [INFO] [goalbet]: [trace=f8c241ee] GET /goals-> 200 in 16.54ms
+[2025-11-05 13:24:22] [ERROR] [goalbet]: Invalid token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0MTIzQHRlc3QuY29tIiwiZXhwIjoxNzYyMzQ4NDE0fQ.Y05V1UU8K1Wu-ZTbdu9UuX1EBaY4zSOP4ilzwm8JKrk
+[2025-11-05 13:24:22] [INFO] [goalbet]: [trace=be1f3429] GET /auth/me-> 400 in 9.69ms
+[2025-11-05 13:24:22] [ERROR] [goalbet]: [trace=no-trace] GET /auth/me crashed: '_StreamingResponse' object has no attribute 'content'
+Traceback (most recent call last):
+  File "/app/api/app/main.py", line 68, in log_exceptions
+    logger.error(f"[trace={trace_id}] {request.method} {request.url.path} {resp_type}: {response.content}")
+AttributeError: '_StreamingResponse' object has no attribute 'content'
+
+[2025-11-05 13:24:22] [ERROR] [goalbet]: Invalid token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0MTIzQHRlc3QuY29tIiwiZXhwIjoxNzYyMzQ4NDE0fQ.Y05V1UU8K1Wu-ZTbdu9UuX1EBaY4zSOP4ilzwm8JKrk
+[2025-11-05 13:24:22] [INFO] [goalbet]: [trace=1b82e8a0] GET /auth/me-> 400 in 8.57ms
+[2025-11-05 13:24:22] [ERROR] [goalbet]: [trace=no-trace] GET /auth/me crashed: '_StreamingResponse' object has no attribute 'content'
+Traceback (most recent call last):
+  File "/app/api/app/main.py", line 68, in log_exceptions
+    logger.error(f"[trace={trace_id}] {request.method} {request.url.path} {resp_type}: {response.content}")
+AttributeError: '_StreamingResponse' object has no attribute 'content'
+
+[2025-11-05 13:24:22] [INFO] [goalbet]: [trace=83cb6dc4] GET /goals/mine-> 401 in 5.61ms
+[2025-11-05 13:24:22] [ERROR] [goalbet]: [trace=no-trace] GET /goals/mine crashed: '_StreamingResponse' object has no attribute 'content'
+Traceback (most recent call last):
+  File "/app/api/app/main.py", line 68, in log_exceptions
+    logger.error(f"[trace={trace_id}] {request.method} {request.url.path} {resp_type}: {response.content}")
+AttributeError: '_StreamingResponse' object has no attribute 'content'
+
+[2025-11-05 13:24:22] [INFO] [goalbet]: [trace=2bfae1a9] GET /users/bets-> 401 in 7.63ms
+[2025-11-05 13:24:22] [ERROR] [goalbet]: [trace=no-trace] GET /users/bets crashed: '_StreamingResponse' object has no attribute 'content'
+Traceback (most recent call last):
+  File "/app/api/app/main.py", line 68, in log_exceptions
+    logger.error(f"[trace={trace_id}] {request.method} {request.url.path} {resp_type}: {response.content}")
+AttributeError: '_StreamingResponse' object has no attribute 'content'
+
+[2025-11-05 13:24:22] [INFO] [goalbet]: [trace=9c159e7a] GET /goals/mine-> 401 in 12.40ms
+[2025-11-05 13:24:22] [ERROR] [goalbet]: [trace=no-trace] GET /goals/mine crashed: '_StreamingResponse' object has no attribute 'content'
+Traceback (most recent call last):
+  File "/app/api/app/main.py", line 68, in log_exceptions
+    logger.error(f"[trace={trace_id}] {request.method} {request.url.path} {resp_type}: {response.content}")
+AttributeError: '_StreamingResponse' object has no attribute 'content'
+
+[2025-11-05 13:24:22] [INFO] [goalbet]: [trace=fd56ee44] GET /users/bets-> 401 in 7.15ms
+[2025-11-05 13:24:22] [ERROR] [goalbet]: [trace=no-trace] GET /users/bets crashed: '_StreamingResponse' object has no attribute 'content'
+Traceback (most recent call last):
+  File "/app/api/app/main.py", line 68, in log_exceptions
+    logger.error(f"[trace={trace_id}] {request.method} {request.url.path} {resp_type}: {response.content}")
+AttributeError: '_StreamingResponse' object has no attribute 'content'
+
+[2025-11-05 13:24:22] [INFO] [goalbet]: [trace=8e50cf23] GET /goals-> 200 in 46.07ms
+[2025-11-05 13:24:22] [INFO] [goalbet]: [trace=b9b7ca27] GET /goals-> 200 in 17.29ms
+[2025-11-05 13:24:22] [INFO] [goalbet]: [trace=163e9cc2] GET /goals-> 200 in 14.69ms
+[2025-11-05 13:24:22] [INFO] [goalbet]: [trace=4cf8cda1] GET /goals-> 200 in 14.75ms
+[2025-11-05 13:24:54] [INFO] [goalbet]: [trace=d3c4ca9d] GET /auth/me-> 401 in 2.35ms
+[2025-11-05 13:24:54] [ERROR] [goalbet]: [trace=no-trace] GET /auth/me crashed: '_StreamingResponse' object has no attribute 'content'
+Traceback (most recent call last):
+  File "/app/api/app/main.py", line 68, in log_exceptions
+    logger.error(f"[trace={trace_id}] {request.method} {request.url.path} {resp_type}: {response.content}")
+AttributeError: '_StreamingResponse' object has no attribute 'content'
+
+[2025-11-05 13:24:54] [INFO] [goalbet]: [trace=56940a07] GET /auth/me-> 401 in 1.24ms
+[2025-11-05 13:24:54] [ERROR] [goalbet]: [trace=no-trace] GET /auth/me crashed: '_StreamingResponse' object has no attribute 'content'
+Traceback (most recent call last):
+  File "/app/api/app/main.py", line 68, in log_exceptions
+    logger.error(f"[trace={trace_id}] {request.method} {request.url.path} {resp_type}: {response.content}")
+AttributeError: '_StreamingResponse' object has no attribute 'content'
+
+[2025-11-05 13:24:54] [INFO] [goalbet]: [trace=5e19a568] GET /goals/mine-> 401 in 1.94ms
+[2025-11-05 13:24:54] [ERROR] [goalbet]: [trace=no-trace] GET /goals/mine crashed: '_StreamingResponse' object has no attribute 'content'
+Traceback (most recent call last):
+  File "/app/api/app/main.py", line 68, in log_exceptions
+    logger.error(f"[trace={trace_id}] {request.method} {request.url.path} {resp_type}: {response.content}")
+AttributeError: '_StreamingResponse' object has no attribute 'content'
+
+[2025-11-05 13:24:54] [INFO] [goalbet]: [trace=c5feae12] GET /users/bets-> 401 in 5.88ms
+[2025-11-05 13:24:54] [ERROR] [goalbet]: [trace=no-trace] GET /users/bets crashed: '_StreamingResponse' object has no attribute 'content'
+Traceback (most recent call last):
+  File "/app/api/app/main.py", line 68, in log_exceptions
+    logger.error(f"[trace={trace_id}] {request.method} {request.url.path} {resp_type}: {response.content}")
+AttributeError: '_StreamingResponse' object has no attribute 'content'
+
+[2025-11-05 13:24:54] [INFO] [goalbet]: [trace=e34653e7] GET /goals/mine-> 401 in 8.18ms
+[2025-11-05 13:24:54] [ERROR] [goalbet]: [trace=no-trace] GET /goals/mine crashed: '_StreamingResponse' object has no attribute 'content'
+Traceback (most recent call last):
+  File "/app/api/app/main.py", line 68, in log_exceptions
+    logger.error(f"[trace={trace_id}] {request.method} {request.url.path} {resp_type}: {response.content}")
+AttributeError: '_StreamingResponse' object has no attribute 'content'
+
+[2025-11-05 13:24:54] [INFO] [goalbet]: [trace=3b0954c8] GET /users/bets-> 401 in 3.65ms
+[2025-11-05 13:24:54] [ERROR] [goalbet]: [trace=no-trace] GET /users/bets crashed: '_StreamingResponse' object has no attribute 'content'
+Traceback (most recent call last):
+  File "/app/api/app/main.py", line 68, in log_exceptions
+    logger.error(f"[trace={trace_id}] {request.method} {request.url.path} {resp_type}: {response.content}")
+AttributeError: '_StreamingResponse' object has no attribute 'content'
+
+[2025-11-05 13:24:55] [INFO] [goalbet]: [trace=a0b32a7c] GET /goals-> 200 in 47.94ms
+[2025-11-05 13:24:55] [INFO] [goalbet]: [trace=1cfccccd] GET /goals-> 200 in 14.37ms
+[2025-11-05 13:24:55] [INFO] [goalbet]: [trace=e9f6a641] GET /goals-> 200 in 15.77ms
+[2025-11-05 13:24:55] [INFO] [goalbet]: [trace=d9afac42] GET /goals-> 200 in 14.59ms
+[2025-11-05 13:24:58] [INFO] [goalbet]: [trace=8cf4b204] POST /auth/login-> 200 in 19.52ms
+[2025-11-05 13:25:01] [INFO] [goalbet]: [trace=7ae4f5fb] GET /auth/me-> 200 in 9.67ms
+[2025-11-05 13:25:01] [INFO] [goalbet]: [trace=f11eb93e] GET /auth/me-> 200 in 7.31ms
+[2025-11-05 13:25:01] [INFO] [goalbet]: [trace=ab3b60c7] GET /goals/mine-> 200 in 25.40ms
+[2025-11-05 13:25:01] [INFO] [goalbet]: [trace=dc31181e] GET /users/bets-> 200 in 28.06ms
+[2025-11-05 13:25:01] [INFO] [goalbet]: [trace=bd5a9896] GET /goals-> 200 in 32.54ms
+[2025-11-05 13:25:01] [INFO] [goalbet]: [trace=0f1d9452] GET /goals-> 200 in 16.07ms
+[2025-11-05 13:25:01] [INFO] [goalbet]: [trace=f5a83128] GET /goals/mine-> 200 in 24.59ms
+[2025-11-05 13:25:01] [INFO] [goalbet]: [trace=1ab211cb] GET /users/bets-> 200 in 26.89ms
