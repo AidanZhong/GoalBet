@@ -49,11 +49,11 @@ def create_goal(payload: GoalCreate, user: User, db: Session, background_tasks):
 
 
 def get_all_goals(db: Session):
-    return [fill_the_market(g) for g in db.query(Goal).all()]
+    return db.query(Goal).all()
 
 
 def get_goal(goal_id: int, db: Session):
-    return fill_the_market(db.query(Goal).filter(Goal.id == goal_id).first())
+    return db.query(Goal).filter(Goal.id == goal_id).first()
 
 
 def update_goal(goal_id: int, payload: GoalUpdateCreate, user: User, db: Session, background_tasks):
@@ -103,7 +103,7 @@ def get_goal_trends(db: Session):
 
 
 def list_user_goals(user: User, db: Session):
-    return [fill_the_market(g) for g in db.query(Goal).filter(Goal.owner_id == user.id).all()]
+    return db.query(Goal).filter(Goal.owner_id == user.id).all()
 
 
 def fill_the_market(g):

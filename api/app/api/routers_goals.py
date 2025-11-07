@@ -17,6 +17,7 @@ from api.app.core.security import verify_frontend_key
 from api.app.models.db_models import User
 from api.app.models.goal import GoalCreate, GoalPublic, GoalUpdateCreate, GoalUpdatePublic
 from api.app.service import goal_service
+from api.app.service.goal_service import fill_the_market
 from api.app.service.settlement import resolve_market
 
 router = APIRouter(prefix="/goals", tags=["goals"])
@@ -44,7 +45,7 @@ def list_goals(request: Request, db: Session = Depends(get_db)):
 
     result = []
     for g in goals:
-        gp = GoalPublic.model_validate(g)
+        gp = fill_the_market(g)
         result.append(gp)
 
     return result
@@ -56,7 +57,7 @@ def get_goal(request: Request, goal_id: int, db: Session = Depends(get_db), user
     goal = goal_service.get_goal(goal_id, db)
     if not goal:
         raise HTTPException(status_code=404, detail="Goal not found")
-    return GoalPublic.model_validate(goal)
+    return fill_the_market(goal)
 
 
 @router.post("/{goal_id}/updates", response_model=GoalUpdatePublic, dependencies=[Depends(verify_frontend_key)])
@@ -98,10 +99,10 @@ def resolve_goal(
 @limiter.limit("100/minute")
 def trending_goals(request: Request, db: Session = Depends(get_db)):
     goals = goal_service.get_goal_trends(db)
-    return [GoalPublic.model_validate(g) for g in goals]
+    return [fill_the_market(g) for g in goals]
 
 
 @router.get("/mine", response_model=list[GoalPublic], dependencies=[Depends(verify_frontend_key)])
 @limiter.limit("100/minute")
 def list_my_goals(request: Request, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    return [GoalPublic.model_validate(g) for g in goal_service.list_user_goals(user, db)]
+    return [fill_the_market(g) for g in goal_service.list_user_goals(user, db)]
