@@ -1,20 +1,13 @@
 import GoalCard, {type GoalCardData} from "../component/GoalCard.tsx";
-import {type GoalDTO, goalsService, type MarketsDTO} from "../api/goalsService.ts";
+import {type GoalDTO, goalsService} from "../api/goalsService.ts";
 import Cookies from "js-cookie";
 import {useEffect, useMemo, useState} from "react";
+import {normalizeMarkets} from "../utils/markets.ts";
 
 type FetchState =
     | { kind: "idle" | "loading" }
     | { kind: "error"; message: string }
     | { kind: "loaded"; items: GoalCardData[] };
-
-function toPools(market: MarketsDTO | any) {
-    if (!market) return {support: 0, against: 0, total: 0};
-    const support = Number(market.support ?? 0);
-    const against = Number(market.against ?? 0);
-    const total = Number(market.total ?? support + against);
-    return {support, against, total};
-}
 
 export const toCard = (g: GoalDTO): GoalCardData => {
     return {
@@ -23,7 +16,7 @@ export const toCard = (g: GoalDTO): GoalCardData => {
         author: g.owner_email,
         deadline: g.deadline,
         status: g.status,
-        pool: toPools(g.markets),
+        pool: normalizeMarkets(g.markets),
     };
 };
 

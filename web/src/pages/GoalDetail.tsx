@@ -3,6 +3,7 @@ import {useEffect, useMemo, useState} from "react";
 import {type GoalDTO, goalsService} from "../api/goalsService.ts";
 import Cookies from "js-cookie";
 import {betsService} from "../api/betsService.ts";
+import {normalizeMarkets} from "../utils/markets.ts";
 
 type BetSide = "success" | "fail"
 
@@ -56,9 +57,7 @@ export default function GoalDetail() {
     }, [id]);
 
     const pools = useMemo(() => {
-        const support = Number(goal?.markets?.support ?? 0);
-        const against = Number(goal?.markets?.against ?? 0);
-        const total = Number(goal?.markets?.total ?? support + against);
+        const {support, against, total} = normalizeMarkets(goal?.markets);
         const sp = total > 0 ? Math.round((support / total) * 100) : 50;
         const ap = total > 0 ? Math.round((against / total) * 100) : 50;
         return {support, against, total, sp, ap};

@@ -1,3 +1,5 @@
+import {normalizeMarkets} from "../utils/markets.ts";
+
 export type BetCardProps = {
     bet: {
         id: string | number;
@@ -42,11 +44,9 @@ const prettyDate = (iso?: string) =>
     iso ? new Date(iso).toLocaleString() : "—";
 
 export default function BetCard({bet, goal, className = ""}: BetCardProps) {
-    const support = Number(goal?.markets?.support ?? 0);
-    const against = Number(goal?.markets?.against ?? 0);
-    const total = Number(goal?.markets?.total ?? support + against);
+    const {support, against, total} = normalizeMarkets(goal?.markets)
     const supportPct = total > 0 ? Math.round((support / total) * 100) : 50;
-    const againstPct = total > 0 ? 100 - supportPct : 50;
+    const againstPct = total > 0 ? Math.round((against / total) * 100) : 50;
 
     return (
         <article className={`rounded-2xl border border-gray-700 bg-gray-900/70 p-4 ${className}`}>

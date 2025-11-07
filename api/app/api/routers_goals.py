@@ -14,7 +14,6 @@ from sqlalchemy.orm import Session
 from api.app.api.routers_auth import get_current_user
 from api.app.core.db import get_db
 from api.app.core.security import verify_frontend_key
-from api.app.models.bet import BetSide
 from api.app.models.db_models import User
 from api.app.models.goal import GoalCreate, GoalPublic, GoalUpdateCreate, GoalUpdatePublic
 from api.app.service import goal_service
@@ -45,11 +44,7 @@ def list_goals(request: Request, db: Session = Depends(get_db)):
 
     result = []
     for g in goals:
-        supports = sum(b.amount for b in getattr(g, "bets", []) if b.side == BetSide.SUCCESS)
-        againsts = sum(b.amount for b in getattr(g, "bets", []) if b.side == BetSide.FAIL)
-
         gp = GoalPublic.model_validate(g)
-        gp.markets = [int(supports or 0), int(againsts or 0)]
         result.append(gp)
 
     return result

@@ -13,9 +13,10 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from api.app.core.events import broadcast
+from api.app.models.bet import BetSide
 from api.app.models.db_models import Bet, Goal, GoalUpdate, User
 from api.app.models.enums import GoalStatus
-from api.app.models.goal import GoalCreate, GoalUpdateCreate
+from api.app.models.goal import GoalCreate, GoalPublic, GoalUpdateCreate
 
 
 def create_goal(payload: GoalCreate, user: User, db: Session, background_tasks):
@@ -48,11 +49,11 @@ def create_goal(payload: GoalCreate, user: User, db: Session, background_tasks):
 
 
 def get_all_goals(db: Session):
-    return db.query(Goal).all()
+    return [fill_the_market(g) for g in db.query(Goal).all()]
 
 
 def get_goal(goal_id: int, db: Session):
-    return db.query(Goal).filter(Goal.id == goal_id).first()
+    return fill_the_market(db.query(Goal).filter(Goal.id == goal_id).first())
 
 
 def update_goal(goal_id: int, payload: GoalUpdateCreate, user: User, db: Session, background_tasks):
@@ -102,4 +103,13 @@ def get_goal_trends(db: Session):
 
 
 def list_user_goals(user: User, db: Session):
-    return db.query(Goal).filter(Goal.owner_id == user.id).all()
+    return [fill_the_market(g) for g in db.query(Goal).filter(Goal.owner_id == user.id).all()]
+
+
+def fill_the_market(g):
+    supports = sum(b.amount for b in getattr(g, "bets", []) if b.side == BetSide.SUCCESS)
+    againsts = sum(b.amount for b in getattr(g, "bets", []) if b.side == BetSide.FAIL)
+
+    gp = GoalPublic.model_validate(g)
+    gp.markets = [int(supports or 0), int(againsts or 0)]
+    return gp
