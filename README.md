@@ -1,4 +1,6 @@
 # GoalBet
+website: https://goalbet-frontend-prod.s3.amazonaws.com/about
+
 MVP backend (FastAPI). Start: `uvicorn app.main:app --reload --port 8080`
 
 Goalbet is where goals meet accountability. We solve procrastination by making your goals public, fun, and fueled by community bets.
