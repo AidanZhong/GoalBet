@@ -101,7 +101,7 @@ export default function About() {
                                     {row.step}
                                 </span>
                             </div>
-                            <div className={"text-left flex-1 space-y-1"}>
+                            <div className={"text-left flex-1 space-y-2"}>
                                 <div className={"font-semibold text-white"}>{row.action}</div>
                                 <div className={"text-gray-300 text-sm mt-1"}>{row.description}</div>
                             </div>
