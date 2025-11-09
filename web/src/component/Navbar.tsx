@@ -25,27 +25,65 @@ export default function Navbar() {
         {to: "/login", text: "Login"},
     ];
 
+    const isActive = (to: string) =>
+        location.pathname === to || (to !== "/" && location.pathname.startsWith(to));
+
     return (
         <motion.nav
-            className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? "bg-gray-900/90 backdrop-blur shadow-lg" : "bg-transparent"}`}
+            className="sticky top-3 z-50 px-4"
             initial={{y: -40}}
             animate={{y: 0}}
         >
-            <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between text-white">
-                <h1 className="font-bold text-xl tracking-wide text-yellow-400">GoalBet</h1>
-            </div>
-
-            <div className="flex gap-6">
-                {links.map((link) => (
+            <div className="mx-auto max-w-7xl">
+                {/* pill container */}
+                <div
+                    className={[
+                        "flex items-center gap-3 sm:gap-4",
+                        "rounded-[26px] border border-gray-700",
+                        "px-3 sm:px-4 py-2",
+                        isScrolled ? "bg-gray-900/80 backdrop-blur shadow-lg" : "bg-gray-900/60",
+                    ].join(" ")}
+                >
+                    {/* logo box */}
                     <Link
-                        key={link.to}
-                        to={link.to}
-                        className={`hover:text-yellow-400 transition-colors duration-300 ${location.pathname === link.to ? "text-yellow-300" : ""}`}
+                        to="/"
+                        aria-label="GoalBet Home"
+                        className="shrink-0"
                     >
-                        {link.text}
+                        <img
+                            src="/images/logo.png"
+                            alt="logo"
+                            className="h-10 w-10 sm:h-12 sm:w-12"
+                        />
                     </Link>
-                ))}
+
+                    {/* brand */}
+                    <Link
+                        to="/"
+                        className="mr-1 sm:mr-3 text-lg sm:text-xl font-semibold text-white"
+                    >
+                        GoalBet
+                    </Link>
+
+                    {/* inline links */}
+                    <nav className="flex-1 flex items-center gap-1 sm:gap-2">
+                        {links.map((l) => (
+                            <Link
+                                key={l.to}
+                                to={l.to}
+                                className={[
+                                    "px-3 py-2 rounded-xl text-sm transition-colors",
+                                    isActive(l.to)
+                                        ? "bg-gray-800/70 text-white"
+                                        : "text-gray-300 hover:text-white hover:bg-gray-800/70",
+                                ].join(" ")}
+                            >
+                                {l.text}
+                            </Link>
+                        ))}
+                    </nav>
+                </div>
             </div>
         </motion.nav>
-    )
+    );
 }
