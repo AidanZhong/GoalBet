@@ -69,7 +69,7 @@ export default function About() {
 
             {/* Section 2: How it works */}
             <SectionCard title={"How it works"} emoji={"⚙️"}>
-                <div className={"grid grid-cols-1 gap-4"}>
+                <div className={"grid grid-cols-1 gap-5"}>
                     {[
                         {
                             step: 1,
