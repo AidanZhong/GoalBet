@@ -97,11 +97,11 @@ export default function About() {
                             className={"rounded-xl border border-gray-700 bg-gray-800/60 p-4 md:p-5 flex items-start gap-4"}>
                             <div className={"shrink-0"}>
                                 <span
-                                    className={"inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gray-900 border border-gray-700 text-sm font-bold text-gray-200"}>
+                                    className={"h-8 w-8 grid place-items-center justify-center rounded-lg bg-gray-900 border border-gray-700 text-sm font-bold text-gray-200"}>
                                     {row.step}
                                 </span>
                             </div>
-                            <div>
+                            <div className={"text-left flex-1 space-y-1"}>
                                 <div className={"font-semibold text-white"}>{row.action}</div>
                                 <div className={"text-gray-300 text-sm mt-1"}>{row.description}</div>
                             </div>
