@@ -36,7 +36,7 @@ export default function About() {
                     <p>
                         GoalBet is a platform that allows users to create and track their goals.
                         It turns your personal goals into a public game, where people can bet for or against you.
-                        Post your goal, stake coins, let others bet, and prove you can make it happen.
+                        Post your goal, stake coins, let others bet, and prove you can make it happen!!!
                     </p>
                     <p className={"mt-2"}>
                         When you succeed, you win - not only just rewards, but also respect.
