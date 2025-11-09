@@ -20,10 +20,8 @@ export default function Navbar() {
         {to: "/goals", text: "Goals"},
         {to: "/wallet", text: "Wallet"},
     ] : [
-        {to: "/", text: "Home"},
         {to: "/about", text: "About"},
         {to: "/goals", text: "Goals"},
-        {to: "/wallet", text: "Wallet"},
         {to: "/login", text: "Login"},
     ];
 

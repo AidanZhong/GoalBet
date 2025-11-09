@@ -4167,3 +4167,23 @@ AttributeError: '_StreamingResponse' object has no attribute 'content'
 [2025-11-09 15:39:53] [INFO] [goalbet]: [trace=6f3e483a] GET /users/bets-> 200 in 25.09ms
 [2025-11-09 15:39:53] [INFO] [goalbet]: [trace=edb0edff] GET /goals/mine-> 200 in 39.07ms
 [2025-11-09 15:39:53] [INFO] [goalbet]: [trace=1739ba89] GET /goals-> 200 in 26.86ms
+[2025-11-09 16:55:48] [INFO] [goalbet]: Logger setup completed
+[2025-11-09 16:55:48] [INFO] [goalbet]: Starting GoalBet API...
+[2025-11-09 16:58:38] [INFO] [goalbet]: [trace=9907d646] GET /auth/me-> 401 in 2.96ms
+[2025-11-09 16:58:38] [ERROR] [goalbet]: [trace=no-trace] GET /auth/me _StreamingResponse 401: 
+[2025-11-09 16:58:38] [INFO] [goalbet]: [trace=36856a1d] GET /auth/me-> 401 in 0.79ms
+[2025-11-09 16:58:38] [ERROR] [goalbet]: [trace=no-trace] GET /auth/me _StreamingResponse 401: 
+[2025-11-09 16:58:38] [INFO] [goalbet]: [trace=285f6c84] GET /goals/mine-> 401 in 3.05ms
+[2025-11-09 16:58:38] [ERROR] [goalbet]: [trace=no-trace] GET /goals/mine _StreamingResponse 401: 
+[2025-11-09 16:58:38] [INFO] [goalbet]: [trace=d5157852] GET /users/bets-> 401 in 7.22ms
+[2025-11-09 16:58:38] [ERROR] [goalbet]: [trace=no-trace] GET /users/bets _StreamingResponse 401: 
+[2025-11-09 16:58:38] [INFO] [goalbet]: [trace=cde67d59] GET /goals/mine-> 401 in 2.82ms
+[2025-11-09 16:58:38] [ERROR] [goalbet]: [trace=no-trace] GET /goals/mine _StreamingResponse 401: 
+[2025-11-09 16:58:38] [INFO] [goalbet]: [trace=4b8cf903] GET /users/bets-> 401 in 4.82ms
+[2025-11-09 16:58:38] [ERROR] [goalbet]: [trace=no-trace] GET /users/bets _StreamingResponse 401: 
+[2025-11-09 16:58:38] [INFO] [goalbet]: [trace=225749f4] GET /goals-> 200 in 138.95ms
+[2025-11-09 16:58:38] [INFO] [goalbet]: [trace=af0ca963] GET /goals-> 200 in 16.42ms
+[2025-11-09 16:58:38] [INFO] [goalbet]: [trace=c052f70d] GET /goals-> 200 in 15.25ms
+[2025-11-09 16:58:38] [INFO] [goalbet]: [trace=7ceb21dc] GET /goals-> 200 in 80.31ms
+[2025-11-09 16:58:43] [INFO] [goalbet]: [trace=ecc05cf8] GET /goals-> 200 in 8.80ms
+[2025-11-09 16:58:43] [INFO] [goalbet]: [trace=f25160ad] GET /goals-> 200 in 9.09ms

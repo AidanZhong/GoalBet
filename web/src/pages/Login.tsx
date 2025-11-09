@@ -49,7 +49,7 @@ export default function Login() {
                 await register({email, password});
             }
             // if success, redirect to home
-            nav("/home");
+            nav("/");
         } catch (e: any) {
             setError(mode === "login" ? "Invalid email or password" : e.message || "Failed to register");
         } finally {

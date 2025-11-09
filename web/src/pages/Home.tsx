@@ -52,7 +52,7 @@ export default function Home() {
                 if (!mounted) return;
                 const hasToken = !!Cookies.get("access_token");
                 if (!hasToken) {
-                    nav("/goals");
+                    nav("/about");
                 } else {
                     setError("Failed to load user data");
                 }
