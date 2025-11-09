@@ -112,7 +112,7 @@ export default function GoalDetail() {
         }
 
         if (!isLoggedIn) {
-            nav("/auth?mode=login");
+            nav("/login?mode=login");
             return;
         }
 
@@ -309,7 +309,7 @@ export default function GoalDetail() {
 
                                 {!isLoggedIn && (
                                     <div className={"mt-2 text-xs text-yellow-200"}>
-                                        You need to be logged in to place a bet.{" "} <a href={"/auth?mode=login"}
+                                        You need to be logged in to place a bet.{" "} <a href={"/login?mode=login"}
                                                                                          className={"underline"}>Login</a>
                                     </div>
                                 )}

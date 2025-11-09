@@ -8,6 +8,7 @@ import CollapsibleList from "../component/CollapsibleList.tsx";
 import BetCard from "../component/BetCard.tsx";
 import {useNavigate} from "react-router-dom";
 import Cookies from "js-cookie";
+import CreateGoalButton from "../component/CreateGoalButton.tsx";
 
 export default function Home() {
     const nav = useNavigate();
@@ -78,6 +79,7 @@ export default function Home() {
                 </div>
             )}
 
+            <CreateGoalButton/>
             {/** My Goals */}
             <CollapsibleList title={"Your Goals"} defaultOpen count={myGoals.length}>
                 {loading ? (

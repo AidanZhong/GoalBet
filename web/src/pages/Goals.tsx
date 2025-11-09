@@ -3,6 +3,7 @@ import {type GoalDTO, goalsService} from "../api/goalsService.ts";
 import Cookies from "js-cookie";
 import {useEffect, useMemo, useState} from "react";
 import {normalizeMarkets} from "../utils/markets.ts";
+import CreateGoalButton from "../component/CreateGoalButton.tsx";
 
 type FetchState =
     | { kind: "idle" | "loading" }
@@ -91,6 +92,7 @@ export default function Goals() {
                 </div>
             )}
             <h1 className={"text-2xl font-bold mb-4"}>All Goals</h1>
+            <CreateGoalButton/>
             {content}
         </div>
     );

@@ -21,7 +21,7 @@ export default function Wallet() {
                 // first verify if user is logged in
                 const hasToken = !!Cookies.get("access_token");
                 if (!hasToken) {
-                    nav("/auth?mode=login");
+                    nav("/login?mode=login");
                     return;
                 }
 
