@@ -22,7 +22,7 @@ export const goalsService = {
         return axiosClient.get<GoalDTO[]>("/goals");
     },
 
-    create(payload: {title:string, description:string, deadline:string}) {
+    create(payload: { title: string, description: string, deadline: string }) {
         return axiosClient.post<GoalDTO>("/goals", payload);
     },
 
@@ -32,5 +32,9 @@ export const goalsService = {
 
     getById(id: string | number) {
         return axiosClient.get<GoalDTO>(`/goals/get_goal/${id}`);
-    }
+    },
+
+    resolve(goalId: string | number, outcome: "success" | "fail") {
+        return axiosClient.post(`/goals/${goalId}/resolve`, {outcome});
+    },
 };

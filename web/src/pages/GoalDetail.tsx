@@ -4,6 +4,8 @@ import {type GoalDTO, goalsService} from "../api/goalsService.ts";
 import Cookies from "js-cookie";
 import {betsService} from "../api/betsService.ts";
 import {normalizeMarkets} from "../utils/markets.ts";
+import {getCurrentUser} from "../api/userService.ts";
+import ResolveGoalButton from "../component/ResolveGoalButton.tsx";
 
 type BetSide = "success" | "fail"
 
@@ -22,7 +24,32 @@ export default function GoalDetail() {
     const [betSide, setBetSide] = useState<BetSide | null>(null);
     const [amount, setAmount] = useState<string>("");
     const [placing, setPlacing] = useState(false);
+
+    const [me, setMe] = useState<{ email?: string }>({email: ""});
+
+    useEffect(() => {
+        let mounted = true;
+        (async () => {
+            const user = await getCurrentUser();
+            if (mounted) setMe(user);
+        })();
+        return () => {
+            mounted = false;
+        }
+    }, []);
+
+    const isOwner = !!me?.email && goal?.owner_email === me.email;
+
     const isLoggedIn = !!Cookies.get("access_token");
+
+    const reloadGoal = async () => {
+        try {
+            const response = await goalsService.getById(id!);
+            setGoal(response.data);
+        } catch {
+            // ignore error
+        }
+    }
 
     // fetch goal
     useEffect(() => {
@@ -133,9 +160,17 @@ export default function GoalDetail() {
     return (
         <div className={"max-w-3xl mx-auto px-4 py-6"}>
             {/*header*/}
-            <div className={"rounded-2xl border border-gray-700 bg-gray-900/70 p-5"}>
+            <div className={"rounded-2xl border border-gray-700 bg-gray-900/70 p-5 relative"}>
                 <h1 className="text-2xl font-bold text-white">{goal.title}</h1>
                 <p className="text-sm text-gray-400 mt-1">by {goal.owner_email}</p>
+
+                {/* resolve button */}
+                {isOwner && isActive && (
+                    <ResolveGoalButton goalId={goal.id}
+                                       onResolved={() => reloadGoal()}
+                                       className={"absolute right-5 top-5"}
+                    />
+                )}
 
                 <div className={"mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm"}>
                     <div className={"space-y-1"}>
