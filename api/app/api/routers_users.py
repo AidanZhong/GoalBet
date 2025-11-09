@@ -26,4 +26,4 @@ limiter = Limiter(key_func=get_remote_address)
 @router.get("/bets", response_model=list[BetPublic], dependencies=[Depends(verify_frontend_key)])
 @limiter.limit("100/minute")
 def list_my_bets(request: Request, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    return [BetPublic.model_validate(b) for b in bet_service.get_bets(db, user.id)]
+    return [BetPublic.model_validate(b) for b in bet_service.get_user_bets(db, user.id)]
