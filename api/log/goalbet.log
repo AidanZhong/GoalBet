@@ -4187,3 +4187,77 @@ AttributeError: '_StreamingResponse' object has no attribute 'content'
 [2025-11-09 16:58:38] [INFO] [goalbet]: [trace=7ceb21dc] GET /goals-> 200 in 80.31ms
 [2025-11-09 16:58:43] [INFO] [goalbet]: [trace=ecc05cf8] GET /goals-> 200 in 8.80ms
 [2025-11-09 16:58:43] [INFO] [goalbet]: [trace=f25160ad] GET /goals-> 200 in 9.09ms
+[2025-11-09 20:55:43] [INFO] [goalbet]: Logger setup completed
+[2025-11-09 20:55:43] [INFO] [goalbet]: Starting GoalBet API...
+[2025-11-09 20:57:16] [INFO] [goalbet]: Logger setup completed
+[2025-11-09 20:57:16] [INFO] [goalbet]: Starting GoalBet API...
+[2025-11-09 20:57:21] [INFO] [goalbet]: [trace=f4b40428] GET /auth/me-> 200 in 141.90ms
+[2025-11-09 20:57:21] [INFO] [goalbet]: [trace=504cf4ff] GET /auth/me-> 200 in 6.39ms
+[2025-11-09 20:57:21] [INFO] [goalbet]: [trace=f90c54f8] GET /users/bets-> 200 in 24.58ms
+[2025-11-09 20:57:21] [INFO] [goalbet]: [trace=614cb1d4] GET /goals/mine-> 200 in 49.82ms
+[2025-11-09 20:57:21] [INFO] [goalbet]: [trace=3c239a93] GET /goals-> 200 in 54.18ms
+[2025-11-09 20:57:21] [INFO] [goalbet]: [trace=2e790df3] GET /users/bets-> 200 in 22.67ms
+[2025-11-09 20:57:21] [INFO] [goalbet]: [trace=95f89f73] GET /goals-> 200 in 21.23ms
+[2025-11-09 20:57:21] [INFO] [goalbet]: [trace=257ee132] GET /goals/mine-> 200 in 24.04ms
+[2025-11-09 20:57:30] [INFO] [goalbet]: [trace=23acb6e6] GET /auth/me-> 200 in 13.57ms
+[2025-11-09 20:57:30] [INFO] [goalbet]: [trace=4f504aed] GET /goals/get_goal/1-> 200 in 14.40ms
+[2025-11-09 20:57:30] [INFO] [goalbet]: [trace=9a4fb4c8] GET /auth/me-> 200 in 10.27ms
+[2025-11-09 20:57:30] [INFO] [goalbet]: [trace=1237dd22] GET /goals/get_goal/1-> 200 in 11.86ms
+[2025-11-09 20:57:33] [INFO] [goalbet]: [trace=f0c1e2f8] GET /auth/me-> 200 in 5.78ms
+[2025-11-09 20:57:33] [INFO] [goalbet]: [trace=0eabcb58] GET /auth/me-> 200 in 6.47ms
+[2025-11-09 20:57:33] [INFO] [goalbet]: [trace=e0088922] GET /users/bets-> 200 in 20.03ms
+[2025-11-09 20:57:33] [INFO] [goalbet]: [trace=451c8263] GET /goals/mine-> 200 in 24.44ms
+[2025-11-09 20:57:33] [INFO] [goalbet]: [trace=793ac4fc] GET /goals-> 200 in 26.65ms
+[2025-11-09 20:57:33] [INFO] [goalbet]: [trace=75189eeb] GET /users/bets-> 200 in 20.13ms
+[2025-11-09 20:57:33] [INFO] [goalbet]: [trace=9862c9d2] GET /goals-> 200 in 21.86ms
+[2025-11-09 20:57:33] [INFO] [goalbet]: [trace=0805f8db] GET /goals/mine-> 200 in 22.96ms
+[2025-11-09 20:57:34] [INFO] [goalbet]: [trace=66c47576] GET /auth/me-> 200 in 6.26ms
+[2025-11-09 20:57:34] [INFO] [goalbet]: [trace=f9d7c453] GET /auth/me-> 200 in 14.85ms
+[2025-11-09 20:57:34] [INFO] [goalbet]: [trace=3b586d2e] GET /goals/get_goal/2-> 200 in 16.61ms
+[2025-11-09 20:57:34] [INFO] [goalbet]: [trace=da9fba76] GET /goals/get_goal/2-> 200 in 12.35ms
+[2025-11-09 20:57:47] [INFO] [goalbet]: [trace=d730376e] POST /goals/2/resolve-> 200 in 22.98ms
+[2025-11-09 20:57:47] [INFO] [goalbet]: [trace=7df7024d] GET /goals/get_goal/2-> 200 in 6.44ms
+[2025-11-09 20:57:52] [INFO] [goalbet]: [trace=8073e263] GET /wallet-> 200 in 5.18ms
+[2025-11-09 20:57:52] [INFO] [goalbet]: [trace=76e5f989] GET /wallet-> 200 in 5.47ms
+[2025-11-09 20:58:02] [INFO] [goalbet]: [trace=70b1fcf9] GET /auth/me-> 200 in 5.48ms
+[2025-11-09 20:58:02] [INFO] [goalbet]: [trace=5729386a] GET /auth/me-> 200 in 4.36ms
+[2025-11-09 20:58:02] [INFO] [goalbet]: [trace=ec0cfa18] GET /users/bets-> 200 in 19.25ms
+[2025-11-09 20:58:02] [INFO] [goalbet]: [trace=332e059e] GET /goals/mine-> 200 in 25.02ms
+[2025-11-09 20:58:02] [INFO] [goalbet]: [trace=66634195] GET /goals-> 200 in 25.80ms
+[2025-11-09 20:58:02] [INFO] [goalbet]: [trace=c7e42fbd] GET /users/bets-> 200 in 15.37ms
+[2025-11-09 20:58:02] [INFO] [goalbet]: [trace=2b324be7] GET /goals/mine-> 200 in 21.21ms
+[2025-11-09 20:58:02] [INFO] [goalbet]: [trace=9b3b7c71] GET /goals-> 200 in 18.59ms
+[2025-11-09 20:59:05] [INFO] [goalbet]: [trace=f43881a7] GET /goals-> 200 in 11.49ms
+[2025-11-09 20:59:05] [INFO] [goalbet]: [trace=4be0803b] GET /goals-> 200 in 11.45ms
+[2025-11-09 20:59:14] [INFO] [goalbet]: [trace=ebb179e7] GET /auth/me-> 200 in 5.89ms
+[2025-11-09 20:59:14] [INFO] [goalbet]: [trace=6806bbe3] GET /auth/me-> 200 in 4.57ms
+[2025-11-09 20:59:14] [INFO] [goalbet]: [trace=1dd391b3] GET /users/bets-> 200 in 15.85ms
+[2025-11-09 20:59:14] [INFO] [goalbet]: [trace=3a60ee50] GET /goals/mine-> 200 in 22.60ms
+[2025-11-09 20:59:14] [INFO] [goalbet]: [trace=d5a8d5f1] GET /goals-> 200 in 22.40ms
+[2025-11-09 20:59:14] [INFO] [goalbet]: [trace=8f772e6f] GET /users/bets-> 200 in 21.28ms
+[2025-11-09 20:59:14] [INFO] [goalbet]: [trace=6e15a2dc] GET /goals-> 200 in 18.97ms
+[2025-11-09 20:59:14] [INFO] [goalbet]: [trace=731def45] GET /goals/mine-> 200 in 22.09ms
+[2025-11-09 20:59:20] [INFO] [goalbet]: [trace=72409a35] GET /wallet-> 200 in 3.65ms
+[2025-11-09 20:59:20] [INFO] [goalbet]: [trace=3a9c71ea] GET /wallet-> 200 in 4.25ms
+[2025-11-09 20:59:21] [INFO] [goalbet]: [trace=eb82930d] GET /goals-> 200 in 7.48ms
+[2025-11-09 20:59:21] [INFO] [goalbet]: [trace=3dc1f6a7] GET /goals-> 200 in 9.67ms
+[2025-11-09 21:24:03] [INFO] [goalbet]: Logger setup completed
+[2025-11-09 21:24:03] [INFO] [goalbet]: Starting GoalBet API...
+[2025-11-10 20:12:53] [INFO] [goalbet]: Logger setup completed
+[2025-11-10 20:12:53] [INFO] [goalbet]: Starting GoalBet API...
+[2025-11-10 20:12:56] [INFO] [goalbet]: [trace=e7562b3a] GET /auth/me-> 401 in 1.59ms
+[2025-11-10 20:12:56] [ERROR] [goalbet]: [trace=no-trace] GET /auth/me _StreamingResponse 401: 
+[2025-11-10 20:12:56] [INFO] [goalbet]: [trace=4f227e2c] GET /auth/me-> 401 in 0.88ms
+[2025-11-10 20:12:56] [ERROR] [goalbet]: [trace=no-trace] GET /auth/me _StreamingResponse 401: 
+[2025-11-10 20:12:56] [INFO] [goalbet]: [trace=f7031375] GET /goals/mine-> 401 in 2.66ms
+[2025-11-10 20:12:56] [INFO] [goalbet]: [trace=138d9a4e] GET /users/bets-> 401 in 2.82ms
+[2025-11-10 20:12:56] [ERROR] [goalbet]: [trace=no-trace] GET /goals/mine _StreamingResponse 401: 
+[2025-11-10 20:12:56] [ERROR] [goalbet]: [trace=no-trace] GET /users/bets _StreamingResponse 401: 
+[2025-11-10 20:12:56] [INFO] [goalbet]: [trace=bf9ea6d8] GET /goals/mine-> 401 in 1.56ms
+[2025-11-10 20:12:56] [ERROR] [goalbet]: [trace=no-trace] GET /goals/mine _StreamingResponse 401: 
+[2025-11-10 20:12:56] [INFO] [goalbet]: [trace=92152e62] GET /users/bets-> 401 in 2.22ms
+[2025-11-10 20:12:57] [ERROR] [goalbet]: [trace=no-trace] GET /users/bets _StreamingResponse 401: 
+[2025-11-10 20:12:57] [INFO] [goalbet]: [trace=97dff413] GET /goals-> 200 in 79.96ms
+[2025-11-10 20:12:57] [INFO] [goalbet]: [trace=9442ef41] GET /goals-> 200 in 7.08ms
+[2025-11-10 20:12:59] [INFO] [goalbet]: [trace=ed0fb875] GET /goals-> 200 in 8.85ms
+[2025-11-10 20:12:59] [INFO] [goalbet]: [trace=e3b1d826] GET /goals-> 200 in 51.34ms
