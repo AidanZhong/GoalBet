@@ -34,7 +34,7 @@ export default function Login() {
     const cta = mode === "login" ? "Login" : "Register";
 
     const switchText = mode === "login"
-        ? {question: "Don't have an account yet?", link: "Register", next: "register" as Mode}
+        ? {question: "No account yet?", link: "Register", next: "register" as Mode}
         : {question: "Already have an account?", link: "Login", next: "login" as Mode};
 
     const onSubmit = async (e: React.FormEvent) => {
