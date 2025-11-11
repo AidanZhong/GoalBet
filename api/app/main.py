@@ -102,7 +102,6 @@ async def log_exceptions(request: Request, call_next):
 
 @app.on_event("startup")
 async def on_startup() -> None:
-    Base.metadata.create_all(bind=engine)
     try:
         url = str(engine.url)
     except Exception:
