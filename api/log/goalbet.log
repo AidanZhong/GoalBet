@@ -4261,3 +4261,7 @@ AttributeError: '_StreamingResponse' object has no attribute 'content'
 [2025-11-10 20:12:57] [INFO] [goalbet]: [trace=9442ef41] GET /goals-> 200 in 7.08ms
 [2025-11-10 20:12:59] [INFO] [goalbet]: [trace=ed0fb875] GET /goals-> 200 in 8.85ms
 [2025-11-10 20:12:59] [INFO] [goalbet]: [trace=e3b1d826] GET /goals-> 200 in 51.34ms
+[2025-11-11 22:46:04] [INFO] [goalbet]: Logger setup completed
+[2025-11-11 22:46:04] [INFO] [goalbet]: Starting GoalBet API...
+[2025-11-11 22:46:52] [INFO] [goalbet]: Logger setup completed
+[2025-11-11 22:46:52] [INFO] [goalbet]: Starting GoalBet API...
