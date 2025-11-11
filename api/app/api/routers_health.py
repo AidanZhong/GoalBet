@@ -21,7 +21,7 @@ logger = get_logger()
 def health(db: Session = Depends(get_db)):
     try:
         db.execute(text("SELECT 1"))
-        return {"status": "ok", "db": "connected", "version": "1.0.0"}
+        return {"status": "ok", "db": "connected", "version": "1.0.1"}
     except Exception as e:
         logger.error(e)
         return {"status": "error", "db": str(e)}
