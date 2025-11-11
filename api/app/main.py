@@ -122,7 +122,7 @@ app.include_router(bounties_router)
 # CORS restriction
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[settings.frontend_domain],
+    allow_origins=[settings.frontend_domain, 'https://goalbet.dev', 'https://www.goalbet.dev', 'http://localhost:5173'],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
