@@ -35,6 +35,7 @@ app = FastAPI(title=settings.app_name)
 
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+Base.metadata.create_all(bind=engine)
 
 logger = get_logger()
 logger.info("Starting GoalBet API...")
