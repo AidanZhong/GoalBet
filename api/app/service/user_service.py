@@ -57,5 +57,8 @@ def login_user(db: Session, email: str, password: str):
     if not user or not verify_password(password, user.hashed_password):
         logger.error(f"Invalid credentials: {email}")
         raise HTTPException(status_code=400, detail="Invalid credentials")
+    if not user.email_verified_at:
+        logger.error(f"Email not verified: {email}")
+        raise HTTPException(status_code=400, detail="Email not verified")
     token = create_access_token({"sub": email})
     return Token(access_token=token)

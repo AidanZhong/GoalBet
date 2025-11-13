@@ -8,7 +8,7 @@ Created on 2025/10/5 10:05
 """
 from datetime import datetime, timezone
 
-from sqlalchemy import Column, DateTime, Enum, Float, ForeignKey, Integer, String, Text
+from sqlalchemy import Column, DateTime, Enum, Float, ForeignKey, Integer, String, Text, func
 from sqlalchemy.orm import relationship
 
 from api.app.core.db import Base
@@ -22,11 +22,33 @@ class User(Base):
     email = Column(String, unique=True, index=True, nullable=False)
     hashed_password = Column(String, nullable=False)
     balance = Column(Integer, default=1000)
+
+    email_verified_at = Column(DateTime, default=datetime.now(timezone.utc))
+    username = Column(String(20))
+    avatar_url = Column(Text)
+    created_at = Column(DateTime, default=datetime.now(timezone.utc))
+    updated_at = Column(DateTime, default=datetime.now(timezone.utc), onupdate=func.now())
+
     goals = relationship("Goal", back_populates="owner", cascade="all, delete-orphan")
     bets = relationship("Bet", back_populates="user", cascade="all, delete-orphan")
     goal_updates = relationship("GoalUpdate", back_populates="author", cascade="all, delete-orphan")
     bounties = relationship("Bounty", back_populates="owner", cascade="all, delete-orphan")
     submissions = relationship("Submission", back_populates="user", cascade="all, delete-orphan")
+    tokens = relationship("UserToken", back_populates="user", cascade="all, delete-orphan")
+
+
+# used for email verification
+class UserToken(Base):
+    __tablename__ = "user_tokens"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    token = Column(String(128), unique=True, nullable=False)
+    kind = Column(String(16), nullable=False)
+    expires_at = Column(DateTime, nullable=False)
+    consumed_at = Column(DateTime)
+    created_at = Column(DateTime, default=datetime.now(timezone.utc))
+
+    user = relationship("User", back_populates="tokens")
 
 
 class Goal(Base):
