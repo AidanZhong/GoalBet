@@ -16,7 +16,7 @@ from sqlalchemy.orm import Session
 from api.app.core.db import get_db
 from api.app.core.security import verify_frontend_key
 from api.app.models.db_models import User
-from api.app.models.user import ForgotIn, ResetIn, Token, UserCreate, UserLogin, UserPublic
+from api.app.models.user import ForgotIn, ResendVerificationIn, ResetIn, Token, UserCreate, UserLogin, UserPublic
 from api.app.service import tokens_helper
 from api.app.service.tokens_helper import consume_token, issue_token, resend_verification_email, send_verification_email
 from api.app.service.user_service import create_user, get_current_user, login_user
@@ -60,8 +60,8 @@ def verify_email(request: Request, token: str, db: Session = Depends(get_db)):
 
 @router.post("/verify/resend", dependencies=[Depends(verify_frontend_key)])
 @limiter.limit("5/minute")
-def resend_verification(request: Request, email: str, db: Session = Depends(get_db)):
-    return resend_verification_email(db, email)
+def resend_verification(request: Request, payload: ResendVerificationIn, db: Session = Depends(get_db)):
+    return resend_verification_email(db, payload.email)
 
 
 @router.post("/forgot_password", dependencies=[Depends(verify_frontend_key)])

@@ -28,7 +28,7 @@ def create_user(db: Session, email: str, password: str, initial_balance: int = s
         logger.error(f"User already exists: {email}")
         raise ValueError("User already exists")
     hashed_password = hash_password(password)
-    user = User(email=str(email), hashed_password=hashed_password, balance=initial_balance)
+    user = User(email=str(email), hashed_password=hashed_password, balance=initial_balance, email_verified_at=None)
     db.add(user)
     db.commit()
     db.refresh(user)

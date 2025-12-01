@@ -45,3 +45,16 @@ def clean_db():
     print("🧹 Resetting DB before test...")
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
+
+
+@pytest.fixture(scope="function")
+def captured_email(monkeypatch):
+    sent = {"to": None, "subject": None, "body": None}
+
+    def fake_send_email(*, to, subject, body):
+        sent["to"] = to
+        sent["subject"] = subject
+        sent["body"] = body
+
+    monkeypatch.setattr("api.app.service.tokens_helper.send_email", fake_send_email, raising=False)
+    return sent

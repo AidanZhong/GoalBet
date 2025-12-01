@@ -36,3 +36,7 @@ class ForgotIn(BaseModel):
 class ResetIn(BaseModel):
     token: str
     new_password: str
+
+
+class ResendVerificationIn(BaseModel):
+    email: EmailStr

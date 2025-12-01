@@ -22,7 +22,7 @@ from api.app.service.email import send_email
 
 
 def _raw_token(bytes_len: int = 32) -> str:
-    return base64.urlsafe_b64decode(os.urandom(bytes_len)).rstrip(b'=').decode()
+    return base64.urlsafe_b64encode(os.urandom(bytes_len)).decode().rstrip("=")
 
 
 def _digest(raw: str) -> str:
@@ -63,7 +63,7 @@ def consume_token(db: Session, raw: str, kind: str) -> Optional[User]:
     token.consumed_at = datetime.datetime.now(datetime.timezone.utc)
     db.commit()
 
-    user = db.query(UserToken.user_id).filter(UserToken.id == token.id).first()
+    user = db.query(User).filter(User.id == token.user_id).first()
 
     return user
 

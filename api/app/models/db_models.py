@@ -23,7 +23,7 @@ class User(Base):
     hashed_password = Column(String, nullable=False)
     balance = Column(Integer, default=1000)
 
-    email_verified_at = Column(DateTime, default=datetime.now(timezone.utc))
+    email_verified_at = Column(DateTime, nullable=True)
     username = Column(String(20))
     avatar_url = Column(Text)
     created_at = Column(DateTime, default=datetime.now(timezone.utc))
