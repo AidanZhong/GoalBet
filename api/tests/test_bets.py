@@ -9,11 +9,20 @@ Created on 2025/10/2 22:20
 from datetime import datetime, timedelta
 
 from api.app.models.bet import BetSide
+from api.tests.test_auth_and_wallet import extract_token_from_email
 
 
-def test_place_bet_and_wallet_deduction(client):
+def test_place_bet_and_wallet_deduction(client, captured_email):
     # user setup
     client.post("/auth/register", json={"email": "bet@x.com", "password": "pw"})
+    # Re-send verification (captures email, we parse token)
+    r = client.post("/auth/verify/resend", json={"email": "a@b.com"})
+    assert r.status_code == 200
+    verify_token = extract_token_from_email(captured_email['body'])
+
+    # verify email
+    r = client.get("/auth/verify", params={"token": verify_token})
+    assert r.status_code == 200
     token = client.post("/auth/login", json={"email": "bet@x.com", "password": "pw"}).json()["access_token"]
     headers = {"Authorization": f"Bearer {token}"}
 
@@ -41,8 +50,16 @@ def test_place_bet_and_wallet_deduction(client):
     assert after == before - 100
 
 
-def test_cannot_bet_without_balance(client):
+def test_cannot_bet_without_balance(client, captured_email):
     client.post("/auth/register", json={"email": "poor@x.com", "password": "pw"})
+    # Re-send verification (captures email, we parse token)
+    r = client.post("/auth/verify/resend", json={"email": "a@b.com"})
+    assert r.status_code == 200
+    verify_token = extract_token_from_email(captured_email['body'])
+
+    # verify email
+    r = client.get("/auth/verify", params={"token": verify_token})
+    assert r.status_code == 200
     token = client.post("/auth/login", json={"email": "poor@x.com", "password": "pw"}).json()["access_token"]
     headers = {"Authorization": f"Bearer {token}"}
 

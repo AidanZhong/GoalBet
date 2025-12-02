@@ -9,11 +9,20 @@ Created on 2025/10/4 23:10
 from datetime import datetime, timedelta
 
 from api.app.models.bet import BetSide
+from api.tests.test_auth_and_wallet import extract_token_from_email
 
 
-def test_me_bets_and_bounty_flow(client):
+def test_me_bets_and_bounty_flow(client, captured_email):
     # user
     client.post("/auth/register", json={"email": "me@test.com", "password": "pw"})
+    # Re-send verification (captures email, we parse token)
+    r = client.post("/auth/verify/resend", json={"email": "a@b.com"})
+    assert r.status_code == 200
+    verify_token = extract_token_from_email(captured_email['body'])
+
+    # verify email
+    r = client.get("/auth/verify", params={"token": verify_token})
+    assert r.status_code == 200
     token = client.post("/auth/login", json={"email": "me@test.com", "password": "pw"}).json()["access_token"]
     headers = {"Authorization": f"Bearer {token}"}
 

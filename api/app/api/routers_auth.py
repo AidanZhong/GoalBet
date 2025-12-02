@@ -48,7 +48,7 @@ def me(request: Request, user: User = Depends(get_current_user)):
 
 
 @router.get("/verify", dependencies=[Depends(verify_frontend_key)])
-@limiter.limit("5/minute")
+@limiter.limit("10/minute")
 def verify_email(request: Request, token: str, db: Session = Depends(get_db)):
     user = consume_token(db, token, kind="verify")
     if not user:
