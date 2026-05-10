@@ -1,5 +1,5 @@
 # GoalBet
-website: https://goalbet-frontend-prod.s3.amazonaws.com/about
+website: https://www.goalbet.dev/
 
 MVP backend (FastAPI). Start: `uvicorn app.main:app --reload --port 8080`
 
