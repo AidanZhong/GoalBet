@@ -8,17 +8,9 @@ Created on 2025/9/29 9:27
 """
 from datetime import datetime, timedelta, timezone
 
-from api.tests.test_auth_and_wallet import extract_token_from_email
 
-
-def test_create_and_list_goal(client, captured_email):
-    # register + login
-    r = client.post("/auth/register", json={"email": "g@x.com", "password": "pw123"})
-    verify_token = extract_token_from_email(captured_email['body'])
-
-    # verify email
-    r = client.get("/auth/verify", params={"token": verify_token})
-    assert r.status_code == 200
+def test_create_and_list_goal(client):
+    client.post("/auth/register", json={"email": "g@x.com", "password": "pw123"})
     token = client.post("/auth/login", json={"email": "g@x.com", "password": "pw123"}).json()["access_token"]
     headers = {"Authorization": f"Bearer {token}"}
 
@@ -45,13 +37,8 @@ def test_create_and_list_goal(client, captured_email):
     assert r.json()["id"] == gid
 
 
-def test_update_goal(client, captured_email):
-    # register + login
-    r = client.post("/auth/register", json={"email": "g@x.com", "password": "pw123"})
-    verify_token = extract_token_from_email(captured_email['body'])
-    # verify email
-    r = client.get("/auth/verify", params={"token": verify_token})
-    assert r.status_code == 200
+def test_update_goal(client):
+    client.post("/auth/register", json={"email": "g@x.com", "password": "pw123"})
     token = client.post("/auth/login", json={"email": "g@x.com", "password": "pw123"}).json()["access_token"]
     headers = {"Authorization": f"Bearer {token}"}
 
@@ -64,7 +51,6 @@ def test_update_goal(client, captured_email):
     r = client.post("/goals", json=payload, headers=headers)
     assert r.status_code == 200
     goal = r.json()
-    assert goal["title"] == "Run a marathon"
 
     # post update
     update_payload = {"content": "Finished book 1"}

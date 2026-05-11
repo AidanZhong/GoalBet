@@ -19,26 +19,12 @@ def extract_token_from_email(body: str) -> str:
     return m.group(1)
 
 
-def test_register_and_login(client, captured_email):
+def test_register_and_login(client):
     # register
     r = client.post("/auth/register", json={"email": "a@b.com", "password": "pw123"})
     assert r.status_code == 200
     user = r.json()
     assert user["email"] == "a@b.com"
-
-    # # login should fail without email verification
-    # r = client.post("/auth/login", json={"email": "a@b.com", "password": "pw123"})
-    # assert r.status_code == 400
-    # assert r.json()["detail"] == "Email not verified"
-    #
-    # # Re-send verification (captures email, we parse token)
-    # r = client.post("/auth/verify/resend", json={"email": "a@b.com"})
-    # assert r.status_code == 200
-    # verify_token = extract_token_from_email(captured_email['body'])
-    #
-    # # verify email
-    # r = client.get("/auth/verify", params={"token": verify_token})
-    # assert r.status_code == 200
 
     # login with email and password
     r = client.post("/auth/login", json={"email": "a@b.com", "password": "pw123"})

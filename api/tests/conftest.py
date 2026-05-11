@@ -51,7 +51,7 @@ def clean_db():
 def captured_email(monkeypatch):
     sent = {"to": None, "subject": None, "body": None}
 
-    def fake_send_email(*, to, subject, body):
+    def fake_send_email(to, subject, body):
         sent["to"] = to
         sent["subject"] = subject
         sent["body"] = body

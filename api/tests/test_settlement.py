@@ -9,25 +9,16 @@ Created on 2025/10/3 9:43
 from datetime import datetime, timedelta
 
 from api.app.models.bet import BetSide, BetStatus
-from api.tests.test_auth_and_wallet import extract_token_from_email
 
 
-def test_settlement_flow(client, captured_email):
+def test_settlement_flow(client):
     # User A
     client.post("/auth/register", json={"email": "a@test.com", "password": "pw"})
-    verify_token = extract_token_from_email(captured_email['body'])
-    # verify email
-    r = client.get("/auth/verify", params={"token": verify_token})
-    assert r.status_code == 200
     token_a = client.post("/auth/login", json={"email": "a@test.com", "password": "pw"}).json()["access_token"]
     headers_a = {"Authorization": f"Bearer {token_a}"}
 
     # User B
     client.post("/auth/register", json={"email": "b@test.com", "password": "pw"})
-    verify_token = extract_token_from_email(captured_email['body'])
-    # verify email
-    r = client.get("/auth/verify", params={"token": verify_token})
-    assert r.status_code == 200
     token_b = client.post("/auth/login", json={"email": "b@test.com", "password": "pw"}).json()["access_token"]
     headers_b = {"Authorization": f"Bearer {token_b}"}
 
@@ -59,6 +50,6 @@ def test_settlement_flow(client, captured_email):
             assert b["status"] == BetStatus.LOST
             assert b["payout"] == 0
 
-    # Wallet check: A’s balance should have increased
+    # Wallet check: A's balance should have increased
     after_a = client.get("/wallet", headers=headers_a).json()["balance"]
     assert after_a > 1000  # started with 1000
