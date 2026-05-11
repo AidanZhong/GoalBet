@@ -70,7 +70,7 @@ export default function Home() {
 
     return (
         <div className={"max-w-3xl mx-auto px-4 py-6 space-y-6"}>
-            <h1 className={"text-2xl font-bold"}>
+            <h1 className={"text-2xl font-bold truncate"}>
                 Hi {me?.email ?? "there"},
             </h1>
             {error && (

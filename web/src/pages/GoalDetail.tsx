@@ -168,17 +168,19 @@ export default function GoalDetail() {
     return (
         <div className={"max-w-3xl mx-auto px-4 py-6"}>
             {/*header*/}
-            <div className={"rounded-2xl border border-gray-700 bg-gray-900/70 p-5 relative"}>
-                <h1 className="text-2xl font-bold text-white">{goal.title}</h1>
-                <p className="text-sm text-gray-400 mt-1">by {goal.owner_email}</p>
-
-                {/* resolve button */}
-                {isOwner && isActive && (
-                    <ResolveGoalButton goalId={goal.id}
-                                       onResolved={() => reloadGoal()}
-                                       className={"absolute right-5 top-5"}
-                    />
-                )}
+            <div className={"rounded-2xl border border-gray-700 bg-gray-900/70 p-5"}>
+                <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                        <h1 className="text-xl sm:text-2xl font-bold text-white break-words">{goal.title}</h1>
+                        <p className="text-sm text-gray-400 mt-1 truncate">by {goal.owner_email}</p>
+                    </div>
+                    {isOwner && isActive && (
+                        <ResolveGoalButton goalId={goal.id}
+                                           onResolved={() => reloadGoal()}
+                                           className={"shrink-0"}
+                        />
+                    )}
+                </div>
 
                 <div className={"mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm"}>
                     <div className={"space-y-1"}>
@@ -297,7 +299,7 @@ export default function GoalDetail() {
                                 <div className={"text-sm text-gray-300 mb-2"}>
                                     You’re betting on <span className="font-semibold">{betSide}</span>.
                                 </div>
-                                <div className={"flex items-center gap-3"}>
+                                <div className={"flex flex-wrap items-center gap-3"}>
                                     <input
                                         type={"number"}
                                         min={1}
@@ -305,7 +307,7 @@ export default function GoalDetail() {
                                         value={amount}
                                         onChange={(e) => setAmount(e.target.value)}
                                         placeholder={"Amount"}
-                                        className={"w-44 rounded-lg bg-gray-900 border border-gray-700 px-3 py-2 text-white outline-none focus:border-yellow-400"}
+                                        className={"w-full sm:w-44 rounded-lg bg-gray-900 border border-gray-700 px-3 py-2 text-white outline-none focus:border-yellow-400"}
                                     />
                                     <button
                                         disabled={placing}
@@ -390,9 +392,9 @@ export default function GoalDetail() {
                     <div className="space-y-4">
                         {[...goal.updates].reverse().map((u) => (
                             <div key={u.id} className="rounded-xl border border-gray-700 bg-gray-800/50 p-4">
-                                <div className="flex justify-between text-xs text-gray-400 mb-2">
-                                    <span>{u.author_email}</span>
-                                    <span>{new Date(u.created_at).toLocaleString()}</span>
+                                <div className="flex justify-between gap-3 text-xs text-gray-400 mb-2">
+                                    <span className="truncate">{u.author_email}</span>
+                                    <span className="shrink-0">{new Date(u.created_at).toLocaleString()}</span>
                                 </div>
                                 <p className="text-gray-100 whitespace-pre-wrap text-sm">{u.content}</p>
                                 {u.youtube_url && (
@@ -454,9 +456,9 @@ export default function GoalDetail() {
                     <div className="space-y-3">
                         {[...(goal.comments ?? [])].reverse().map((c) => (
                             <div key={c.id} className="rounded-xl border border-gray-700 bg-gray-800/50 px-4 py-3">
-                                <div className="flex justify-between text-xs text-gray-400 mb-1">
-                                    <span>{c.author_email}</span>
-                                    <span>{new Date(c.created_at).toLocaleString()}</span>
+                                <div className="flex justify-between gap-3 text-xs text-gray-400 mb-1">
+                                    <span className="truncate">{c.author_email}</span>
+                                    <span className="shrink-0">{new Date(c.created_at).toLocaleString()}</span>
                                 </div>
                                 <p className="text-gray-100 text-sm whitespace-pre-wrap">{c.content}</p>
                             </div>

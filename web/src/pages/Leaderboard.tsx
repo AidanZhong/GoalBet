@@ -51,12 +51,12 @@ export default function Leaderboard() {
 
             {!loading && !error && (
                 <div className="rounded-2xl border border-gray-700 bg-gray-900/70 overflow-hidden">
-                    <table className="w-full text-sm">
+                    <table className="w-full text-sm table-fixed">
                         <thead>
                         <tr className="border-b border-gray-700 text-gray-400 text-left">
-                            <th className="px-4 py-3 w-12">Rank</th>
-                            <th className="px-4 py-3">Player</th>
-                            <th className="px-4 py-3 text-right">Coins</th>
+                            <th className="px-3 py-3 w-12 text-center">Rank</th>
+                            <th className="px-3 py-3">Player</th>
+                            <th className="px-3 py-3 w-20 sm:w-28 text-right">Coins</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -70,16 +70,18 @@ export default function Leaderboard() {
                                         isMe ? "bg-yellow-500/10" : "hover:bg-gray-800/40",
                                     ].join(" ")}
                                 >
-                                    <td className="px-4 py-3 text-center font-semibold">
+                                    <td className="px-3 py-3 text-center font-semibold">
                                         {e.rank <= 3 ? MEDALS[e.rank - 1] : e.rank}
                                     </td>
-                                    <td className="px-4 py-3 text-gray-100">
-                                        {e.email}
-                                        {isMe && (
-                                            <span className="ml-2 text-xs text-yellow-400 font-medium">you</span>
-                                        )}
+                                    <td className="px-3 py-3 text-gray-100 min-w-0">
+                                        <div className="flex items-center gap-2 min-w-0">
+                                            <span className="truncate">{e.email}</span>
+                                            {isMe && (
+                                                <span className="shrink-0 text-xs text-yellow-400 font-medium">you</span>
+                                            )}
+                                        </div>
                                     </td>
-                                    <td className="px-4 py-3 text-right font-semibold text-yellow-400">
+                                    <td className="px-3 py-3 text-right font-semibold text-yellow-400">
                                         {e.balance.toLocaleString()}
                                     </td>
                                 </tr>

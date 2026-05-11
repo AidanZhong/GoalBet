@@ -50,17 +50,17 @@ export default function BetCard({bet, goal, className = ""}: BetCardProps) {
 
     return (
         <article className={`rounded-2xl border border-gray-700 bg-gray-900/70 p-4 ${className}`}>
-            <div className={"flex items-start justify-between"}>
-                <div>
-                    <h3 className={"text-lg font-semibold text-white"}>
+            <div className={"flex items-start justify-between gap-3"}>
+                <div className="min-w-0 flex-1">
+                    <h3 className={"text-lg font-semibold text-white break-words"}>
                         {goal?.title || `Goal #${bet.goal_id}`}
                     </h3>
-                    <p className={"text-xs text-gray-400"}>
+                    <p className={"text-xs text-gray-400 truncate"}>
                         {goal?.owner_email ? <>by {goal.owner_email} • </> : null}
                         Deadline: {prettyDate(goal?.deadline)}
                     </p>
                 </div>
-                <span className={pillFromStatus(bet.status)}>
+                <span className={`shrink-0 ${pillFromStatus(bet.status)}`}>
                     {bet.status}
                 </span>
             </div>
