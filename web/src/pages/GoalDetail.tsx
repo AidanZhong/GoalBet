@@ -173,7 +173,7 @@ export default function GoalDetail() {
         <div className={"max-w-3xl mx-auto px-4 py-6"}>
             {/*header*/}
             <div className={"rounded-2xl border border-gray-700 bg-gray-900/70 p-5"}>
-                <div className="flex items-start justify-between gap-3">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                     <div className="min-w-0">
                         <h1 className="text-xl sm:text-2xl font-bold text-white break-words">{goal.title}</h1>
                         <p className="text-sm text-gray-400 mt-1 truncate">by {goal.owner_email}</p>
@@ -181,7 +181,7 @@ export default function GoalDetail() {
                     {isOwner && isActive && (
                         <ResolveGoalButton goalId={goal.id}
                                            onResolved={() => reloadGoal()}
-                                           className={"shrink-0"}
+                                           className={"self-start shrink-0"}
                         />
                     )}
                 </div>

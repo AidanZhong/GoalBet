@@ -74,21 +74,19 @@ export default function Navbar() {
 
                     <div className="flex-1 md:hidden"/>
 
-                    {/* hamburger button */}
+                    {/* expand/collapse button — mobile only */}
                     <button
-                        className="md:hidden p-2 rounded-xl text-gray-300 hover:text-white hover:bg-gray-800/70"
+                        className="md:hidden flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm text-gray-300 hover:text-white hover:bg-gray-800/70 border border-gray-700 transition-colors"
                         onClick={() => setMenuOpen((o) => !o)}
                         aria-label="Toggle menu"
                     >
-                        {menuOpen ? (
-                            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
-                            </svg>
-                        ) : (
-                            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16"/>
-                            </svg>
-                        )}
+                        <span>Menu</span>
+                        <svg
+                            className={`h-4 w-4 transition-transform duration-200 ${menuOpen ? "rotate-180" : ""}`}
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7"/>
+                        </svg>
                     </button>
                 </div>
 
