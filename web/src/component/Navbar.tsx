@@ -18,10 +18,12 @@ export default function Navbar() {
         {to: "/", text: "Home"},
         {to: "/about", text: "About"},
         {to: "/goals", text: "Goals"},
+        {to: "/leaderboard", text: "Leaderboard"},
         {to: "/wallet", text: "Wallet"},
     ] : [
         {to: "/about", text: "About"},
         {to: "/goals", text: "Goals"},
+        {to: "/leaderboard", text: "Leaderboard"},
         {to: "/login", text: "Login"},
     ];
 

@@ -341,8 +341,8 @@ export default function GoalDetail() {
             <div className="mt-4 rounded-2xl border border-gray-700 bg-gray-900/70 p-5 space-y-4">
                 <h2 className="text-lg font-semibold text-white">Proof & Updates</h2>
 
-                {/* post proof form — owner only */}
-                {isOwner && (
+                {/* post proof form — owner only, active goals only */}
+                {isOwner && isActive && (
                     <div className="space-y-3">
                         <textarea
                             value={proofContent}

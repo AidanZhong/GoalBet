@@ -11,3 +11,13 @@ export async function getCurrentUser() {
         return null;
     }
 }
+
+export type LeaderboardEntry = {
+    rank: number;
+    email: string;
+    balance: number;
+};
+
+export function getLeaderboard() {
+    return axiosClient.get<LeaderboardEntry[]>("/users/leaderboard");
+}
