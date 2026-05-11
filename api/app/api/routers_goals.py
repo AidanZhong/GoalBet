@@ -15,7 +15,15 @@ from api.app.api.routers_auth import get_current_user
 from api.app.core.db import get_db
 from api.app.core.security import verify_frontend_key
 from api.app.models.db_models import User
-from api.app.models.goal import CommentCreate, CommentPublic, GoalCreate, GoalPublic, GoalUpdateCreate, GoalUpdatePublic
+from api.app.models.goal import (
+    CommentCreate,
+    CommentPublic,
+    GoalCreate,
+    GoalPatch,
+    GoalPublic,
+    GoalUpdateCreate,
+    GoalUpdatePublic,
+)
 from api.app.service import goal_service
 from api.app.service.goal_service import fill_the_market
 from api.app.service.settlement import resolve_market
@@ -93,6 +101,19 @@ def resolve_goal(
 
     result = resolve_market(goal_id, outcome, background_tasks, db)
     return result
+
+
+@router.patch("/{goal_id}", response_model=GoalPublic, dependencies=[Depends(verify_frontend_key)])
+@limiter.limit("30/minute")
+def patch_goal(
+    request: Request,
+    goal_id: int,
+    payload: GoalPatch,
+    user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    goal = goal_service.patch_goal(goal_id, payload, user, db)
+    return fill_the_market(goal)
 
 
 @router.post("/{goal_id}/comments", response_model=CommentPublic, dependencies=[Depends(verify_frontend_key)])

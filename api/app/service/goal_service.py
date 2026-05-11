@@ -16,7 +16,7 @@ from api.app.core.events import broadcast
 from api.app.models.bet import BetSide
 from api.app.models.db_models import Bet, Comment, Goal, GoalUpdate, User
 from api.app.models.enums import GoalStatus
-from api.app.models.goal import CommentCreate, GoalCreate, GoalPublic, GoalUpdateCreate
+from api.app.models.goal import CommentCreate, GoalCreate, GoalPatch, GoalPublic, GoalUpdateCreate
 
 
 def create_goal(payload: GoalCreate, user: User, db: Session, background_tasks):
@@ -102,6 +102,18 @@ def get_goal_trends(db: Session):
     )
     goals = query.all()
     return goals
+
+
+def patch_goal(goal_id: int, payload: GoalPatch, user: User, db: Session):
+    goal = get_goal(goal_id, db)
+    if not goal:
+        raise HTTPException(status_code=404, detail="Goal not found")
+    if goal.owner_email != user.email:
+        raise HTTPException(status_code=403, detail="Only owner can edit goal")
+    goal.youtube_url = payload.youtube_url
+    db.commit()
+    db.refresh(goal)
+    return goal
 
 
 def post_comment(goal_id: int, payload: CommentCreate, user: User, db: Session):

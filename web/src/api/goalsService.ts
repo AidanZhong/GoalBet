@@ -53,6 +53,10 @@ export const goalsService = {
         return axiosClient.post<CommentDTO>(`/goals/${goalId}/comments`, {content});
     },
 
+    patchGoal(goalId: number | string, payload: { youtube_url?: string | null }) {
+        return axiosClient.patch<GoalDTO>(`/goals/${goalId}`, payload);
+    },
+
     listMine() {
         return axiosClient.get<GoalDTO[]>("/goals/mine");
     },

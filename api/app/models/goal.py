@@ -37,6 +37,10 @@ class GoalUpdatePublic(BaseModel):
     model_config = {"from_attributes": True}
 
 
+class GoalPatch(BaseModel):
+    youtube_url: Optional[str] = None
+
+
 class CommentCreate(BaseModel):
     content: str = Field(..., max_length=2000)
 
