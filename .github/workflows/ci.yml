@@ -65,5 +65,9 @@ jobs:
             cd /home/ubuntu/GoalBet
             git fetch origin main
             git reset --hard origin/main
+            if [ ! -f .env ]; then
+              echo "ERROR: .env file not found. Create it on the server before deploying."
+              exit 1
+            fi
             docker compose down
             docker compose up -d --build
