@@ -6,6 +6,7 @@ import {betsService} from "../api/betsService.ts";
 import {normalizeMarkets} from "../utils/markets.ts";
 import {getCurrentUser} from "../api/userService.ts";
 import ResolveGoalButton from "../component/ResolveGoalButton.tsx";
+import YouTubeEmbed from "../component/YouTubeEmbed.tsx";
 
 type BetSide = "success" | "fail"
 
@@ -26,6 +27,10 @@ export default function GoalDetail() {
     const [placing, setPlacing] = useState(false);
 
     const [me, setMe] = useState<{ email?: string }>({email: ""});
+
+    const [proofContent, setProofContent] = useState("");
+    const [proofUrl, setProofUrl] = useState("");
+    const [postingProof, setPostingProof] = useState(false);
 
     useEffect(() => {
         let mounted = true;
@@ -258,6 +263,14 @@ export default function GoalDetail() {
                     </div>
                 )}
 
+                {/* YouTube declaration */}
+                {goal.youtube_url && (
+                    <div className="mt-5">
+                        <div className="text-sm text-gray-400 mb-2">Goal declaration</div>
+                        <YouTubeEmbed url={goal.youtube_url}/>
+                    </div>
+                )}
+
                 {/* bet buttons*/}
                 {isActive ? (
                     <div className={"mt-5"}>
@@ -318,6 +331,75 @@ export default function GoalDetail() {
                     </div>
                 ) : (
                     <div className="mt-5 text-sm text-gray-400">Betting is closed for this goal.</div>
+                )}
+            </div>
+
+            {/* proof / updates */}
+            <div className="mt-4 rounded-2xl border border-gray-700 bg-gray-900/70 p-5 space-y-4">
+                <h2 className="text-lg font-semibold text-white">Proof & Updates</h2>
+
+                {/* post proof form — owner only */}
+                {isOwner && (
+                    <div className="space-y-3">
+                        <textarea
+                            value={proofContent}
+                            onChange={(e) => setProofContent(e.target.value)}
+                            placeholder="Describe your progress or proof of completion…"
+                            className="w-full rounded-lg bg-gray-800 border border-gray-700 px-3 py-2 text-white outline-none focus:border-yellow-400 min-h-[80px]"
+                        />
+                        <input
+                            value={proofUrl}
+                            onChange={(e) => setProofUrl(e.target.value)}
+                            placeholder="YouTube proof link (optional)"
+                            className="w-full rounded-lg bg-gray-800 border border-gray-700 px-3 py-2 text-white outline-none focus:border-yellow-400"
+                        />
+                        {proofUrl.trim() && <YouTubeEmbed url={proofUrl.trim()}/>}
+                        <button
+                            disabled={postingProof || !proofContent.trim()}
+                            onClick={async () => {
+                                if (!goal || !proofContent.trim()) return;
+                                setPostingProof(true);
+                                try {
+                                    await goalsService.postUpdate(goal.id, {
+                                        content: proofContent,
+                                        youtube_url: proofUrl.trim() || undefined,
+                                    });
+                                    setProofContent("");
+                                    setProofUrl("");
+                                    await reloadGoal();
+                                } catch {
+                                    setError("Failed to post update");
+                                } finally {
+                                    setPostingProof(false);
+                                }
+                            }}
+                            className="rounded-xl bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 disabled:opacity-60"
+                        >
+                            {postingProof ? "Posting…" : "Post update"}
+                        </button>
+                    </div>
+                )}
+
+                {/* updates list */}
+                {goal.updates.length === 0 ? (
+                    <p className="text-sm text-gray-500">No updates yet.</p>
+                ) : (
+                    <div className="space-y-4">
+                        {[...goal.updates].reverse().map((u) => (
+                            <div key={u.id} className="rounded-xl border border-gray-700 bg-gray-800/50 p-4">
+                                <div className="flex justify-between text-xs text-gray-400 mb-2">
+                                    <span>{u.author_email}</span>
+                                    <span>{new Date(u.created_at).toLocaleString()}</span>
+                                </div>
+                                <p className="text-gray-100 whitespace-pre-wrap text-sm">{u.content}</p>
+                                {u.youtube_url && (
+                                    <div className="mt-3">
+                                        <YouTubeEmbed url={u.youtube_url}/>
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
                 )}
             </div>
         </div>

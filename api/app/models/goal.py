@@ -15,13 +15,15 @@ from api.app.models.enums import GoalStatus
 
 
 class GoalCreate(BaseModel):
-    title: str = Field(..., max_length=100)  # ... means that the field is required
+    title: str = Field(..., max_length=100)
     description: Optional[str] = None
     deadline: datetime
+    youtube_url: Optional[str] = None
 
 
 class GoalUpdateCreate(BaseModel):
     content: str = Field(..., max_length=10000)
+    youtube_url: Optional[str] = None
 
 
 class GoalUpdatePublic(BaseModel):
@@ -30,6 +32,7 @@ class GoalUpdatePublic(BaseModel):
     content: str
     author_email: EmailStr
     created_at: datetime
+    youtube_url: Optional[str] = None
 
     model_config = {"from_attributes": True}
 
@@ -43,5 +46,6 @@ class GoalPublic(BaseModel):
     status: GoalStatus
     markets: List[int] = []
     updates: List[GoalUpdatePublic] = []
+    youtube_url: Optional[str] = None
 
     model_config = {"from_attributes": True}

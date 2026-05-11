@@ -38,6 +38,7 @@ def create_goal(payload: GoalCreate, user: User, db: Session, background_tasks):
         deadline=payload.deadline,
         status=GoalStatus.ACTIVE,
         owner_id=user.id,
+        youtube_url=payload.youtube_url,
     )
 
     db.add(goal)
@@ -68,6 +69,7 @@ def update_goal(goal_id: int, payload: GoalUpdateCreate, user: User, db: Session
         content=payload.content,
         author_id=user.id,
         created_at=datetime.now(timezone.utc),
+        youtube_url=payload.youtube_url,
     )
     db.add(update)
     db.commit()

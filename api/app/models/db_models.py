@@ -59,6 +59,7 @@ class Goal(Base):
     deadline = Column(DateTime)
     status = Column(Enum(GoalStatus), default=GoalStatus.ACTIVE)
     owner_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    youtube_url = Column(Text, nullable=True)
     owner = relationship("User", back_populates="goals")
     updates = relationship("GoalUpdate", back_populates="goal", cascade="all, delete-orphan")
     bets = relationship("Bet", back_populates="goal", cascade="all, delete-orphan")
@@ -75,6 +76,7 @@ class GoalUpdate(Base):
     created_at = Column(DateTime, default=datetime.now(timezone.utc))
     goal_id = Column(Integer, ForeignKey("goals.id"))
     author_id = Column(Integer, ForeignKey("users.id"))
+    youtube_url = Column(Text, nullable=True)
     goal = relationship("Goal", back_populates="updates")
     author = relationship("User", back_populates="goal_updates")
 

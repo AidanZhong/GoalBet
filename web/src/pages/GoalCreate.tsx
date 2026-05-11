@@ -1,12 +1,14 @@
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {goalsService} from "../api/goalsService.ts";
+import YouTubeEmbed from "../component/YouTubeEmbed.tsx";
 
 export default function GoalCreate() {
     const nav = useNavigate();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [deadline, setDeadline] = useState("");
+    const [youtubeUrl, setYoutubeUrl] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -23,7 +25,12 @@ export default function GoalCreate() {
 
         try {
             const iso = new Date(deadline).toISOString();
-            await goalsService.create({title, description, deadline: iso});
+            await goalsService.create({
+                title,
+                description,
+                deadline: iso,
+                youtube_url: youtubeUrl.trim() || undefined,
+            });
             nav("/goals");
         } catch {
             setError("Failed to create goal, please try again later");
@@ -61,6 +68,21 @@ export default function GoalCreate() {
                         value={deadline} onChange={(e) => setDeadline(e.target.value)}
                         className="w-full rounded-lg bg-gray-800 border border-gray-700 px-3 py-2 text-white outline-none focus:border-yellow-400"
                     />
+                </div>
+                <div>
+                    <label className="block text-sm text-gray-300 mb-1">
+                        YouTube declaration <span className="text-xs text-gray-500">(optional — paste a link to your goal video)</span>
+                    </label>
+                    <input
+                        value={youtubeUrl} onChange={(e) => setYoutubeUrl(e.target.value)}
+                        placeholder="https://www.youtube.com/watch?v=..."
+                        className="w-full rounded-lg bg-gray-800 border border-gray-700 px-3 py-2 text-white outline-none focus:border-yellow-400"
+                    />
+                    {youtubeUrl.trim() && (
+                        <div className="mt-3">
+                            <YouTubeEmbed url={youtubeUrl.trim()}/>
+                        </div>
+                    )}
                 </div>
                 {error && <div
                     className="text-sm text-red-400 bg-red-900/20 border border-red-700/40 rounded-lg px-3 py-2">{error}</div>}

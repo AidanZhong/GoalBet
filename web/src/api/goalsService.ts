@@ -6,6 +6,15 @@ export type MarketsDTO = {
     total?: number;
 };
 
+export type GoalUpdateDTO = {
+    id: number;
+    goal_id: number;
+    content: string;
+    author_email: string;
+    created_at: string;
+    youtube_url?: string;
+};
+
 export type GoalDTO = {
     id: number;
     owner_email: string;
@@ -14,7 +23,8 @@ export type GoalDTO = {
     deadline: string;
     status: string;
     markets: MarketsDTO | any;
-    updates: any[];
+    updates: GoalUpdateDTO[];
+    youtube_url?: string;
 };
 
 export const goalsService = {
@@ -22,8 +32,12 @@ export const goalsService = {
         return axiosClient.get<GoalDTO[]>("/goals");
     },
 
-    create(payload: { title: string, description: string, deadline: string }) {
+    create(payload: { title: string; description: string; deadline: string; youtube_url?: string }) {
         return axiosClient.post<GoalDTO>("/goals", payload);
+    },
+
+    postUpdate(goalId: number | string, payload: { content: string; youtube_url?: string }) {
+        return axiosClient.post<GoalUpdateDTO>(`/goals/${goalId}/updates`, payload);
     },
 
     listMine() {
