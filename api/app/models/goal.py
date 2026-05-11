@@ -37,6 +37,20 @@ class GoalUpdatePublic(BaseModel):
     model_config = {"from_attributes": True}
 
 
+class CommentCreate(BaseModel):
+    content: str = Field(..., max_length=2000)
+
+
+class CommentPublic(BaseModel):
+    id: int
+    goal_id: int
+    content: str
+    author_email: str
+    created_at: datetime
+
+    model_config = {"from_attributes": True}
+
+
 class GoalPublic(BaseModel):
     id: int
     owner_email: str
@@ -46,6 +60,7 @@ class GoalPublic(BaseModel):
     status: GoalStatus
     markets: List[int] = []
     updates: List[GoalUpdatePublic] = []
+    comments: List[CommentPublic] = []
     youtube_url: Optional[str] = None
 
     model_config = {"from_attributes": True}

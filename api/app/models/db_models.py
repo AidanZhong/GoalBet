@@ -35,6 +35,7 @@ class User(Base):
     bounties = relationship("Bounty", back_populates="owner", cascade="all, delete-orphan")
     submissions = relationship("Submission", back_populates="user", cascade="all, delete-orphan")
     tokens = relationship("UserToken", back_populates="user", cascade="all, delete-orphan")
+    comments = relationship("Comment", back_populates="author", cascade="all, delete-orphan")
 
 
 # used for email verification
@@ -63,6 +64,7 @@ class Goal(Base):
     owner = relationship("User", back_populates="goals")
     updates = relationship("GoalUpdate", back_populates="goal", cascade="all, delete-orphan")
     bets = relationship("Bet", back_populates="goal", cascade="all, delete-orphan")
+    comments = relationship("Comment", back_populates="goal", cascade="all, delete-orphan")
 
     @property
     def owner_email(self):
@@ -101,6 +103,21 @@ class Bet(Base):
     @property
     def user_email(self):
         return self.user.email if self.user else None
+
+
+class Comment(Base):
+    __tablename__ = "comments"
+    id = Column(Integer, primary_key=True, index=True)
+    goal_id = Column(Integer, ForeignKey("goals.id"), nullable=False)
+    author_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    content = Column(Text, nullable=False)
+    created_at = Column(DateTime, default=datetime.now(timezone.utc))
+    goal = relationship("Goal", back_populates="comments")
+    author = relationship("User", back_populates="comments")
+
+    @property
+    def author_email(self):
+        return self.author.email if self.author else None
 
 
 class Bounty(Base):

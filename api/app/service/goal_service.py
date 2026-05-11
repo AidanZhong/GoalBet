@@ -14,9 +14,9 @@ from sqlalchemy.orm import Session
 
 from api.app.core.events import broadcast
 from api.app.models.bet import BetSide
-from api.app.models.db_models import Bet, Goal, GoalUpdate, User
+from api.app.models.db_models import Bet, Comment, Goal, GoalUpdate, User
 from api.app.models.enums import GoalStatus
-from api.app.models.goal import GoalCreate, GoalPublic, GoalUpdateCreate
+from api.app.models.goal import CommentCreate, GoalCreate, GoalPublic, GoalUpdateCreate
 
 
 def create_goal(payload: GoalCreate, user: User, db: Session, background_tasks):
@@ -102,6 +102,22 @@ def get_goal_trends(db: Session):
     )
     goals = query.all()
     return goals
+
+
+def post_comment(goal_id: int, payload: CommentCreate, user: User, db: Session):
+    goal = get_goal(goal_id, db)
+    if not goal:
+        raise HTTPException(status_code=404, detail="Goal not found")
+    comment = Comment(
+        goal_id=goal_id,
+        author_id=user.id,
+        content=payload.content,
+        created_at=datetime.now(timezone.utc),
+    )
+    db.add(comment)
+    db.commit()
+    db.refresh(comment)
+    return comment
 
 
 def list_user_goals(user: User, db: Session):

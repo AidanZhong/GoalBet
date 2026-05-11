@@ -15,6 +15,14 @@ export type GoalUpdateDTO = {
     youtube_url?: string;
 };
 
+export type CommentDTO = {
+    id: number;
+    goal_id: number;
+    content: string;
+    author_email: string;
+    created_at: string;
+};
+
 export type GoalDTO = {
     id: number;
     owner_email: string;
@@ -24,6 +32,7 @@ export type GoalDTO = {
     status: string;
     markets: MarketsDTO | any;
     updates: GoalUpdateDTO[];
+    comments: CommentDTO[];
     youtube_url?: string;
 };
 
@@ -38,6 +47,10 @@ export const goalsService = {
 
     postUpdate(goalId: number | string, payload: { content: string; youtube_url?: string }) {
         return axiosClient.post<GoalUpdateDTO>(`/goals/${goalId}/updates`, payload);
+    },
+
+    postComment(goalId: number | string, content: string) {
+        return axiosClient.post<CommentDTO>(`/goals/${goalId}/comments`, {content});
     },
 
     listMine() {

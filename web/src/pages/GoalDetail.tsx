@@ -32,6 +32,9 @@ export default function GoalDetail() {
     const [proofUrl, setProofUrl] = useState("");
     const [postingProof, setPostingProof] = useState(false);
 
+    const [commentText, setCommentText] = useState("");
+    const [postingComment, setPostingComment] = useState(false);
+
     useEffect(() => {
         let mounted = true;
         (async () => {
@@ -397,6 +400,65 @@ export default function GoalDetail() {
                                         <YouTubeEmbed url={u.youtube_url}/>
                                     </div>
                                 )}
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+            {/* comments */}
+            <div className="mt-4 rounded-2xl border border-gray-700 bg-gray-900/70 p-5 space-y-4">
+                <h2 className="text-lg font-semibold text-white">
+                    Comments <span className="text-sm font-normal text-gray-400">({goal.comments?.length ?? 0})</span>
+                </h2>
+
+                {isLoggedIn && (
+                    <div className="flex gap-3 items-start">
+                        <textarea
+                            value={commentText}
+                            onChange={(e) => setCommentText(e.target.value)}
+                            placeholder="Write a comment…"
+                            rows={2}
+                            className="flex-1 rounded-lg bg-gray-800 border border-gray-700 px-3 py-2 text-white outline-none focus:border-yellow-400 resize-none"
+                        />
+                        <button
+                            disabled={postingComment || !commentText.trim()}
+                            onClick={async () => {
+                                if (!goal || !commentText.trim()) return;
+                                setPostingComment(true);
+                                try {
+                                    await goalsService.postComment(goal.id, commentText.trim());
+                                    setCommentText("");
+                                    await reloadGoal();
+                                } catch {
+                                    setError("Failed to post comment");
+                                } finally {
+                                    setPostingComment(false);
+                                }
+                            }}
+                            className="rounded-xl bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 disabled:opacity-60 whitespace-nowrap"
+                        >
+                            {postingComment ? "Posting…" : "Post"}
+                        </button>
+                    </div>
+                )}
+
+                {!isLoggedIn && (
+                    <p className="text-sm text-gray-500">
+                        <a href="/login?mode=login" className="text-yellow-400 underline">Log in</a> to leave a comment.
+                    </p>
+                )}
+
+                {(goal.comments?.length ?? 0) === 0 ? (
+                    <p className="text-sm text-gray-500">No comments yet. Be the first!</p>
+                ) : (
+                    <div className="space-y-3">
+                        {[...(goal.comments ?? [])].reverse().map((c) => (
+                            <div key={c.id} className="rounded-xl border border-gray-700 bg-gray-800/50 px-4 py-3">
+                                <div className="flex justify-between text-xs text-gray-400 mb-1">
+                                    <span>{c.author_email}</span>
+                                    <span>{new Date(c.created_at).toLocaleString()}</span>
+                                </div>
+                                <p className="text-gray-100 text-sm whitespace-pre-wrap">{c.content}</p>
                             </div>
                         ))}
                     </div>
